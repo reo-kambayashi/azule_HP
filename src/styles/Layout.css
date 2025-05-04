@@ -1,0 +1,110 @@
+/* Layout Styles */
+html {
+    /* ベースフォントサイズを画面幅で14px〜18pxの間で可変 */
+    font-size: clamp(14px, 1.5vw, 18px);
+    background-color: var(--color-bg);
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    background-color: #ffffff;
+    color: #1e1e1e;
+}
+
+/* レスポンシブタイポグラフィ */
+:root {
+    /* Theme Variables */
+    --color-bg: #ffffff; /* White background */
+    --color-text: #1e1e1e; /* Dark text color */
+    --color-primary: #007bff; /* Bright blue */
+    --color-secondary: #0056b3; /* Darker blue for borders */
+    --font-base: 'Lora', serif; /* Elegant serif font for body text */
+    --font-heading: 'Merriweather', serif; /* Stylish serif font for headings */
+
+    /* Responsive base font size */
+    font-size: clamp(14px, 1.5vw, 18px);
+}
+
+/* ロゴ・見出し用フォント */
+.logo,
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-left: 10%;
+    margin-bottom: 0;
+}
+
+/* ロゴ・見出し用の可変フォントサイズ */
+.logo,
+h1 {
+    /* 画面幅で3rem〜5remの間で可変 */
+    font-size: clamp(3rem, 6vw, 5rem);
+}
+h2 {
+    font-size: clamp(2rem, 4vw, 4rem);
+}
+h3 {
+    font-size: clamp(1.5rem, 2vw, 3rem);
+}
+
+nav {
+    background-color: var(--color-bg);
+    padding: 0.2rem; /* Add padding for better spacing */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    border-bottom: 2px solid var(--color-primary); /* Add a bottom border for a sleek look */
+    font-family: 'Raleway', sans-serif; /* Use a Gothic-style font */
+}
+/* ナビゲーションを横並びに */
+.nav-links {
+    display: flex;
+    gap: 2rem; /* Increase space between items */
+    list-style: none;
+    justify-content: center; /* 中央揃え */
+    font-size: clamp(1rem, 2.5vw, 1.5rem); /* Reduce font size for better fit */
+    background-color: var(--color-bg);
+    padding: 0;
+    margin: 0;
+    font-family: 'Raleway', sans-serif; /* Apply Gothic-style font to navigation links */
+}
+.nav-links li {
+    position: relative; /* For the hover effect */
+}
+.nav-links li a {
+    text-decoration: none;
+    color: inherit;
+
+    /* ここから枠を各リンクに追加 */
+    display: block;               /* padding を効かせるためにブロック化 */
+    padding: 0.75rem 1.5rem;         /* Increase padding for a more luxurious feel */
+    border: none; /* Remove border for cleaner look */
+    border-radius: 0.25rem;       /* 角丸（お好みで） */
+    font-weight: 600;             /* Add bold text for better readability */
+    transition: all 0.3s ease;   /* Smooth transition for background and border */
+    position: relative;
+}
+.nav-links li a::before {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    background-color: var(--color-primary);
+    bottom: 0;
+    left: 50%;
+    transition: all 0.3s ease;
+}
+.nav-links li a:hover::before {
+    width: 100%;
+    left: 0;
+}
+.nav-links li a:hover,
+.nav-links li:focus {
+    background-color: var(--color-primary); /* Bright blue */
+    color: #ffffff;
+    transform: scale(1.05); /* Add scaling effect on hover */
+}

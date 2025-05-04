@@ -1,34 +1,34 @@
+---
+import '../styles/Layout.css';
+---
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Azule Orchid</title>
-	</head>
-	<body>
-		<header>
-			<h1 class="logo">Azule Orchid</h1>
-			<nav>
-				<ul class="nav-links">
-					<li><a href="/">ホーム</a></li>
-					<li><a href="/about">バンドについて</a></li>
-					<li><a href="/music">音楽</a></li>
-					<li><a href="/tour">ツアー</a></li>
-					<li><a href="/contact">お問い合わせ</a></li>
-				</ul>
-			</nav>
-		</header>
-		<slot />
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Azule Orchid</title>
+        <!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <h1 class="logo">Azule Orchid</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/music">Releases</a></li>
+                    <li><a href="/tour">Live</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        <!-- Main Content -->
+        <main class="container">
+            <slot />
+        </main>
+    </body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

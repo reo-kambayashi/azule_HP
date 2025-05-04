@@ -1,66 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/home.css';
 ---
 <Layout>
     <section class="hero">
-        <div class="container">
-            <h2>Welcome to Azule Orchid</h2>
-            <p>最新の音楽、ツアー情報、そしてバンドのストーリーをご覧ください。</p>
-            <a class="btn" href="/music">音楽を聴く</a>
-        </div>
-    </section>
-    <section class="recent-news">
-        <div class="container">
-            <h3>最新ニュース</h3>
-            <ul>
-                <li><a href="/news/1">ニューシングル「Bloom」リリース決定！</a></li>
-                <li><a href="/news/2">夏フェス出演情報を公開</a></li>
-            </ul>
-        </div>
-    </section>
-    <section class="upcoming-tour">
-        <div class="container">
-            <h3>ツアー日程</h3>
-            <ul>
-                <li>2025年6月10日 - 東京 渋谷クラブクアトロ</li>
-                <li>2025年6月15日 - 大阪 梅田バナナホール</li>
-            </ul>
-            <a class="btn" href="/tour">全日程を見る</a>
-        </div>
+        <img class="header-img" src="/top.JPG" alt="ヘッダー画像" />
+        
+        <section class="latest-release">
+            <h2>Latest Release</h2>
+            <!-- Add details for the latest release here -->
+        </section>
+        
+        <section class="next-live">
+            <h2>Next Live</h2>
+            <!-- Add details for the next live performance here -->
+        </section>
     </section>
 </Layout>
-<style>
-    .hero {
-        background: url('/hero-bg.jpg') center/cover no-repeat;
-        padding: 4rem 0;
-        color: #fff;
-        text-align: center;
-    }
-    .hero .btn {
-        display: inline-block;
-        margin-top: 1rem;
-        padding: 0.75rem 1.5rem;
-        background-color: #222;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 4px;
-    }
-    .recent-news, .upcoming-tour {
-        padding: 2rem 0;
-        background-color: #f0f0f0;
-    }
-    .recent-news h3, .upcoming-tour h3 {
-        margin-bottom: 1rem;
-    }
-    .recent-news ul, .upcoming-tour ul {
-        list-style: none;
-        padding: 0;
-    }
-    .recent-news li, .upcoming-tour li {
-        margin-bottom: 0.5rem;
-    }
-    .recent-news a {
-        text-decoration: none;
-        color: #222;
-    }
-</style>
