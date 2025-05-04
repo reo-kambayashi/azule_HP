@@ -1,34 +1,37 @@
+/* src/styles/components.css */
+
 /* ReleaseCard */
 .release-card {
-    display: flex;           /* 横並び */
-    align-items: flex-start; /* 上端を揃える */
-    gap: 1.5rem;             /* 画像と情報の間隔 */
-    width: 80%;              /* カードの幅 */
-    margin: 0 auto;          /* 水平方向の中央揃え */
-    overflow: hidden;        /* オーバーフローを防止 */
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
 }
 
 .release-cover {
-    width: 50%;              /* 好みの幅に調整 */
+    width: 300px;          /* 固定幅でほどよい大きさ */
     height: auto;
-    border-radius: 4px;
+    border-radius: var(--radius-base);
     object-fit: cover;
-    flex-shrink: 0;          /* 縮まらないように */
+    flex-shrink: 0;
 }
 
 .release-info {
+    flex: 1;
     display: flex;
-    flex-direction: column;  /* 縦並び */
-    justify-content: center; /* 垂直方向の中央揃え */
+    flex-direction: column;
+    justify-content: center;
 }
 
 .release-title {
-    font-size: clamp(1rem, 4vw, 3rem);
+    font-size: 1.5rem;     /* 24px */
     margin: 0 0 0.5rem;
 }
 
 .release-date {
-    font-size: 1rem;
+    font-size: 1rem;       /* 16px */
     color: #666;
     margin-bottom: 1rem;
 }
@@ -41,7 +44,7 @@
 }
 
 .tracklist li {
-    margin-bottom: 0.25rem;
-    font-size: clamp(1rem, 3vw, 2rem);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;       /* 16px */
     color: #333;
 }
