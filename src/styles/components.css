@@ -13,7 +13,6 @@
 .release-cover {
     width: 300px;          /* 固定幅でほどよい大きさ */
     height: auto;
-    border-radius: var(--radius-base);
     object-fit: cover;
     flex-shrink: 0;
 }

@@ -2,6 +2,7 @@
 
 /* Hero セクション */
 .hero {
+    margin-top: 7rem;
     margin-bottom: 2rem;
 }
 
@@ -10,7 +11,7 @@
     max-width: 1200px;
     height: auto;
     display: block;
-    margin: 0 auto 2rem;
+    margin: 1rem auto 2rem;
     border-radius: var(--radius-base);
     box-shadow: var(--shadow-base);
 }

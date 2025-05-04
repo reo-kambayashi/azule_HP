@@ -1,4 +1,16 @@
 /* src/styles/Layout.css */
+:root {
+    /* カラーパレット */
+    --color-primary: #1e3a8a;      /* 濃いネイビーブルー */
+    --color-secondary: #3b82f6;    /* 明るいスカイブルー */
+    --color-bg: #f2fbfe;           /* 薄い青背景 */
+    --color-text: #1f2937;         /* ダークグレー */
+    --color-link: var(--color-secondary);
+    --color-link-hover: #60a5fa;
+    --color-border: #000000;
+    --radius-base: 12px;
+    --shadow-base: rgba(30, 58, 138, 0.15) 0px 4px 16px;
+}
 
 /* ベースフォントサイズを標準的な16pxに固定 */
 html {
@@ -9,10 +21,10 @@ body {
     font-family: 'Lora', serif;
     font-size: 1rem;       /* 16px */
     line-height: 1.6;      /* 読みやすい行間 */
-    color: #1e1e1e;
+    color: var(--color-text);
     margin: 0;
     padding: 0;
-    background-color: #fff;
+    background-color: var(--color-bg);
 }
 
 /* 見出しサイズ */
@@ -49,8 +61,4 @@ a:hover {
     box-sizing: border-box;
 }
 
-/* ユーティリティ変数（必要に応じて components.css などで参照） */
-:root {
-    --radius-base: 4px;
-    --shadow-base: rgba(0, 0, 0, 0.1) 0px 2px 8px;
-}
+
