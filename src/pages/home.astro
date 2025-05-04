@@ -1,19 +1,63 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ReleaseCard from '../components/ReleaseCard.astro';
 import '../styles/home.css';
+
+import releases from '../data/releases.json';
+import tourData from '../data/tour.json';
+
+// TourItem の型定義
+interface TourItem {
+    id: number;
+    date: string;
+    venue: string;
+    city: string;
+}
+
+const tour = tourData as TourItem[];
+const latestRelease = releases[0];  // 最新リリース（配列の先頭）
 ---
 <Layout>
+    <!-- ヒーローセクション -->
     <section class="hero">
-        <img class="header-img" src="/top.JPG" alt="ヘッダー画像" />
-        
-        <section class="latest-release">
-            <h2>Latest Release</h2>
-            <!-- Add details for the latest release here -->
-        </section>
-        
-        <section class="next-live">
-            <h2>Next Live</h2>
-            <!-- Add details for the next live performance here -->
-        </section>
+        <img
+            class="header-img"
+            src="/images/top.JPG"
+            alt="ヘッダー画像"
+        />
+    </section>
+
+    <!-- 最新リリース -->
+    <section class="latest-release">
+        <h2>Latest Release</h2>
+        {latestRelease && (
+            <div class="release-content">
+                <ReleaseCard
+                    id={latestRelease.id}
+                    title={latestRelease.title}
+                    cover={latestRelease.cover}
+                    releaseDate={latestRelease.releaseDate}
+                    tracks={latestRelease.tracks}
+                />
+            </div>
+        )}
+    </section>
+
+    <!-- 次回ライブ -->
+    <section class="next-live">
+        <h2>Next Live</h2>
+        {tour.length > 0 ? (
+            <ul class="live-list">
+                {tour.map((show: TourItem) => (
+                    <li class="live-item">
+                        <time datetime={show.date}>{show.date}</time>
+                        <span class="venue">{show.venue}</span>
+                        <span class="city">{show.city}</span>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p>現在、予定されているライブはありません。</p>
+        )}
     </section>
 </Layout>

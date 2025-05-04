@@ -1,0 +1,47 @@
+/* ReleaseCard */
+.release-card {
+    display: flex;           /* 横並び */
+    align-items: flex-start; /* 上端を揃える */
+    gap: 1.5rem;             /* 画像と情報の間隔 */
+    width: 80%;              /* カードの幅 */
+    margin: 0 auto;          /* 水平方向の中央揃え */
+    overflow: hidden;        /* オーバーフローを防止 */
+}
+
+.release-cover {
+    width: 50%;              /* 好みの幅に調整 */
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;          /* 縮まらないように */
+}
+
+.release-info {
+    display: flex;
+    flex-direction: column;  /* 縦並び */
+    justify-content: center; /* 垂直方向の中央揃え */
+}
+
+.release-title {
+    font-size: clamp(1rem, 4vw, 3rem);
+    margin: 0 0 0.5rem;
+}
+
+.release-date {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+/* TrackList */
+.tracklist {
+    list-style: decimal inside;
+    padding: 0;
+    margin: 0;
+}
+
+.tracklist li {
+    margin-bottom: 0.25rem;
+    font-size: clamp(1rem, 3vw, 2rem);
+    color: #333;
+}

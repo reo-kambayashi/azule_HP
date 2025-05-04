@@ -1,0 +1,42 @@
+
+.site-header {
+background-color: #ffffff;
+border-bottom: 1px solid #eaeaea;
+}
+
+.site-header .container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 1rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.site-header .logo a {
+font-family: 'Roboto', sans-serif;
+font-size: 1.5rem;
+font-weight: 700;
+text-decoration: none;
+color: #000000;
+}
+
+.site-header .main-nav .nav-links {
+list-style: none;
+display: flex;
+gap: 1rem;
+margin: 0;
+padding: 0;
+}
+
+.site-header .main-nav .nav-links li a {
+font-family: 'Open Sans', sans-serif;
+font-weight: 600;
+text-decoration: none;
+color: #333333;
+transition: color 0.2s ease-in-out;
+}
+
+.site-header .main-nav .nav-links li a\:hover {
+color: #0070f3;
+}

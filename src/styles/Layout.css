@@ -1,3 +1,12 @@
+グローバルリセット
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, figure {
+    margin: 0;
+    padding: 0;
+}
+
 /* Layout Styles */
 html {
     /* ベースフォントサイズを画面幅で14px〜18pxの間で可変 */
@@ -25,9 +34,10 @@ body {
     --color-secondary: #0056b3; /* Darker blue for borders */
     --font-base: 'Lora', serif; /* Elegant serif font for body text */
     --font-heading: 'Merriweather', serif; /* Stylish serif font for headings */
-
+    --shadow-base: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --radius-base: 0.25rem;
+    --padding-sm: 0.2rem;
     /* Responsive base font size */
-    font-size: clamp(14px, 1.5vw, 18px);
 }
 
 /* ロゴ・見出し用フォント */
@@ -55,8 +65,8 @@ h3 {
 
 nav {
     background-color: var(--color-bg);
-    padding: 0.2rem; /* Add padding for better spacing */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    padding: var(--padding-sm); /* Add padding for better spacing */
+    box-shadow: var(--shadow-base); /* Add subtle shadow */
     border-bottom: 2px solid var(--color-primary); /* Add a bottom border for a sleek look */
     font-family: 'Raleway', sans-serif; /* Use a Gothic-style font */
 }
@@ -83,7 +93,7 @@ nav {
     display: block;               /* padding を効かせるためにブロック化 */
     padding: 0.75rem 1.5rem;         /* Increase padding for a more luxurious feel */
     border: none; /* Remove border for cleaner look */
-    border-radius: 0.25rem;       /* 角丸（お好みで） */
+    border-radius: var(--radius-base);       /* 角丸（お好みで） */
     font-weight: 600;             /* Add bold text for better readability */
     transition: all 0.3s ease;   /* Smooth transition for background and border */
     position: relative;
