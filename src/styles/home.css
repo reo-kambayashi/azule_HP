@@ -1,0 +1,76 @@
+/* src/styles/home.css */
+
+/* Hero セクション */
+.hero {
+    margin-top: 7rem;
+    margin-bottom: 2rem;
+}
+
+.hero .header-img {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    display: block;
+    margin: 1rem auto 2rem;
+    border-radius: var(--radius-base);
+    box-shadow: var(--shadow-base);
+}
+
+/* 最新リリース */
+.latest-release {
+    margin-bottom: 2rem;
+}
+
+.latest-release h2 {
+    font-size: 2rem;    /* 32px */
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.latest-release .release-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* 次回ライブ */
+.next-live {
+    margin-bottom: 2rem;
+}
+
+.next-live h2 {
+    font-size: 2rem;    /* 32px */
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.next-live .live-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.next-live .live-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.next-live .live-item:last-child {
+    border-bottom: none;
+}
+
+.next-live time {
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.next-live .venue,
+.next-live .city {
+    font-size: 1rem;    /* 16px */
+    color: #333;
+}

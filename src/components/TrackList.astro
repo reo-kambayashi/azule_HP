@@ -1,0 +1,12 @@
+---
+export interface Props {
+    tracks: string[];
+}
+
+const { tracks } = Astro.props;
+---
+<ol class="tracklist">
+    {tracks.map((track) => (
+        <li class="track-item">{track}</li>
+    ))}
+</ol>

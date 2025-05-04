@@ -1,0 +1,49 @@
+/* src/styles/components.css */
+
+/* ReleaseCard */
+.release-card {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.release-cover {
+    width: 300px;          /* 固定幅でほどよい大きさ */
+    height: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.release-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.release-title {
+    font-size: 1.5rem;     /* 24px */
+    margin: 0 0 0.5rem;
+}
+
+.release-date {
+    font-size: 1rem;       /* 16px */
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+/* TrackList */
+.tracklist {
+    list-style: decimal inside;
+    padding: 0;
+    margin: 0;
+}
+
+.tracklist li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;       /* 16px */
+    color: #333;
+}

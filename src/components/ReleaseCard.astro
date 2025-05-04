@@ -1,0 +1,35 @@
+---  
+import TrackList from './TrackList.astro'; 
+import '../styles/components.css';
+
+export interface Props {  
+    id: number;  
+    title: string;  
+    cover: string;  
+    releaseDate: string;  
+    tracks: string[];  
+}  
+
+const { title, cover, releaseDate, tracks } = Astro.props;  
+---  
+<article class="release-card">  
+    <img  
+        class="release-cover"  
+        src={cover}  
+        alt={`${title} Cover`}  
+    />  
+    <div class="release-info">  
+        <h3 class="release-title">{title}</h3>  
+        <time  
+            class="release-date"  
+            datetime={releaseDate}  
+        >  
+            {new Date(releaseDate).toLocaleDateString('ja-JP', {  
+                year: 'numeric',  
+                month: 'long',  
+                day: 'numeric'  
+            })}  
+        </time>  
+        <TrackList tracks={tracks} />  
+    </div>  
+</article>  

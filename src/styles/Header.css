@@ -1,0 +1,58 @@
+
+.site-header {
+    position: fixed;   /* ビューポートに対して固定 */
+    top: 0;            /* 上端に貼り付け */
+    left: 0;           /* 左端に貼り付け */
+    width: 100%;       /* 横いっぱい */
+    z-index: 1000;     /* 他要素より前面に */
+    background-color: var(--color-bq);
+    border-bottom: 3px solid var(--color-border);
+}
+
+.site-header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-header .logo a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.site-header .main-nav .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+/* ナビリンクに枠をつける */
+.site-header .main-nav .nav-links li a {
+    display: inline-block;                       /* 背景なしでもブロック化 */
+    padding: 0.5rem 1rem;                        /* 上下 0.5rem, 左右 1rem */
+    margin: 0 0.25rem;                           /* リンク同士の間隔 */
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-text);
+    background-color: transparent;               /* 背景は変えない */
+    border: 1px solid var(--color-border);   /* 薄めのスカイブルー枠 */
+    border-radius: 12px;                          /* 角丸 */
+    transition:
+        border-color 0.2s ease-in-out,
+        color 0.2s ease-in-out,
+        font-size 0.2s ease-in-out;
+}
+
+/* ホバー時に枠と文字色・サイズを強調 */
+.site-header .main-nav .nav-links li a:hover {
+    color: var(--color-link-hover);                              /* 鮮やかなブルーに */      /* 濃いめのスカイブルー枠 */
+}
