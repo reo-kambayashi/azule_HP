@@ -26,7 +26,12 @@ const latestRelease = releases[0];  // 最新リリース（配列の先頭）
 ---
 <Layout>
     <!-- ヒーローセクション -->
-    <section class="hero">
+
+        
+    <section class="hero">    
+        <h1>
+            goodなmusicを奏でたいyo!!
+        </h1>
         <img
             class="header-img"
             src="/images/top.JPG"
@@ -58,7 +63,7 @@ const latestRelease = releases[0];  // 最新リリース（配列の先頭）
             <div class="tour-list">
                 <article class="tour-card">
                     <div class="tour-info">
-                        <h2>{tour[0].title}</h2>
+                        <h3>{tour[0].title}</h3>
                         <p>日程: {tour[0].date}</p>
                         <p>会場: {tour[0].venue}</p>
                         <p>チケット代: {tour[0].ticketPrice}</p>
