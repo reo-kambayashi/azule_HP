@@ -1,0 +1,10 @@
+/* src/styles/Layout.css */
+/* 共通スタイルはglobal.cssに移動しました */
+
+/* レイアウト固有のスタイル */
+main.container {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+

@@ -1,0 +1,169 @@
+.site-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 3px solid var(--color-border);
+    background-color: var(--header-bg);
+    box-shadow: var(--box-shadow-card);
+}
+
+.site-header .container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-header .logo a {
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(1rem, 2vw, 2rem);
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+/* ロゴ画像サイズ調整 */
+.site-header .logo img {
+    margin-top: var(--spacing-md);
+    height: clamp(1.5rem, 5vw, 3rem);
+    width: auto;
+}
+
+.site-header .main-nav .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    grid-template-rows: auto;
+    gap: var(--spacing-md);
+}
+
+/* ナビリンクに枠をつける */
+.site-header .main-nav .nav-links li .nav-link {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin: 0 var(--spacing-xs);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.75rem, 1.5vw, 1rem); 
+    color: var(--header-txt);
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-base);
+    transition: var(--transition-base);
+}
+
+/* ホバー時に枠と文字色を強調 */
+.site-header .main-nav .nav-links li .nav-link:hover {
+    color: var(--color-link-hover);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* 小画面向け微調整 */
+@media (max-width: 768px) {
+    .site-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: calc(var(--spacing-sm) * 1.5) var(--spacing-md);
+    }
+
+    .site-header .logo {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    /* navを中央に配置 */
+    .site-header .main-nav {
+        align-self: center;
+        width: 100%;
+    }
+
+    /* nav-linksを中央揃えに */
+    .site-header .main-nav .nav-links {
+        display: flex;           
+        flex-direction: row;     
+        width: 100%;             
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: calc(var(--spacing-sm) * 0.8); /* ギャップをより適切に調整 */
+    }
+
+    .site-header .main-nav .nav-links li {
+        margin: 0 calc(var(--spacing-xs) / 2); /* 各項目の左右マージンを追加 */
+    }
+
+    .site-header .main-nav .nav-links li .nav-link {
+        font-size: clamp(0.6rem, 2vw, 1rem);
+        padding: calc(var(--spacing-xs) * 0.8) calc(var(--spacing-sm) * 0.6);
+        margin: auto;
+        border-radius: var(--radius-sm);
+        white-space: nowrap; /* テキストを折り返さない */
+    }
+}
+
+/* 小型モバイル向け追加対応 */
+@media (max-width: 480px) {
+    .site-header .container {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    .site-header .logo {
+        width: 100%;
+        text-align: center;
+    }
+
+    .site-header .main-nav .nav-links {
+        gap: var(--spacing-xs);
+        justify-content: center; /* space-aroundから変更 */
+        padding: var(--spacing-xs) 0;
+        display: grid; /* flexからgridに変更 */
+        grid-template-columns: repeat(2, 1fr); /* 2列グリッドに変更 */
+        width: 95%; /* 少し幅を狭める */
+        margin: 0 auto; /* 中央揃え */
+    }
+
+    .site-header .main-nav .nav-links li {
+        flex: 0 0 auto; /* flexは調整 */
+        min-width: auto;
+        max-width: none;
+        margin: calc(var(--spacing-xs) / 2);
+        box-sizing: border-box; /* ボックスサイズを調整 */
+    }
+    
+    .site-header .main-nav .nav-links li .nav-link {
+        font-size: 0.7rem;
+        padding: calc(var(--spacing-xs) * 0.7);
+        width: 100%;
+        text-align: center;
+        display: block;
+        box-sizing: border-box; /* パディングを含めた幅計算 */
+    }
+
+    /* ロゴ画像サイズ調整（さらに小さく） */
+    .site-header .logo img {
+        height: clamp(1.2rem, 4vw, 2.5rem);
+    }
+}
+
+/* 極小画面向けの追加対応 */
+@media (max-width: 370px) {
+    .site-header .main-nav .nav-links {
+        grid-template-columns: 1fr; /* 1列グリッドに変更 */
+        width: 90%;
+    }
+    
+    .site-header .main-nav .nav-links li {
+        margin: calc(var(--spacing-xs) / 3) 0;
+    }
+    
+    .site-header .main-nav .nav-links li .nav-link {
+        font-size: 0.65rem;
+        padding: calc(var(--spacing-xs) * 0.6);
+    }
+}

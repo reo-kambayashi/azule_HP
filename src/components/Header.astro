@@ -1,5 +1,5 @@
 ---
-import '../styles/Header.css';
+const base = import.meta.env.BASE_URL;
 ---
 
 <header class="site-header">
@@ -20,3 +20,7 @@ import '../styles/Header.css';
         </nav>
     </div>
 </header>
+<!-- コンポーネントレベルでCSSを読み込む（代替方法） -->
+<style>
+    @import url('../styles/Header.css');
+</style>
