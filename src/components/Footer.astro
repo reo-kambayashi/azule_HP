@@ -1,6 +1,6 @@
 ---
-// CSSインポートを修正
-// import '../styles/Footer.css';
+// CSSをJavaScriptインポートとして読み込む（推奨方法）
+import '../styles/Footer.css';
 const base = import.meta.env.BASE_URL;
 ---
 <footer class="site-footer">
@@ -17,7 +17,3 @@ const base = import.meta.env.BASE_URL;
         </nav>
     </div>
 </footer>
-<!-- コンポーネントレベルでCSSを読み込む（代替方法） -->
-<style>
-    @import url('../styles/Footer.css');
-</style>
