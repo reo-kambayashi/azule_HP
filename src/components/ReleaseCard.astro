@@ -16,12 +16,14 @@ export interface Props {
     };
 }  
 
-const { title, cover, releaseDate, tracks, links} = Astro.props;  
+const { title, cover, releaseDate, tracks, links} = Astro.props;
+// カバー画像のパスにベースパスを適用
+const coverPath = `${import.meta.env.BASE_URL}${cover}`;
 ---  
 <article class="release-card">  
     <img  
         class="release-cover"  
-        src={cover}  
+        src={coverPath}  
         alt={`${title} Cover`}  
         loading="lazy"
     />  
