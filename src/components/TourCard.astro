@@ -1,0 +1,29 @@
+---
+import '../styles/components.css';
+export interface Props {
+    tour: {
+        title: string;
+        date: string;
+        venue: string;
+        ticketPrice?: string;
+        reserve?: string;
+        flyer: string;
+    }
+}
+const { tour } = Astro.props;
+---
+<article class="tour-card">
+    <div class="tour-info">
+        <h3>{tour.title}</h3>
+        <p>日程: {tour.date}</p>
+        <p>会場: {tour.venue}</p>
+        <p>チケット代: {tour.ticketPrice}</p>
+        <p class="tour-reserve">
+        予約はこちらから:
+        <a href={tour.reserve} target="_blank" rel="noopener noreferrer">Link</a>
+        </p>
+    </div>
+    <div class="tour-flyer">
+        <img src={tour.flyer} alt={`Flyer for ${tour.title}`} />
+    </div>
+</article>

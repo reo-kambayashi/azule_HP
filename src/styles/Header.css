@@ -19,7 +19,7 @@
 
 .site-header .logo a {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 2vw, 2rem);
     font-weight: 700;
     text-decoration: none;
     color: var(--color-text);
@@ -28,16 +28,19 @@
 /* ロゴ画像サイズ調整 */
 .site-header .logo img {
     margin-top: 1rem;
-    height: 3rem;
+    height: clamp(2rem, 8vw, 3rem);
     width: auto;
 }
 
 .site-header .main-nav .nav-links {
     list-style: none;
-    display: flex;
-    gap: 1rem;
     margin: 0;
     padding: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    grid-template-rows: auto;       /* 横幅が広いときは1行表示 */
+    gap: 1rem;
 }
 
 /* ナビリンクに枠をつける */
@@ -47,7 +50,7 @@
     margin: 0 0.25rem;                           /* リンク同士の間隔 */
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: clamp(0.6rem, 1.5vw, 1.5rem); /* フォントサイズ */
     color: var(--header-txt);                     /* 濃いネイビーブルー */
     background-color: transparent;               /* 背景は変えない */
     border: 1px solid var(--color-border);   /* 薄めのスカイブルー枠 */
@@ -61,4 +64,31 @@
 /* ホバー時に枠と文字色・サイズを強調 */
 .site-header .main-nav .nav-links li a:hover {
     color: var(--color-link-hover);                              /* 鮮やかなブルーに */      /* 濃いめのスカイブルー枠 */
+}
+
+/* 小画面向け微調整 */
+@media (max-width: 768px) {
+    .site-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.75rem 1rem;
+    }
+
+    .site-header .logo {
+        margin-bottom: 0.5rem;
+    }
+
+    .site-header .main-nav .nav-links {
+        display: grid;
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .site-header .main-nav .nav-links li a {
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+        margin: 0;
+        border-radius: 8px;
+    }
 }

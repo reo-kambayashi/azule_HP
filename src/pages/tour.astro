@@ -1,8 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import tours from '../data/tour.json';
 import '../styles/components.css';
-import '../styles/tour.css';
+import TourCard from '../components/TourCard.astro';
+import tours from '../data/tour.json';
 ---
 <Layout>
     <section class="tour">
@@ -11,27 +11,7 @@ import '../styles/tour.css';
         </div>
         <div class="tour-list">
             {tours.map((tour: any) => (
-                <article class="tour-card">
-                    <div class="tour-info">
-                        <h2>{tour.title}</h2>
-                        <p>日程: {tour.date}</p>
-                        <p>会場: {tour.venue}</p>
-                        <p>チケット代: {tour.ticketPrice}</p>
-                        <p class = "tour-reserve">
-                            予約はこちらから:
-                            <a
-                                href={tour.reserve}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {tour.reserve}
-                            </a>
-                        </p>
-                    </div>
-                    <div class="tour-flyer">
-                        <img src={tour.flyer} alt={`Flyer for ${tour.title}`} />
-                    </div>
-                </article>
+                <TourCard tour={tour} />
             ))}
         </div>
     </section>
