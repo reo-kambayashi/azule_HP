@@ -13,15 +13,19 @@
 }
 
 .tour-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
-    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .tour-card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -47,13 +51,14 @@
 }
 
 .tour-flyer {
-    margin: 1rem;
-    height: 600px;
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .tour-flyer img {
-    width: auto;
-    height: 100%;
+    width: 100%;
+    height: auto;
     display: block;
 }
 
@@ -86,5 +91,17 @@
     .tour-flyer img {
         width: 100%;
         height: auto;
+    }
+}
+
+@media (min-width: 800px) {
+    .tour-card {
+        flex-direction: row;
+    }
+    .tour-flyer {
+        flex: 0 0 300px;
+    }
+    .tour-info {
+        flex: 1;
     }
 }
