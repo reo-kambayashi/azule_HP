@@ -80,7 +80,7 @@
 
     /* nav-linksをflexにしてgapを詰める */
     .site-header .main-nav .nav-links {
-        display: flex;           /* grid → flex */
+        display: grid;           /* grid → flex */
         flex-direction: column;
         width: auto;
         gap: 0.25rem;            /* 間隔を狭く */
