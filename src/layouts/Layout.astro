@@ -1,27 +1,35 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-// グローバルCSSをインポート
-import '../styles/global.css';
-import '../styles/Layout.css';
+import Global from '../components/Global.astro';
+
 const base = import.meta.env.BASE_URL;
+
+export interface Props {
+    title?: string;
+    description?: string;
+}
+
+const { title = "Azule Orchid", description } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- CSSリンクは削除して代わりにJavaScriptインポートを使用 -->
         <!-- Favicon -->
         <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
         <!-- Generator Meta -->
         <meta name="generator" content={Astro.generator} />
-        <title>Azule Orchid</title>
+        <title>{title}</title>
+        {description && <meta name="description" content={description} />}
         <!-- Google Fonts (absolute URL remains valid) -->
         <link
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet"
         />
+        <!-- グローバルスタイルコンポーネントを使用 -->
+        <Global />
     </head>
     <body>
         <!-- Site Header -->
@@ -36,3 +44,11 @@ const base = import.meta.env.BASE_URL;
         <Footer />
     </body>
 </html>
+
+<style>
+/* レイアウト固有のスタイル - Layout.cssから移行 */
+main.container {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+</style>

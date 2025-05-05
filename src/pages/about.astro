@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Parts from '../components/parts.astro';
-import '../styles/about.css';
 ---
 
 <Layout>
@@ -26,3 +25,60 @@ import '../styles/about.css';
         </div>
     </section>
 </Layout>
+
+<style>
+/* 共通スタイルはGlobal.astroに移動しました */
+.about-page {
+    padding: var(--spacing-md) 0;
+}
+
+.about {
+    max-width: var(--card-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-md) var(--spacing-md);
+}
+
+/* カードコンポーネントを使用 */
+.about-header, 
+.member-box {
+    background: var(--color-white);
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.about-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary);
+}
+
+.member-box h2 {
+    margin-bottom: var(--spacing-lg);
+}
+
+.member-profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .about {
+        padding: var(--spacing-sm);
+    }
+    
+    .about-header, 
+    .member-box {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .member-profile {
+        gap: var(--spacing-md);
+    }
+}
+</style>

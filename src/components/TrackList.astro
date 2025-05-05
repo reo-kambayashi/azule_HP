@@ -10,3 +10,18 @@ const { tracks } = Astro.props;
         <li class="track-item">{track}</li>
     ))}
 </ol>
+
+<style>
+/* === TrackList === */
+.tracklist {
+    list-style: decimal inside;
+    padding: 0;
+    margin: 0;
+}
+
+.tracklist li {
+    margin-bottom: var(--spacing-sm);
+    font-size: 1rem;
+    color: var(--color-text);
+}
+</style>

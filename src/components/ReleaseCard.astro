@@ -1,7 +1,5 @@
 ---  
 import TrackList from './TrackList.astro'; 
-import '../styles/components.css';
-import { getImagePath } from '../utils/paths.js';
 
 export interface Props {  
     id: number;  
@@ -19,6 +17,21 @@ export interface Props {
 
 const { title, cover, releaseDate, tracks, links} = Astro.props;
 // カバー画像のパスを共通関数で処理
+const base = import.meta.env.BASE_URL;
+
+/**
+ * 画像パスを生成する関数
+ * @param {string} imagePath - 画像ファイルへのパス
+ * @returns {string} 正しい画像URL
+ */
+function getImagePath(imagePath: string): string {
+  const basePath = base.endsWith('/') ? base : `${base}/`;
+  return imagePath.startsWith('http') 
+    ? imagePath 
+    : `${basePath}images/${imagePath.replace(/^images\//, '')}`;
+}
+
+// カバー画像のパスを処理
 const coverPath = cover.startsWith('http') ? cover : getImagePath(cover);
 ---  
 <article class="release-card">  
@@ -62,3 +75,120 @@ const coverPath = cover.startsWith('http') ? cover : getImagePath(cover);
         )}
     </div>  
 </article>
+
+<style>
+/* === カード共通スタイル === */
+.release-card {
+    width: var(--card-width);
+    max-width: var(--card-max-width);
+    margin: 0 auto var(--spacing-xl);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
+    flex-wrap: wrap;
+}
+
+/* === ReleaseCard === */
+.release-cover {
+    width: 300px;
+    height: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--box-shadow-card);
+}
+
+.release-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.release-title {
+    font-size: 1.5rem;
+    margin: 0 0 var(--spacing-sm);
+    text-align: left;
+}
+
+.release-date {
+    font-size: 1rem;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+}
+
+/* === サブスクリプションリンク === */
+.subscription-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.sub-link {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    background-color: transparent;
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-base);
+    transition: var(--transition-base);
+    text-decoration: none;
+}
+
+.sub-link:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* === レスポンシブ対応 === */
+@media (max-width: 768px) {
+    .release-card {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+    
+    .release-cover {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .release-info {
+        width: 100%;
+        padding: var(--spacing-xs);
+    }
+    
+    .subscription-links {
+        justify-content: center;
+    }
+    
+    .release-title {
+        text-align: center;
+        margin-top: var(--spacing-sm);
+    }
+    
+    .release-date {
+        text-align: center;
+    }
+}
+
+/* 小型モバイル向け追加対応 */
+@media (max-width: 480px) {
+    .release-card {
+        padding: var(--spacing-sm);
+        width: 95%;
+    }
+}
+</style>

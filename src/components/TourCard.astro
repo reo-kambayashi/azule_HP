@@ -1,7 +1,4 @@
 ---
-import '../styles/components.css';
-import { getImagePath } from '../utils/paths.js';
-
 export interface Props {
     tour: {
         title: string;
@@ -13,12 +10,30 @@ export interface Props {
         flyer: string;
     }
 }
+
 const { tour } = Astro.props;
 // 改行を<br />タグに変換
 const formattedTicketPrice = tour.ticketPrice?.replace(/\n/g, '<br />');
+
+// パス生成関数
+const base = import.meta.env.BASE_URL;
+
+/**
+ * 画像パスを生成する関数
+ * @param {string} imagePath - 画像ファイルへのパス
+ * @returns {string} 正しい画像URL
+ */
+function getImagePath(imagePath: string): string {
+  const basePath = base.endsWith('/') ? base : `${base}/`;
+  return imagePath.startsWith('http') 
+    ? imagePath 
+    : `${basePath}images/${imagePath.replace(/^images\//, '')}`;
+}
+
 // フライヤー画像のパスを共通関数で処理
 const flyerPath = tour.flyer.startsWith('http') ? tour.flyer : getImagePath(tour.flyer);
 ---
+
 <article class="tour-card">
     <div class="tour-info">
         <h3>{tour.title}</h3>
@@ -37,3 +52,128 @@ const flyerPath = tour.flyer.startsWith('http') ? tour.flyer : getImagePath(tour
         <img src={flyerPath} alt={`Flyer for ${tour.title}`} loading="lazy" />
     </div>
 </article>
+
+<style>
+/* === TourCard component === */
+.tour-card {
+    width: var(--card-width);
+    max-width: var(--card-max-width);
+    margin: 0 auto var(--spacing-xl);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
+    flex-wrap: wrap;
+}
+
+.tour-info {
+    order: 1;
+    flex: 1;
+    padding: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.tour-info a, 
+.tour-info p {
+    margin: 0;
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+    max-width: 100%;
+    word-break: break-word;
+}
+
+.tour-reserve {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.tour-reserve a {
+    color: var(--color-link);
+    margin-top: var(--spacing-md);
+    display: inline-block;
+    word-break: break-word;
+}
+
+.tour-reserve a:hover {
+    color: var(--color-link-hover);
+}
+
+.tour-flyer {
+    order: 2;
+    padding: var(--spacing-md);
+    flex: 0 0 300px;
+    box-sizing: border-box;
+}
+
+.tour-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--box-shadow-card);
+}
+
+/* === レスポンシブ対応 === */
+@media (max-width: 768px) {
+    .tour-card {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+    
+    .tour-card img,
+    .tour-flyer {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .tour-info {
+        width: 100%;
+        padding: var(--spacing-xs);
+    }
+    
+    .tour-reserve {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .tour-reserve a.button {
+        width: auto;
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+    
+    .tour-info h3 {
+        text-align: center;
+        margin-top: var(--spacing-sm);
+    }
+}
+
+/* 小型モバイル向け追加対応 */
+@media (max-width: 480px) {
+    .tour-card {
+        padding: var(--spacing-sm);
+        width: 95%;
+    }
+    
+    .tour-info a, 
+    .tour-info p {
+        font-size: 0.9rem;
+    }
+}
+</style>

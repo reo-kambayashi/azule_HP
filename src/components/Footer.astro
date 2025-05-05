@@ -1,9 +1,21 @@
 ---
-// CSSをJavaScriptインポートとして読み込む
-import '../styles/Footer.css';
-// 共通パスユーティリティをインポート
-import { createPath } from '../utils/paths.js';
+// 外部ファイルのインポートをやめて、Astroファイル内に統合
 const base = import.meta.env.BASE_URL;
+
+/**
+ * GitHub Pagesなどのサブディレクトリ環境でも正しく動作するパス生成関数
+ * @param {string} path - 基準パスに追加するパス部分
+ * @returns {string} 正しく結合されたURL
+ */
+function createPath(path: string): string {
+  const basePath = base.endsWith('/') ? base : `${base}/`;
+  return path === '' ? base : `${basePath}${path}`;
+}
+
+// コンポーネントをエクスポート可能にする
+export interface Props {
+  // 必要に応じてプロパティを追加
+}
 ---
 <footer class="site-footer">
     <div class="container">
@@ -19,3 +31,90 @@ const base = import.meta.env.BASE_URL;
         </nav>
     </div>
 </footer>
+
+<style>
+.site-footer {
+    background-color: var(--footer-bg);
+    border-top: 1px solid var(--footer-border);
+    padding: var(--spacing-md) 0;
+}
+
+.site-footer .container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-footer .footer-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    margin: 0;
+}
+
+.site-footer .footer-nav .nav-links {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-md);
+    margin: 0;
+    padding: 0;
+}
+
+.site-footer .footer-nav .nav-links li .footer-link {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: var(--transition-base);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+}
+
+.site-footer .footer-nav .nav-links li .footer-link:hover {
+    color: var(--color-link-hover);
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .site-footer .container {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-md);
+    }
+    
+    .site-footer .footer-nav .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .site-footer .footer-nav .nav-links li .footer-link {
+        padding: var(--spacing-xs) var(--spacing-xs);
+    }
+}
+
+/* 小型モバイル向け追加対応 */
+@media (max-width: 480px) {
+    .site-footer .footer-nav .nav-links {
+        gap: var(--spacing-sm);
+    }
+    
+    .site-footer .footer-nav .nav-links li {
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .site-footer .footer-nav .nav-links li .footer-link {
+        font-size: 0.8rem;
+        padding: var(--spacing-xs) calc(var(--spacing-xs) * 0.7);
+        display: inline-block;
+    }
+    
+    .site-footer .footer-text {
+        font-size: 0.8rem;
+    }
+}
+</style>

@@ -1,4 +1,14 @@
-/* src/styles/global.css */
+---
+// グローバルスタイルを提供するコンポーネント
+// Layoutコンポーネントのheadセクションでインポートされます
+export interface Props {
+    // 必要に応じてプロパティを追加
+}
+---
+
+<!-- このコンポーネントはスタイルのみを提供し、マークアップはありません -->
+
+<style is:global>
 /* サイト全体の共通スタイル */
 
 :root {
@@ -263,3 +273,4 @@ table {
         padding: 0 calc(var(--container-padding) * 0.75);
     }
 }
+</style>

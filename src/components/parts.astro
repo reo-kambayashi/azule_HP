@@ -1,13 +1,28 @@
 ---
-import { getImagePath } from '../utils/paths.js';
-
 export interface Props {
     role: string;
     memberName: string;
     description: string;
     imageSrc: string;
 }
+
 const { role, memberName, description, imageSrc } = Astro.props;
+
+// パス生成関数をインライン化
+const base = import.meta.env.BASE_URL;
+
+/**
+ * 画像パスを生成する関数
+ * @param {string} imagePath - 画像ファイルへのパス
+ * @returns {string} 正しい画像URL
+ */
+function getImagePath(imagePath: string): string {
+  const basePath = base.endsWith('/') ? base : `${base}/`;
+  return imagePath.startsWith('http') 
+    ? imagePath 
+    : `${basePath}images/${imagePath.replace(/^images\//, '')}`;
+}
+
 // 画像パスを正しく処理
 const processedImageSrc = imageSrc.startsWith('http') ? imageSrc : getImagePath(imageSrc);
 ---
@@ -22,3 +37,51 @@ const processedImageSrc = imageSrc.startsWith('http') ? imageSrc : getImagePath(
         </div>
     </div>
 </div>
+
+<style>
+.member {
+    margin-bottom: var(--spacing-lg);
+}
+
+.member h3 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.member-content {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+}
+
+.member-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--box-shadow-card);
+}
+
+.member-info {
+    flex: 1;
+}
+
+.member-info p:first-child {
+    font-weight: bold;
+    margin-bottom: var(--spacing-xs);
+}
+
+@media (max-width: 768px) {
+    .member-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .member-photo {
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .member-info {
+        text-align: center;
+    }
+}
+</style>
