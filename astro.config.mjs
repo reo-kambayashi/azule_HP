@@ -1,7 +1,9 @@
-import { defineConfig } from 'astro/config';
+// astro.config.mjs
+
+import { defineConfig } from "astro/config";
 
 export default defineConfig({
-    site: 'https://reo-kambayashi.github.io',
-    base: '/azule_HP/',
+    base: "/azule_HP/", // ★リポジトリ名を指定（スラッシュで囲む）
+    output: "static"
 });
 
