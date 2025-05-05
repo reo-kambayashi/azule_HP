@@ -1,4 +1,6 @@
 ---
+import { getImagePath } from '../utils/paths.js';
+
 export interface Props {
     role: string;
     memberName: string;
@@ -6,12 +8,14 @@ export interface Props {
     imageSrc: string;
 }
 const { role, memberName, description, imageSrc } = Astro.props;
+// 画像パスを正しく処理
+const processedImageSrc = imageSrc.startsWith('http') ? imageSrc : getImagePath(imageSrc);
 ---
 
 <div class="member">
     <h3>{role}</h3>
     <div class="member-content">
-        <img src={imageSrc} alt={memberName} class="member-photo" />
+        <img src={processedImageSrc} alt={memberName} class="member-photo" />
         <div class="member-info">
             <p>{memberName}</p>
             <p>{description}</p>

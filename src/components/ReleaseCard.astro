@@ -1,6 +1,7 @@
 ---  
 import TrackList from './TrackList.astro'; 
 import '../styles/components.css';
+import { getImagePath } from '../utils/paths.js';
 
 export interface Props {  
     id: number;  
@@ -17,8 +18,8 @@ export interface Props {
 }  
 
 const { title, cover, releaseDate, tracks, links} = Astro.props;
-// カバー画像のパスにベースパスを適用
-const coverPath = `${import.meta.env.BASE_URL}${cover}`;
+// カバー画像のパスを共通関数で処理
+const coverPath = cover.startsWith('http') ? cover : getImagePath(cover);
 ---  
 <article class="release-card">  
     <img  

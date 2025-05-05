@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import ReleaseCard from '../components/ReleaseCard.astro';
 import '../styles/home.css';
 import '../styles/components.css';
+import { getImagePath } from '../utils/paths.js';
 
 import releases from '../data/releases.json';
 import tourData from '../data/tour.json';
@@ -32,7 +33,7 @@ const latestRelease = releases[0];  // 最新リリース（配列の先頭）
         </h1>
         <img
             class="header-img"
-            src="images/top.JPG"
+            src={getImagePath('top.JPG')}
             alt="ヘッダー画像"
         />
     </section>

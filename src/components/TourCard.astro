@@ -1,5 +1,7 @@
 ---
 import '../styles/components.css';
+import { getImagePath } from '../utils/paths.js';
+
 export interface Props {
     tour: {
         title: string;
@@ -14,8 +16,8 @@ export interface Props {
 const { tour } = Astro.props;
 // 改行を<br />タグに変換
 const formattedTicketPrice = tour.ticketPrice?.replace(/\n/g, '<br />');
-// フライヤー画像のパスにベースパスを適用
-const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
+// フライヤー画像のパスを共通関数で処理
+const flyerPath = tour.flyer.startsWith('http') ? tour.flyer : getImagePath(tour.flyer);
 ---
 <article class="tour-card">
     <div class="tour-info">

@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev --base=/azule_HP/",
-    "build": "astro build --base=/azule_HP/",
+    "dev": "astro dev --base=/azule_HP",
+    "build": "astro build --base=/azule_HP",
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "gh-pages -d dist"
