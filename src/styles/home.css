@@ -23,88 +23,9 @@
     box-shadow: var(--shadow-base);
 }
 
-/* 最新リリース */
-.latest-release {
-    margin-bottom: 2rem;
-}
-
-.latest-release h2 {
-    font-size: 2rem;    /* 32px */
+h2 {
+    font-size: 2rem;    
+    margin-top: 1rem;
     margin-bottom: 1rem;
     text-align: center;
-}
-
-.latest-release .release-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-}
-
-/* 次回ライブ */
-.next-live {
-    margin-bottom: 2rem;
-}
-.next-live h2 {
-    font-size: 2rem;    /* 32px */
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.next-live h3 {
-    font-size: 2rem;    /* 32px */
-    margin-bottom: 1rem;
-    margin-left: 1rem;
-    text-align: left;
-}
-
-/* 次回ライブを最新リリースに合わせたレイアウト */
-.next-live .live-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    padding: 0;
-    margin: 0 auto;
-    max-width: 1200px;
-    align-items: stretch;    /* ← 追加：カードの高さを揃える */
-}
-
-.next-live .live-item {
-    flex: 1 1 calc(33.333% - 1rem);  /* ← 変更：成長・縮小を許可 */
-    max-width: calc(33.333% - 1rem);  /* ← 追加：横幅の上限を指定 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border: none;
-}
-
-.next-live .live-item:last-child {
-    border-bottom: none;
-}
-
-.next-live time {
-    font-weight: bold;
-    margin-right: 1rem;
-}
-
-.next-live .venue,
-.next-live .city {
-    font-size: 1rem;    /* 16px */
-    color: #333;
-}
-
-/* スマホなど狭い画面では縦並びに */
-@media (max-width: 768px) {
-    .next-live .live-list {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    .next-live .live-item {
-        flex: 1 1 100%;
-    }
 }

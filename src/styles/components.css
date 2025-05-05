@@ -102,3 +102,101 @@
         flex-wrap: wrap;
     }
 }
+
+/* TourPage and TourCard styles */
+
+/* Tour page container */
+.tour {
+    padding: 2rem;
+    background-color: ver(--color-bg);
+}
+
+.tour-header h1 {
+    text-align: left;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.tour-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* TourCard component */
+.tour-card {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+}
+
+/* flex 順序を明示 */
+.tour-info {
+    order: 1;
+    flex: 1;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tour-reserve a {
+    color: blue;
+}
+
+.tour-flyer {
+    order: 2;
+    padding: 1rem;
+    flex: 0 0 300px;        /* 固定幅300px */
+    box-sizing: border-box;
+}
+
+/* 画像は .tour-flyer 内なので auto幅でOK */
+.tour-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.tour-card h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin: 1rem;
+    color: #222;
+}
+
+.tour-card p {
+    font-size: clamp(1rem, 1.8vw, 1.5rem);
+    margin: 0 1rem 0.75rem;
+    color: #555;
+}
+
+/* レスポンシブ：768px以下で両コンポーネント共通 */
+@media (max-width: 768px) {
+    .release-card,
+    .tour-card {
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        margin-bottom: 2rem;
+    }
+    .release-cover,
+    .tour-card img,
+    .tour-flyer {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
+
