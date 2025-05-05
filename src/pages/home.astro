@@ -2,19 +2,26 @@
 import Layout from '../layouts/Layout.astro';
 import ReleaseCard from '../components/ReleaseCard.astro';
 import '../styles/home.css';
+import '../styles/components.css';
+import '../styles/tour.css'
 
 import releases from '../data/releases.json';
 import tourData from '../data/tour.json';
 
-// TourItem の型定義
+// TourItem の型定義（JSON に合わせて更新）
 interface TourItem {
     id: number;
     date: string;
     venue: string;
-    city: string;
+    city: string;           // JSON にある city
+    title: string;
+    flyer: string;
+    ticketPrice?: string;   // 必須でないなら ?
+    reserve?: string;
 }
 
-const tour = tourData as TourItem[];
+// unknown を挟んで型アサーション
+const tour = tourData as unknown as TourItem[];
 const latestRelease = releases[0];  // 最新リリース（配列の先頭）
 ---
 <Layout>
@@ -38,26 +45,39 @@ const latestRelease = releases[0];  // 最新リリース（配列の先頭）
                     cover={latestRelease.cover}
                     releaseDate={latestRelease.releaseDate}
                     tracks={latestRelease.tracks}
+                    links={latestRelease.links}
                 />
             </div>
         )}
     </section>
 
     <!-- 次回ライブ -->
-    <!-- <section class="next-live">
-        <h2>Next Live</h2>
-        {tour.length > 0 ? (
-            <ul class="live-list">
-                {tour.map((show: TourItem) => (
-                    <li class="live-item">
-                        <time datetime={show.date}>{show.date}</time>
-                        <span class="venue">{show.venue}</span>
-                        <span class="city">{show.city}</span>
-                    </li>
-                ))}
-            </ul>
-        ) : (
-            <p>現在、予定されているライブはありません。</p>
+    <section class="next-live">
+        <h2>次回ライブ</h2>
+        {tour.length > 0 && (
+            <div class="tour-list">
+                <article class="tour-card">
+                    <div class="tour-info">
+                        <h2>{tour[0].title}</h2>
+                        <p>日程: {tour[0].date}</p>
+                        <p>会場: {tour[0].venue}</p>
+                        <p>チケット代: {tour[0].ticketPrice}</p>
+                        <p class="tour-reserve">
+                            予約はこちらから:
+                            <a
+                                href={tour[0].reserve}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {tour[0].reserve}
+                            </a>
+                        </p>
+                    </div>
+                    <div class="tour-flyer">
+                        <img src={tour[0].flyer} alt={`Flyer for ${tour[0].title}`} />
+                    </div>
+                </article>
+            </div>
         )}
-    </section> -->
+    </section>
 </Layout>

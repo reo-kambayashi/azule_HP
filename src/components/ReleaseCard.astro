@@ -8,9 +8,15 @@ export interface Props {
     cover: string;  
     releaseDate: string;  
     tracks: string[];  
+
+    /** 各ストリーミングサービスへのURL */
+    links?: {
+        youtube?: string;
+        subscription?: string;
+    };
 }  
 
-const { title, cover, releaseDate, tracks } = Astro.props;  
+const { title, cover, releaseDate, tracks, links} = Astro.props;  
 ---  
 <article class="release-card">  
     <img  
@@ -31,5 +37,20 @@ const { title, cover, releaseDate, tracks } = Astro.props;
             })}  
         </time>  
         <TrackList tracks={tracks} />  
+        <a>各種サブスクリプションサービスで配信中</a>
+        {links && (
+            <div class="subscription-links">
+                {links.youtube && (
+                <a href={links.youtube} target="_blank" rel="noopener" class="sub-link">
+                    YouTubeで聴く
+                </a>
+                )}
+                {links.subscription && (
+                <a href={links.subscription} target="_blank" rel="noopener" class="sub-link">
+                    サブスクリプションで聴く
+                </a>
+                )}
+            </div>
+        )}
     </div>  
-</article>  
+</article>

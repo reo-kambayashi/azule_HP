@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/contact.css';
+import '../styles/components.css';
+import '../styles/Layout.css';
+import contact from '../data/contact.json';
+
+const xHandle = new URL(contact.x).pathname.slice(1);
+const instagramHandle = new URL(contact.instagram).pathname.slice(1);
+const youtubeHandle = new URL(contact.youtube).pathname.slice(1);
+---
+<Layout>
+    <section class="contact">
+        <h1>Contact / SNS</h1>
+        <ul>
+            <li>
+                Email: <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            </li>
+            <li>
+                X: <a href={contact.x} target="_blank" rel="noopener">@{xHandle}</a>
+            </li>
+            <li>
+                Instagram: <a href={contact.instagram} target="_blank" rel="noopener">@{instagramHandle}</a>
+            </li>
+            <li>
+                YouTube: <a href={contact.youtube} target="_blank" rel="noopener">{youtubeHandle}</a>
+            </li>
+        </ul>
+    </section>
+</Layout>
