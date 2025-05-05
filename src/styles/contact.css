@@ -1,0 +1,44 @@
+/* contact ページ共通スタイル */
+.contact {
+    margin: 2rem;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: var(--shadow-base);
+}
+
+.contact h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+.contact ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact li {
+    display: grid;
+    grid-template-columns: max-content auto;
+    column-gap: 0.5rem;
+    align-items: middle;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+    color: var(--color-text);
+}
+
+.contact .label {
+    text-align: right;
+}
+
+.contact a {
+    color: var(--color-link);
+    transition: color 0.2s;
+}
+
+.contact a:hover {
+    color: var(--color-link-hover);
+    text-decoration: underline;
+}

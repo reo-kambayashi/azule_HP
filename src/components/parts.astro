@@ -1,0 +1,20 @@
+---
+export interface Props {
+    role: string;
+    memberName: string;
+    description: string;
+    imageSrc: string;
+}
+const { role, memberName, description, imageSrc } = Astro.props;
+---
+
+<div class="member">
+    <h3>{role}</h3>
+    <div class="member-content">
+        <img src={imageSrc} alt={memberName} class="member-photo" />
+        <div class="member-info">
+            <p>{memberName}</p>
+            <p>{description}</p>
+        </div>
+    </div>
+</div>

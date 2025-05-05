@@ -1,0 +1,12 @@
+.music {
+    max-width: 800px;
+    margin: auto;
+    padding: 0;
+}
+
+.music-header {
+    padding: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+}
+

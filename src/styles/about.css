@@ -1,0 +1,65 @@
+/* about.css */
+:root {
+    --color-bgabout: #fff; /* 薄い青背景 */
+}
+
+.about {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.about-header {
+    background: var(--color-bgabout);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.member-box {
+    background: var(--color-bgabout);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.member-profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.member {
+    padding: 1rem;
+    border-radius: 8px;
+
+}
+
+.member-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.member-photo {
+    width: 120px;
+    height: auto;
+    border-radius: 8px;
+    margin-right: 1rem;
+}
+
+.member-info {
+    flex: 1;
+}
+
+.member h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.member p {
+    margin: 0.25rem 0;
+    line-height: 1.4;
+}
+

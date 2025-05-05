@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ReleaseCard from '../components/ReleaseCard.astro';
+import releases from '../data/releases.json';
+import '../styles/components.css';
+import '../styles/music.css';
+---
+<Layout>
+    <section class="music">
+        <div class="music-header">
+            <h1>Releases</h1>
+        </div>
+        <div class="release-list">
+        {releases.map((release) => (
+            <ReleaseCard
+            id={release.id}
+            title={release.title}
+            cover={release.cover}
+            releaseDate={release.releaseDate}
+            tracks={release.tracks}
+            links={release.links}
+            />
+        ))}
+        </div>
+    </section>
+</Layout>

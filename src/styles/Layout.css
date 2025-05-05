@@ -10,6 +10,7 @@
     --color-border: #000000;
     --radius-base: 12px;
     --shadow-base: rgba(30, 58, 138, 0.15) 0px 4px 16px;
+    --header-txt: #001f73;      /* 濃いネイビーブルー */
 }
 
 /* ベースフォントサイズを標準的な16pxに固定 */
@@ -25,6 +26,13 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main.container {
+    flex: 1;
 }
 
 /* 見出しサイズ */
