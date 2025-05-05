@@ -1,10 +1,13 @@
-/* contact ページ共通スタイル */
+/* contact.css */
+/* 共通スタイルはglobal.cssに移動しました */
+
 .contact {
+    /* 共通カードスタイルを使用 */
+    background-color: #fff;
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
     margin: 2rem;
     padding: 2rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: var(--shadow-base);
 }
 
 .contact h1 {
@@ -40,7 +43,6 @@
 
 .contact a:hover {
     color: var(--color-link-hover);
-    text-decoration: underline;
 }
 
 /* レスポンシブ対応 */

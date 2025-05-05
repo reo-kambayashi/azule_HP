@@ -1,0 +1,93 @@
+/* src/styles/global.css */
+/* サイト全体の共通スタイル */
+
+:root {
+    /* カラーパレット */
+    --color-primary: #1e3a8a;      /* 濃いネイビーブルー */
+    --color-secondary: #3b82f6;    /* 明るいスカイブルー */
+    --color-bg: #f2fbfe;           /* 薄い青背景 */
+    --color-text: #1f2937;         /* ダークグレー */
+    --color-link: var(--color-secondary);
+    --color-link-hover: #60a5fa;
+    --color-border: #000000;
+    --radius-base: 12px;
+    --shadow-base: rgba(30, 58, 138, 0.15) 0px 4px 16px;
+    --header-txt: #001f73;         /* 濃いネイビーブルー */
+    --box-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ベースフォント設定 */
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Lora', serif;
+    font-size: 1rem;       /* 16px */
+    line-height: 1.6;      /* 読みやすい行間 */
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 見出しスタイル */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+    line-height: 1.2;
+}
+
+h1 { 
+    font-size: 2.5rem;  /* 40px */
+    text-align: center;
+}
+h2 { font-size: 2rem;   }  /* 32px */
+h3 { font-size: 1.75rem;}  /* 28px */
+h4 { font-size: 1.5rem; }  /* 24px */
+h5 { font-size: 1.25rem;}  /* 20px */
+h6 { font-size: 1rem;   }  /* 16px */
+
+/* リンクスタイル */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 共通コンテナ */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+main.container {
+    flex: 1;
+}
+
+/* 共通カードスタイル */
+.card {
+    background: #fff;
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* レスポンシブ対応 - 共通ブレイクポイント */
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.35rem; }
+    .card { padding: 1rem; }
+}

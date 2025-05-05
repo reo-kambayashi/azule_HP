@@ -1,7 +1,5 @@
 /* about.css */
-:root {
-    --color-bgabout: #fff; /* 薄い青背景 */
-}
+/* 共通スタイルはglobal.cssに移動しました */
 
 .about {
     max-width: 800px;
@@ -9,19 +7,17 @@
     padding: 2rem;
 }
 
-.about-header {
-    background: var(--color-bgabout);
+/* カードコンポーネントを使用 */
+.about-header, .member-box {
+    /* グローバルカードスタイルを使用 */
+    background: #fff;
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
     padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
 }
 
-.member-box {
-    background: var(--color-bgabout);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.about-header {
+    margin-bottom: 2rem;
 }
 
 .member-profile {
@@ -34,7 +30,6 @@
 .member {
     padding: 1rem;
     border-radius: 8px;
-
 }
 
 .member-content {

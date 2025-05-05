@@ -11,13 +11,15 @@ export interface Props {
     }
 }
 const { tour } = Astro.props;
+// 改行を<br />タグに変換
+const formattedTicketPrice = tour.ticketPrice?.replace(/\n/g, '<br />');
 ---
 <article class="tour-card">
     <div class="tour-info">
         <h3>{tour.title}</h3>
         <p>日程: {tour.date}</p>
         <p>会場: {tour.venue}</p>
-        <p>チケット代: {tour.ticketPrice}</p>
+        <p>チケット代: <span set:html={formattedTicketPrice} /></p>
         <p class="tour-reserve">
         予約はこちらから:
         <a href={tour.reserve} target="_blank" rel="noopener noreferrer">Link</a>
