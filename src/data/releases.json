@@ -2,7 +2,7 @@
     {
         "id": 1,
         "title": "Carte Vierge",
-        "cover": "/images/releases/Carte Vierge.JPG",
+        "cover": "images/releases/Carte Vierge.JPG",
         "releaseDate": "2025-04-29",
         "tracks": [
             "430nm",
@@ -19,7 +19,7 @@
     {
         "id": 2,
         "title": "Repeat",
-        "cover": "/images/releases/RepEat.jpg",
+        "cover": "images/releases/RepEat.jpg",
         "releaseDate": "2024-05-29",
         "tracks": [
             "RepEat"
