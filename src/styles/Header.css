@@ -5,7 +5,7 @@
     width: 100%;       /* 横いっぱい */
     z-index: 1000;     /* 他要素より前面に */
     border-bottom: 3px solid var(--color-border);
-    background-color: rgb(255, 255, 255, 0.9); /* 半透明の白背景 */
+    background-color: rgb(255, 255, 255, 0.7); /* 半透明の白背景 */
 }
 
 .site-header .container {
