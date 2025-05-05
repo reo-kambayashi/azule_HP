@@ -2,7 +2,7 @@
 
 /* ReleaseCard */
 .release-card {
-    width: 100%;
+    width: 80%;
     max-width: 800px;
     margin: 0 auto 2rem;
     display: flex;
@@ -12,6 +12,7 @@
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
 }
 
 .release-cover {
@@ -79,4 +80,25 @@
     background-color: var(--color-secondary);
     color: #fff;
     transform: translateY(-2px);
+}
+
+/* 追加：レスポンシブ対応（768px以下） */
+@media (max-width: 768px) {
+    .release-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .release-cover {
+        width: 100%;
+        max-width: 100%;
+    }
+    .release-info {
+        width: 100%;
+        text-align: left;
+    }
+    .subscription-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }

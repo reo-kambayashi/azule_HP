@@ -58,19 +58,29 @@
     text-align: left;
 }
 
+/* 次回ライブを最新リリースに合わせたレイアウト */
 .next-live .live-list {
-    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
     padding: 0;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 1200px;
+    align-items: stretch;    /* ← 追加：カードの高さを揃える */
 }
 
 .next-live .live-item {
+    flex: 1 1 calc(33.333% - 1rem);  /* ← 変更：成長・縮小を許可 */
+    max-width: calc(33.333% - 1rem);  /* ← 追加：横幅の上限を指定 */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #ddd;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: none;
 }
 
 .next-live .live-item:last-child {
@@ -86,4 +96,15 @@
 .next-live .city {
     font-size: 1rem;    /* 16px */
     color: #333;
+}
+
+/* スマホなど狭い画面では縦並びに */
+@media (max-width: 768px) {
+    .next-live .live-list {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .next-live .live-item {
+        flex: 1 1 100%;
+    }
 }

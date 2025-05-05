@@ -23,9 +23,8 @@
 .tour-card {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 80%;
+    margin: 0 auto 1.5rem;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -33,9 +32,11 @@
 }
 
 .tour-card img {
-    width: auto;
+    width: 100%;              /* ← 変更：コンテナ幅に合わせる */
+    max-width: 400px;         /* ← 追加：表示上限を設定 */
     height: auto;
     display: block;
+    object-fit: cover;        /* ← 追加：アスペクト比を保持 */
 }
 
 .tour-info {
@@ -63,14 +64,14 @@
 }
 
 .tour-card h2 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);   /* ← 変更：画面幅に応じた可変フォント */
     margin: 1rem;
     color: #222;
 }
 
 .tour-card p {
+    font-size: clamp(1rem, 1.8vw, 1.5rem);   /* ← 変更：画面幅に応じた可変フォント */
     margin: 0 1rem 0.75rem;
-    font-size: 1.5rem;
     color: #555;
 }
 
@@ -84,6 +85,12 @@
     }
     .tour-card {
         flex-direction: column;
+        width: 100%;
+        align-items: center;    /* 追加：縦レイアウト時に子要素を中央揃え */
+    }
+    .tour-card img {
+        margin: 0 auto;         /* 追加：画像を横中央に配置 */
+        max-width: 100%;        /* オプション：親幅に合わせて縮小 */
     }
     .tour-flyer {
         height: auto;
