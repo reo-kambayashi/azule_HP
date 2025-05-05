@@ -26,9 +26,7 @@ const latestRelease = releases[0];  // 最新リリース（配列の先頭）
 ---
 <Layout>
     <!-- ヒーローセクション -->
-
-        
-    <section class="hero">    
+    <section class="hero section">    
         <h1>
             goodなmusicを奏でたいyo!!
         </h1>
@@ -40,7 +38,7 @@ const latestRelease = releases[0];  // 最新リリース（配列の先頭）
     </section>
 
     <!-- 最新リリース -->
-    <section class="latest-release">
+    <section class="latest-release section">
         <h2>Latest Release</h2>
         {latestRelease && (
             <div class="release-content">
@@ -57,12 +55,14 @@ const latestRelease = releases[0];  // 最新リリース（配列の先頭）
     </section>
 
     <!-- 次回ライブ -->
-    <section class="next-live">
+    <section class="next-live section">
         <h2>Next Live</h2>
-        {tour.length > 0 && (
+        {tour.length > 0 ? (
             <div class="tour-list">
                 <TourCard tour={tour[0]} />
             </div>
+        ) : (
+            <p class="tour-empty">現在予定されているライブはありません。</p>
         )}
     </section>
 </Layout>

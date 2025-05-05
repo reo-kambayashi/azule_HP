@@ -23,6 +23,7 @@ const { title, cover, releaseDate, tracks, links} = Astro.props;
         class="release-cover"  
         src={cover}  
         alt={`${title} Cover`}  
+        loading="lazy"
     />  
     <div class="release-info">  
         <h3 class="release-title">{title}</h3>  
@@ -37,16 +38,20 @@ const { title, cover, releaseDate, tracks, links} = Astro.props;
             })}  
         </time>  
         <TrackList tracks={tracks} />  
-        <a>各種サブスクリプションサービスで配信中</a>
+        
+        {links && links.subscription && (
+            <p class="subscription-note">各種サブスクリプションサービスで配信中</p>
+        )}
+        
         {links && (
             <div class="subscription-links">
                 {links.youtube && (
-                <a href={links.youtube} target="_blank" rel="noopener" class="sub-link">
+                <a href={links.youtube} target="_blank" rel="noopener" class="sub-link button">
                     YouTubeで聴く
                 </a>
                 )}
                 {links.subscription && (
-                <a href={links.subscription} target="_blank" rel="noopener" class="sub-link">
+                <a href={links.subscription} target="_blank" rel="noopener" class="sub-link button">
                     サブスクリプションで聴く
                 </a>
                 )}

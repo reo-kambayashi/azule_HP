@@ -1,18 +1,23 @@
-/* contact.css */
+/* src/styles/contact.css */
 /* 共通スタイルはglobal.cssに移動しました */
 
+.contact-page {
+    padding: var(--spacing-md) 0;
+}
+
 .contact {
-    /* 共通カードスタイルを使用 */
-    background-color: #fff;
+    background-color: var(--color-white);
     border-radius: var(--radius-base);
     box-shadow: var(--box-shadow-card);
-    margin: 2rem;
-    padding: 2rem;
+    padding: var(--spacing-lg);
+    width: var(--card-width);
+    max-width: var(--card-max-width);
+    margin: var(--spacing-xl) auto;
 }
 
 .contact h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-md);
     color: var(--color-primary);
 }
 
@@ -25,20 +30,21 @@
 .contact li {
     display: grid;
     grid-template-columns: max-content auto;
-    column-gap: 0.5rem;
-    align-items: middle;
-    margin-bottom: 0.75rem;
-    font-size: 1.5rem;
+    column-gap: var(--spacing-md);
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
     color: var(--color-text);
 }
 
 .contact .label {
     text-align: right;
+    font-weight: 600;
 }
 
 .contact a {
     color: var(--color-link);
-    transition: color 0.2s;
+    transition: var(--transition-base);
 }
 
 .contact a:hover {
@@ -48,27 +54,30 @@
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .contact {
-        margin: 1rem;
-        padding: 1rem;
+        padding: var(--spacing-md);
+        width: 90%;
+        margin: var(--spacing-lg) auto;
     }
 
     .contact h1 {
-        font-size: 2rem;
-        margin-bottom: 0.75rem;
+        font-size: 1.8rem;
+        margin-bottom: var(--spacing-md);
     }
 
     .contact li {
         display: block;
         grid-template-columns: none;
-        margin-bottom: 1rem;
+        margin-bottom: var(--spacing-md);
     }
 
     .contact .label {
         text-align: left;
-        margin-bottom: 0.25rem;
+        margin-bottom: var(--spacing-xs);
+        display: block;
     }
 
-    .contact li,a {
+    .contact li,
+    .contact a {
         font-size: 1.1rem;
     }
 }

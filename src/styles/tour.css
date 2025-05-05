@@ -7,3 +7,49 @@
     margin-top: 1rem;
     margin-bottom: 0rem;
 }
+
+.tour-page {
+    padding: var(--spacing-md) 0;
+}
+
+.tour-page-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.tour-section {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.tour-empty {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--color-text-light);
+    font-style: italic;
+}
+
+/* ツアー情報が表示されない場合のメッセージ */
+.tour-empty {
+    background-color: var(--color-white);
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
+    padding: var(--spacing-lg);
+    width: var(--card-width);
+    max-width: var(--card-max-width);
+    margin: var(--spacing-xl) auto;
+}
+
+@media (max-width: 768px) {
+    .tour-page {
+        padding: var(--spacing-sm) 0;
+    }
+    
+    .tour-page-title {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .tour-section {
+        margin-bottom: var(--spacing-xl);
+    }
+}

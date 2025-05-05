@@ -6,21 +6,26 @@ import '../styles/components.css';
 import '../styles/music.css';
 ---
 <Layout>
-    <section class="music">
-        <div class="music-header">
-            <h1>Releases</h1>
-        </div>
-        <div class="release-list">
-        {releases.map((release) => (
-            <ReleaseCard
-            id={release.id}
-            title={release.title}
-            cover={release.cover}
-            releaseDate={release.releaseDate}
-            tracks={release.tracks}
-            links={release.links}
-            />
-        ))}
+    <section class="music-page">
+        <h1 class="music-page-title">Releases</h1>
+        
+        <div class="releases-section">
+            {releases.length > 0 ? (
+                <div class="release-list">
+                    {releases.map((release) => (
+                        <ReleaseCard
+                            id={release.id}
+                            title={release.title}
+                            cover={release.cover}
+                            releaseDate={release.releaseDate}
+                            tracks={release.tracks}
+                            links={release.links}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <p class="no-releases">現在リリース情報はありません。</p>
+            )}
         </div>
     </section>
 </Layout>

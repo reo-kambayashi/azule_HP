@@ -1,27 +1,30 @@
 /* src/styles/components.css */
 /* 共通スタイルはglobal.cssに移動しました */
 
-/* ReleaseCard */
-.release-card {
-    /* 共通カードスタイルを継承 */
-    width: 80%;
-    max-width: 800px;
-    margin: 0 auto 2rem;
+/* === カード共通スタイルの拡張 === */
+.release-card,
+.tour-card {
+    width: var(--card-width);
+    max-width: var(--card-max-width);
+    margin: 0 auto var(--spacing-xl);
     display: flex;
     align-items: flex-start;
-    gap: 1.5rem;
-    background: #fff;
-    padding: 1.5rem;
+    gap: var(--spacing-lg);
+    background: var(--color-white);
+    padding: var(--spacing-lg);
     border-radius: var(--radius-base);
     box-shadow: var(--box-shadow-card);
     flex-wrap: wrap;
 }
 
+/* === ReleaseCard === */
 .release-cover {
     width: 300px;
     height: auto;
     object-fit: cover;
     flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--box-shadow-card);
 }
 
 .release-info {
@@ -33,16 +36,17 @@
 
 .release-title {
     font-size: 1.5rem;
-    margin: 0 0 0.5rem;
+    margin: 0 0 var(--spacing-sm);
+    text-align: left;
 }
 
 .release-date {
     font-size: 1rem;
-    color: #666;
-    margin-bottom: 1rem;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
 }
 
-/* TrackList */
+/* === TrackList === */
 .tracklist {
     list-style: decimal inside;
     padding: 0;
@@ -50,86 +54,87 @@
 }
 
 .tracklist li {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
     font-size: 1rem;
-    color: #333;
+    color: var(--color-text);
 }
 
-/* サブスクリプションリンク */
+/* === サブスクリプションリンク === */
 .subscription-links {
     display: flex;
-    gap: 0.75rem;
-    margin-top: 1rem;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
 }
 
 .sub-link {
     display: inline-block;
-    padding: 0.5rem 1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-secondary);
     background-color: transparent;
     border: 1px solid var(--color-secondary);
     border-radius: var(--radius-base);
-    transition: 
-        background-color 0.2s ease-in-out,
-        color 0.2s ease-in-out,
-        transform 0.2s ease-in-out;
+    transition: var(--transition-base);
     text-decoration: none;
 }
 
 .sub-link:hover {
     background-color: var(--color-secondary);
-    color: #fff;
+    color: var(--color-white);
     transform: translateY(-2px);
+    text-decoration: none;
 }
 
-/* TourPage and TourCard styles */
+/* === TourPage and TourCard styles === */
 .tour {
-    padding: 2rem;
+    padding: var(--spacing-xl);
 }
 
 .tour-list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    max-width: 1200px;
+    gap: var(--spacing-lg);
+    max-width: var(--container-max-width);
     margin: 0 auto;
 }
 
-/* TourCard component */
-.tour-card {
-    /* 共通カードスタイルを継承 */
-    width: 80%;
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: var(--radius-base);
-    box-shadow: var(--box-shadow-card);
-    flex-wrap: wrap;
-}
-
-/* flex 順序を明示 */
+/* === TourCard component === */
 .tour-info {
     order: 1;
     flex: 1;
-    padding: 0.5rem;
+    padding: var(--spacing-sm);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%; /* 幅を明示的に設定 */
+    box-sizing: border-box; /* パディングを含めた幅に設定 */
+    overflow-wrap: break-word; /* 長いテキストを強制的に折り返す */
+    word-wrap: break-word; /* IE/Edge互換性のため */
 }
 
-.tour-info a, p {
-    margin:  0;
+.tour-info a, 
+.tour-info p {
+    margin: 0;
     font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+    max-width: 100%; /* コンテナをはみ出さないように */
+    word-break: break-word; /* 必要に応じて単語の途中でも折り返す */
+}
+
+.tour-reserve {
+    width: 100%; /* 幅を明示的に設定 */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
 .tour-reserve a {
     color: var(--color-link);
+    margin-top: var(--spacing-md);
+    display: inline-block;
+    word-break: break-word; /* 長いURLも折り返す */
 }
 
 .tour-reserve a:hover {
@@ -138,7 +143,7 @@
 
 .tour-flyer {
     order: 2;
-    padding: 1rem;
+    padding: var(--spacing-md);
     flex: 0 0 300px;
     box-sizing: border-box;
 }
@@ -148,16 +153,19 @@
     height: auto;
     object-fit: cover;
     flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--box-shadow-card);
 }
 
-/* レスポンシブ対応 */
+/* === レスポンシブ対応 === */
 @media (max-width: 768px) {
     .release-card,
     .tour-card {
         flex-direction: column;
-        align-items: left;
+        align-items: center;
         width: 90%;
-        margin-bottom: 2rem;
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
     }
     
     .release-cover,
@@ -168,14 +176,49 @@
         margin: 0 auto;
     }
     
-    .release-info {
+    .release-info,
+    .tour-info {
         width: 100%;
-        text-align: left;
+        padding: var(--spacing-xs);
     }
     
     .subscription-links {
         justify-content: center;
-        flex-wrap: wrap;
+    }
+    
+    .tour-reserve {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .tour-reserve a.button {
+        width: auto; /* ボタンの幅を内容に合わせる */
+        max-width: 100%; /* コンテナをはみ出さないように */
+        overflow-wrap: break-word; /* 長いテキストを強制的に折り返す */
+    }
+    
+    .release-title,
+    .tour-info h3 {
+        text-align: center;
+        margin-top: var(--spacing-sm);
+    }
+    
+    .release-date {
+        text-align: center;
+    }
+}
+
+/* 小型モバイル向け追加対応 */
+@media (max-width: 480px) {
+    .tour-card, 
+    .release-card {
+        padding: var(--spacing-sm);
+        width: 95%;
+    }
+    
+    .tour-info a, 
+    .tour-info p {
+        font-size: 0.9rem;
     }
 }
 

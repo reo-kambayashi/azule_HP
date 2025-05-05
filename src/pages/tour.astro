@@ -1,18 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/components.css';
+import '../styles/tour.css';
 import TourCard from '../components/TourCard.astro';
 import tours from '../data/tour.json';
 ---
 <Layout>
-    <section class="tour">
-        <div class="tour-header">
-            <h1>Live</h1>
-        </div>
-        <div class="tour-list">
-            {tours.map((tour: any) => (
-                <TourCard tour={tour} />
-            ))}
+    <section class="tour-page">
+        <h1 class="tour-page-title">Live</h1>
+        
+        <div class="tour-section">
+            {tours.length > 0 ? (
+                <div class="tour-list">
+                    {tours.map((tour: any) => (
+                        <TourCard tour={tour} />
+                    ))}
+                </div>
+            ) : (
+                <p class="tour-empty">現在予定されているライブはありません。</p>
+            )}
         </div>
     </section>
 </Layout>

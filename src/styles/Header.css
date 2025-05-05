@@ -1,17 +1,18 @@
 .site-header {
-    position: sticky;  /* スクロールで上端に到達したら固定 */
-    top: 0;            /* 上端に貼り付け */
-    left: 0;           /* 左端に貼り付け */
-    width: 100%;       /* 横いっぱい */
-    z-index: 1000;     /* 他要素より前面に */
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     border-bottom: 3px solid var(--color-border);
-    background-color: rgb(255, 255, 255, 0.7); /* 半透明の白背景 */
+    background-color: var(--header-bg);
+    box-shadow: var(--box-shadow-card);
 }
 
 .site-header .container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 1rem;
+    padding: var(--spacing-md);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,7 +28,7 @@
 
 /* ロゴ画像サイズ調整 */
 .site-header .logo img {
-    margin-top: 1rem;
+    margin-top: var(--spacing-md);
     height: clamp(1.5rem, 5vw, 3rem);
     width: auto;
 }
@@ -39,30 +40,30 @@
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: max-content;
-    grid-template-rows: auto;       /* 横幅が広いときは1行表示 */
-    gap: 1rem;
+    grid-template-rows: auto;
+    gap: var(--spacing-md);
 }
 
 /* ナビリンクに枠をつける */
-.site-header .main-nav .nav-links li a {
-    display: inline-block;                       /* 背景なしでもブロック化 */
-    padding: 0.5rem 1rem;                        /* 上下 0.5rem, 左右 1rem */
-    margin: 0 0.25rem;                           /* リンク同士の間隔 */
+.site-header .main-nav .nav-links li .nav-link {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin: 0 var(--spacing-xs);
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
     font-size: clamp(0.75rem, 1.5vw, 1rem); 
-    color: var(--header-txt);                     /* 濃いネイビーブルー */
-    background-color: transparent;               /* 背景は変えない */
-    border: 1px solid var(--color-border);   /* 薄めのスカイブルー枠 */
-    border-radius: 12px;                          /* 角丸 */
-    transition:
-        border-color 0.2s ease-in-out,
-        color 0.2s ease-in-out,
+    color: var(--header-txt);
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-base);
+    transition: var(--transition-base);
 }
 
-/* ホバー時に枠と文字色・サイズを強調 */
-.site-header .main-nav .nav-links li a:hover {
-    color: var(--color-link-hover);                              /* 鮮やかなブルーに */      /* 濃いめのスカイブルー枠 */
+/* ホバー時に枠と文字色を強調 */
+.site-header .main-nav .nav-links li .nav-link:hover {
+    color: var(--color-link-hover);
+    transform: translateY(-2px);
+    text-decoration: none;
 }
 
 /* 小画面向け微調整 */
@@ -70,16 +71,17 @@
     .site-header .container {
         flex-direction: column;
         align-items: flex-start;
-        padding: 0.75rem 1rem;
+        padding: calc(var(--spacing-sm) * 1.5) var(--spacing-md);
     }
 
     .site-header .logo {
-        margin-bottom: 0.5rem;
+        margin-bottom: var(--spacing-sm);
     }
 
     /* navを中央に配置 */
     .site-header .main-nav {
         align-self: center;
+        width: 100%;
     }
 
     /* nav-linksを中央揃えに */
@@ -87,14 +89,81 @@
         display: flex;           
         flex-direction: row;     
         width: 100%;             
-        justify-content: center; /* 中央揃え */
-        gap: 0.5rem;             /* アイテム間隔 */
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: calc(var(--spacing-sm) * 0.8); /* ギャップをより適切に調整 */
     }
 
-    .site-header .main-nav .nav-links li a {
-        font-size: clamp(0.6rem, 2vw, 1rem); /* フォントサイズ調整 */
-        padding: 0.2rem 0.3rem; /* 上下 0.5rem, 左右 0.75rem */
+    .site-header .main-nav .nav-links li {
+        margin: 0 calc(var(--spacing-xs) / 2); /* 各項目の左右マージンを追加 */
+    }
+
+    .site-header .main-nav .nav-links li .nav-link {
+        font-size: clamp(0.6rem, 2vw, 1rem);
+        padding: calc(var(--spacing-xs) * 0.8) calc(var(--spacing-sm) * 0.6);
         margin: auto;
-        border-radius: 6px;
+        border-radius: var(--radius-sm);
+        white-space: nowrap; /* テキストを折り返さない */
+    }
+}
+
+/* 小型モバイル向け追加対応 */
+@media (max-width: 480px) {
+    .site-header .container {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    .site-header .logo {
+        width: 100%;
+        text-align: center;
+    }
+
+    .site-header .main-nav .nav-links {
+        gap: var(--spacing-xs);
+        justify-content: center; /* space-aroundから変更 */
+        padding: var(--spacing-xs) 0;
+        display: grid; /* flexからgridに変更 */
+        grid-template-columns: repeat(2, 1fr); /* 2列グリッドに変更 */
+        width: 95%; /* 少し幅を狭める */
+        margin: 0 auto; /* 中央揃え */
+    }
+
+    .site-header .main-nav .nav-links li {
+        flex: 0 0 auto; /* flexは調整 */
+        min-width: auto;
+        max-width: none;
+        margin: calc(var(--spacing-xs) / 2);
+        box-sizing: border-box; /* ボックスサイズを調整 */
+    }
+    
+    .site-header .main-nav .nav-links li .nav-link {
+        font-size: 0.7rem;
+        padding: calc(var(--spacing-xs) * 0.7);
+        width: 100%;
+        text-align: center;
+        display: block;
+        box-sizing: border-box; /* パディングを含めた幅計算 */
+    }
+
+    /* ロゴ画像サイズ調整（さらに小さく） */
+    .site-header .logo img {
+        height: clamp(1.2rem, 4vw, 2.5rem);
+    }
+}
+
+/* 極小画面向けの追加対応 */
+@media (max-width: 370px) {
+    .site-header .main-nav .nav-links {
+        grid-template-columns: 1fr; /* 1列グリッドに変更 */
+        width: 90%;
+    }
+    
+    .site-header .main-nav .nav-links li {
+        margin: calc(var(--spacing-xs) / 3) 0;
+    }
+    
+    .site-header .main-nav .nav-links li .nav-link {
+        font-size: 0.65rem;
+        padding: calc(var(--spacing-xs) * 0.6);
     }
 }

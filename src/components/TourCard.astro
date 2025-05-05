@@ -5,6 +5,7 @@ export interface Props {
         title: string;
         date: string;
         venue: string;
+        city?: string;
         ticketPrice?: string;
         reserve?: string;
         flyer: string;
@@ -19,13 +20,16 @@ const formattedTicketPrice = tour.ticketPrice?.replace(/\n/g, '<br />');
         <h3>{tour.title}</h3>
         <p>日程: {tour.date}</p>
         <p>会場: {tour.venue}</p>
-        <p>チケット代: <span set:html={formattedTicketPrice} /></p>
-        <p class="tour-reserve">
-        予約はこちらから:
-        <a href={tour.reserve} target="_blank" rel="noopener noreferrer">Link</a>
-        </p>
+        {tour.city && <p>場所: {tour.city}</p>}
+        {tour.ticketPrice && <p>チケット代: <span set:html={formattedTicketPrice} /></p>}
+        {tour.reserve && (
+            <p class="tour-reserve">
+                予約はこちらから:
+                <a href={tour.reserve} target="_blank" rel="noopener noreferrer" class="button">Link</a>
+            </p>
+        )}
     </div>
     <div class="tour-flyer">
-        <img src={tour.flyer} alt={`Flyer for ${tour.title}`} />
+        <img src={tour.flyer} alt={`Flyer for ${tour.title}`} loading="lazy" />
     </div>
 </article>
