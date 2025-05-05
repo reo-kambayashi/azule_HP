@@ -92,7 +92,7 @@
     }
 
     .site-header .main-nav .nav-links li a {
-        font-size: 0.8rem;
+        font-size: clamp(0.6rem, 2vw, 1rem); /* フォントサイズ調整 */
         padding: 0.25rem 0.5rem;
         margin: auto;
         border-radius: 6px;
