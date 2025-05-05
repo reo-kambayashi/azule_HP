@@ -58,7 +58,6 @@
     transition:
         border-color 0.2s ease-in-out,
         color 0.2s ease-in-out,
-        font-size 0.2s ease-in-out;
 }
 
 /* ホバー時に枠と文字色・サイズを強調 */
@@ -83,7 +82,7 @@
         display: flex;           /* grid → flex */
         flex-direction: row;
         width: auto;
-        gap: 0.25rem;            /* 間隔を狭く */
+        gap: 0.5rem;            /* 間隔を狭く */
     }
 
     .site-header .main-nav .nav-links li a {
