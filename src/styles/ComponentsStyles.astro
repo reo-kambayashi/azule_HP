@@ -194,17 +194,21 @@
 .tour-flyer {
     order: 2;                 /* フレックスアイテムの表示順序（テキストの後） */
     padding: var(--spacing-md); /* 内側の余白 */
-    flex: 0 0 300px;          /* 幅を300pxに固定、伸縮なし */
+    flex: 0 0 auto;           /* 自動サイズ調整に変更（固定値から変更） */
+    max-width: 300px;         /* 最大幅を設定 */
     box-sizing: border-box;   /* パディングとボーダーを幅に含める */
     overflow: hidden;
     border-radius: var(--radius-sm);
+    display: flex;            /* 追加：フレックスボックスレイアウトを使用 */
+    justify-content: center;  /* 追加：中央揃え */
+    align-items: center;      /* 追加：中央揃え */
 }
 
 /* ツアーカード内の画像のスタイル */
 .tour-card img {
     width: 100%;                       /* 親要素の幅いっぱいに表示 */
     height: auto;                      /* 高さは自動調整（アスペクト比維持） */
-    object-fit: cover;                 /* 画像のサイズ調整方法 */
+    object-fit: contain;               /* 画像全体を表示（トリミングなし） */
     flex-shrink: 0;                    /* フレックスアイテムの縮小を防止 */
     border-radius: var(--radius-sm);   /* 画像の角を丸くする */
     box-shadow: var(--box-shadow-card); /* 画像に影を追加 */
