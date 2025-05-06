@@ -3,7 +3,8 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-    base: "/azule_HP/", // ★リポジトリ名を指定（スラッシュで囲む）
+    site: 'https://reo-kambayashi.github.io',
+    base: '/azule_HP',
     output: "static"
 });
 
