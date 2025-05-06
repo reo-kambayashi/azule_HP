@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Global from '../components/Global.astro';
 const base = import.meta.env.BASE_URL; // e.g. "/azule_HP/"
 ---
 <!DOCTYPE html>
@@ -9,7 +10,6 @@ const base = import.meta.env.BASE_URL; // e.g. "/azule_HP/"
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- スタイルシートの読み込み方法 -->
-        <link rel="stylesheet" href={`${base}styles/global.css`} />
         <link rel="stylesheet" href={`${base}styles/Layout.css`} />
         <!-- Favicon -->
         <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
@@ -21,6 +21,7 @@ const base = import.meta.env.BASE_URL; // e.g. "/azule_HP/"
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet"
         />
+        <Global />
     </head>
     <body>
         <!-- Site Header -->
