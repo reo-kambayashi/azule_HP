@@ -47,6 +47,9 @@ import MemberCard from '../components/MemberCard.astro';
     box-shadow: var(--box-shadow-card);
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ボックス内の要素を水平方向に中央揃え */
 }
 
 .about-title {
@@ -60,15 +63,17 @@ import MemberCard from '../components/MemberCard.astro';
     text-align: center;
 }
 
-/* メンバーカード用のグリッドレイアウトを改善 */
+/* メンバーカードを縦に並べ、中央に配置 */
 .member-profile {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* カードを水平方向に中央揃え */
+    justify-content: center; /* カードを垂直方向に中央揃え */
     gap: var(--spacing-lg);
     margin-top: var(--spacing-md);
+    width: 90%; /* ボックス内で最大幅を取る */
+    max-width: 600px; /* メンバーカードの最大幅を制限 */
 }
-
-/* 古いメンバーカードのスタイルは不要なので削除 */
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
@@ -84,13 +89,6 @@ import MemberCard from '../components/MemberCard.astro';
     
     .member-profile {
         gap: var(--spacing-md);
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    }
-}
-
-@media (max-width: 480px) {
-    .member-profile {
-        grid-template-columns: 1fr;
     }
 }
 </style>
