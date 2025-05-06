@@ -90,7 +90,7 @@ const typedMembers = members as Member[];
     gap: var(--spacing-lg); /* ギャップを統一 */
     width: 100%;
     box-sizing: border-box;
-    padding: 0 var(--spacing-lg); /* 内側に統一された余白を追加 */
+    padding: 0 var(--spacing-md); /* 内側の余白を少し小さく */
 }
 
 /* 中画面サイズでも同じギャップとマージンを適用 */
@@ -115,7 +115,17 @@ const typedMembers = members as Member[];
 /* 小画面サイズでも同じギャップとマージンを適用 */
 @media (max-width: 576px) {
     .member-profile {
+        grid-template-columns: repeat(2, minmax(120px, 1fr)); /* 2列を維持するが最小サイズを制限 */
+        gap: var(--spacing-md); /* 間隔を小さく */
+    }
+}
+
+/* 超小型画面 */
+@media (max-width: 400px) {
+    .member-profile {
         grid-template-columns: 1fr; /* 1列グリッド (1x4) */
+        max-width: 80%; /* 中央に配置するため幅を制限 */
+        margin: 0 auto;
     }
 }
 </style>

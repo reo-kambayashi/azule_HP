@@ -19,8 +19,7 @@
     box-shadow: var(--box-shadow-card); /* カードに影を追加 */
     flex-wrap: wrap;                    /* 必要に応じて折り返し */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeIn 0.6s ease-out forwards;
-    opacity: 0;
+    /* fadeInアニメーションを削除 */
 }
 
 /* リリースカードとツアーカードのホバーアニメーション */
@@ -306,23 +305,26 @@
     }
 }
 
-/* ページ読み込み時のフェードインアニメーション */
+ページ読み込み時のフェードインアニメーション
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 /* カード順にアニメーション遅延を追加 */
-.release-card:nth-child(1),
-.tour-card:nth-child(1) {
+.fade-in-left:nth-child(1),
+.fade-in-left.release-card:nth-child(1),
+.fade-in-left.tour-card:nth-child(1) {
     animation-delay: 0.1s;
 }
-.release-card:nth-child(2),
-.tour-card:nth-child(2) {
+.fade-in-left:nth-child(2),
+.fade-in-left.release-card:nth-child(2),
+.fade-in-left.tour-card:nth-child(2) {
     animation-delay: 0.2s;
 }
-.release-card:nth-child(3),
-.tour-card:nth-child(3) {
+.fade-in-left:nth-child(3),
+.fade-in-left.release-card:nth-child(3),
+.fade-in-left.tour-card:nth-child(3) {
     animation-delay: 0.3s;
 }
 
