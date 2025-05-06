@@ -2,226 +2,270 @@
 ---
 
 <style is:global>
+/* 
+ * グローバルCSS変数の定義
+ * これらの変数はサイト全体で使用され、一貫したデザインを保つのに役立ちます
+ */
+
 :root {
-    --color-primary: #1e3a8a;
-    --color-secondary: #3b82f6;
-    --color-bg: #f2fbfe;
-    --color-text: #1f2937;
-    --color-text-light: #666666;
-    --color-link: var(--color-secondary);
-    --color-link-hover: #60a5fa;
-    --color-border: #000000;
-    --color-white: #ffffff;
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
-    --radius-sm: 6px;
-    --radius-base: 12px;
-    --radius-lg: 16px;
-    --shadow-base: rgba(30, 58, 138, 0.15) 0px 4px 16px;
-    --box-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --container-max-width: 1200px;
-    --container-padding: var(--spacing-md);
-    --card-width: 80%;
-    --card-max-width: 800px;
-    --header-txt: #001f73;
-    --header-bg: rgba(255, 255, 255, 0.7);
-    --footer-bg: #f8f8f8;
-    --footer-border: #eaeaea;
-    --transition-base: all 0.2s ease-in-out;
-    --breakpoint-sm: 480px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 1024px;
-    --breakpoint-xl: 1280px;
+    /* カラーパレット */
+    --color-primary: #1e3a8a;    /* メインカラー（濃い青） */
+    --color-secondary: #3b82f6;  /* アクセントカラー（明るい青） */
+    --color-bg: #f2fbfe;         /* 背景色（薄い青） */
+    --color-text: #1f2937;       /* 本文テキストの色（濃いグレー） */
+    --color-text-light: #666666; /* 薄いテキストの色（グレー） */
+    --color-link: var(--color-secondary); /* リンクの色（secondaryカラーを参照） */
+    --color-link-hover: #60a5fa; /* ホバー時のリンクの色 */
+    --color-border: #000000;     /* ボーダーの色（黒） */
+    --color-white: #ffffff;      /* 白色 */
+    
+    /* スペーシング設定 - 余白やパディングに使用 */
+    --spacing-xs: 0.25rem;       /* 極小スペース (4px) */
+    --spacing-sm: 0.5rem;        /* 小スペース (8px) */
+    --spacing-md: 1rem;          /* 中スペース (16px) */
+    --spacing-lg: 1.5rem;        /* 大スペース (24px) */
+    --spacing-xl: 2rem;          /* 特大スペース (32px) */
+    --spacing-2xl: 3rem;         /* 最大スペース (48px) */
+    
+    /* 角丸設定 */
+    --radius-sm: 6px;            /* 小さい角丸 */
+    --radius-base: 12px;         /* 標準の角丸 */
+    --radius-lg: 16px;           /* 大きい角丸 */
+    
+    /* 影の設定 */
+    --shadow-base: rgba(30, 58, 138, 0.15) 0px 4px 16px; /* 基本的な影効果 */
+    --box-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);     /* カード用の影 */
+    
+    /* レイアウト設定 */
+    --container-max-width: 1200px;       /* コンテナの最大幅 */
+    --container-padding: var(--spacing-md); /* コンテナの内側余白 */
+    --card-width: 80%;                   /* カードの幅 */
+    --card-max-width: 800px;             /* カードの最大幅 */
+    
+    /* ヘッダーとフッターの設定 */
+    --header-txt: #001f73;               /* ヘッダーテキストの色 */
+    --header-bg: rgba(255, 255, 255, 0.7); /* ヘッダー背景色（半透明白） */
+    --footer-bg: #f8f8f8;                /* フッター背景色 */
+    --footer-border: #eaeaea;            /* フッターのボーダー色 */
+    
+    /* アニメーション設定 */
+    --transition-base: all 0.2s ease-in-out; /* 基本トランジション効果 */
+    
+    /* レスポンシブデザイン用ブレークポイント */
+    --breakpoint-sm: 480px;  /* スマートフォン用 */
+    --breakpoint-md: 768px;  /* タブレット用 */
+    --breakpoint-lg: 1024px; /* 小型デスクトップ用 */
+    --breakpoint-xl: 1280px; /* 大型デスクトップ用 */
 }
 
+/* HTMLのベーススタイル */
 html {
-    font-size: 16px;
-    -webkit-text-size-adjust: 100%;
+    font-size: 16px; /* ベースフォントサイズ設定 */
+    -webkit-text-size-adjust: 100%; /* モバイルでのフォントサイズ自動調整を無効化 */
 }
 
+/* ボディのベーススタイル */
 body {
-    font-family: 'Lora', serif;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--color-text);
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-bg);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
+    font-family: 'Lora', serif; /* フォントファミリーの設定 */
+    font-size: 1rem;           /* 基本フォントサイズ (16px) */
+    line-height: 1.6;          /* 行間の高さ */
+    color: var(--color-text);  /* テキスト色 */
+    margin: 0;                 /* 余白をリセット */
+    padding: 0;                /* パディングをリセット */
+    background-color: var(--color-bg); /* 背景色 */
+    display: flex;             /* フレックスボックスレイアウトを使用 */
+    flex-direction: column;    /* 縦方向にアイテムを配置 */
+    min-height: 100vh;         /* 最小の高さをビューポートの高さに設定 */
+    overflow-x: hidden;        /* 横方向のスクロールを無効化 */
 }
 
+/* 見出し要素のスタイル */
 h1, h2, h3, h4, h5, h6 {
-    margin-top: 0;
-    margin-bottom: var(--spacing-sm);
-    font-weight: normal;
-    line-height: 1.2;
-    text-align: center;
-    word-wrap: break-word;
+    margin-top: 0;                    /* 上部マージンを除去 */
+    margin-bottom: var(--spacing-sm); /* 下部マージンを設定 */
+    font-weight: normal;              /* フォントの太さを標準に */
+    line-height: 1.2;                 /* 行間の高さ */
+    text-align: center;               /* テキストを中央揃え */
+    word-wrap: break-word;            /* 長い単語を折り返し */
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.5rem; }
-h5 { font-size: 1.25rem; }
-h6 { font-size: 1rem; }
+/* 各見出しレベルのフォントサイズ設定 */
+h1 { font-size: 2.5rem; }  /* 40px */
+h2 { font-size: 2rem; }    /* 32px */
+h3 { font-size: 1.75rem; } /* 28px */
+h4 { font-size: 1.5rem; }  /* 24px */
+h5 { font-size: 1.25rem; } /* 20px */
+h6 { font-size: 1rem; }    /* 16px */
 
+/* リンクのスタイル */
 a {
-    color: inherit;
-    text-decoration: none;
-    transition: var(--transition-base);
+    color: inherit;                   /* 親要素から色を継承 */
+    text-decoration: none;            /* 下線を削除 */
+    transition: var(--transition-base); /* トランジション効果を追加 */
 }
 
+/* ホバー時のリンクスタイル */
 a:hover {
-    text-decoration: underline;
-    color: var(--color-link-hover);
+    text-decoration: underline;       /* 下線を表示 */
+    color: var(--color-link-hover);   /* ホバー時の色を変更 */
 }
 
+/* コンテナクラスのスタイル - コンテンツを中央に配置し、適切な幅を保つ */
 .container {
-    width: 100%;
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-    box-sizing: border-box;
+    width: 100%;                         /* 幅を100%に設定 */
+    max-width: var(--container-max-width); /* 最大幅を制限 */
+    margin: 0 auto;                      /* 中央配置 */
+    padding: 0 var(--container-padding); /* 左右にパディングを追加 */
+    box-sizing: border-box;              /* ボックスサイズの計算方法を設定 */
 }
 
+/* メインコンテナのスタイル - ページの主要コンテンツ部分 */
 main.container {
-    flex: 1;
-    padding-top: var(--spacing-md);
-    padding-bottom: var(--spacing-xl);
+    flex: 1;                          /* 空きスペースを埋める */
+    padding-top: var(--spacing-md);   /* 上部のパディング */
+    padding-bottom: var(--spacing-xl); /* 下部のパディング */
 }
 
+/* カードコンポーネントのスタイル */
 .card {
-    background: var(--color-white);
-    border-radius: var(--radius-base);
-    box-shadow: var(--box-shadow-card);
-    padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
-    width: var(--card-width);
-    max-width: var(--card-max-width);
-    margin-left: auto;
-    margin-right: auto;
+    background: var(--color-white);    /* 背景色を白に設定 */
+    border-radius: var(--radius-base); /* 角を丸くする */
+    box-shadow: var(--box-shadow-card); /* 影を追加 */
+    padding: var(--spacing-lg);        /* 内側の余白 */
+    margin-bottom: var(--spacing-xl);  /* 下部マージン */
+    width: var(--card-width);          /* カードの幅 */
+    max-width: var(--card-max-width);  /* 最大幅を制限 */
+    margin-left: auto;                 /* 左右の自動マージンで */
+    margin-right: auto;                /* 中央配置する */
 }
 
+/* ボタンのスタイル */
 .button {
-    display: inline-block;
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-weight: 600;
-    background-color: transparent;
-    border: 1px solid var(--color-secondary);
-    border-radius: var(--radius-base);
-    color: var(--color-secondary);
-    cursor: pointer;
-    transition: var(--transition-base);
-    text-decoration: none;
-    text-align: center;
+    display: inline-block;              /* インラインブロック要素として表示 */
+    padding: var(--spacing-sm) var(--spacing-md); /* パディング（上下、左右） */
+    font-weight: 600;                   /* フォントの太さ */
+    background-color: transparent;      /* 背景を透明に */
+    border: 1px solid var(--color-secondary); /* 境界線 */
+    border-radius: var(--radius-base);  /* 角を丸くする */
+    color: var(--color-secondary);      /* テキスト色 */
+    cursor: pointer;                    /* ホバー時にポインタに */
+    transition: var(--transition-base); /* トランジション効果 */
+    text-decoration: none;              /* テキスト装飾なし */
+    text-align: center;                 /* テキスト中央揃え */
 }
 
+/* ホバー時のボタンスタイル */
 .button:hover {
-    background-color: var(--color-secondary);
-    color: var(--color-white);
-    transform: translateY(-2px);
-    text-decoration: none;
+    background-color: var(--color-secondary); /* 背景色を変更 */
+    color: var(--color-white);               /* テキスト色を白に */
+    transform: translateY(-2px);             /* 少し上に移動する効果 */
+    text-decoration: none;                   /* 下線なし */
 }
 
+/* セクションのスタイル - コンテンツのまとまりを表す */
 .section {
-    margin-bottom: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl); /* 下部マージン */
 }
 
+/* 画像のスタイル */
 img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
+    max-width: 100%;   /* 親要素からはみ出さないように */
+    height: auto;      /* アスペクト比を維持 */
+    display: block;    /* ブロック要素として表示 */
+    margin: 0 auto;    /* 中央配置 */
 }
 
+/* グリッドレイアウト - 複数の要素を均等に配置 */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--spacing-lg);
+    display: grid;                                  /* グリッドレイアウトを使用 */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* レスポンシブなカラム設定 */
+    gap: var(--spacing-lg);                         /* グリッドアイテム間の間隔 */
 }
 
+/* フレックスコンテナ - 柔軟なレイアウト用 */
 .flex-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
+    display: flex;           /* フレックスボックスレイアウトを使用 */
+    flex-wrap: wrap;         /* 必要に応じて折り返す */
+    gap: var(--spacing-md);  /* アイテム間の間隔 */
 }
 
+/* テーブルのスタイル */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: var(--spacing-md) 0;
-    overflow-x: auto;
-    display: block;
+    width: 100%;           /* 幅を100%に */
+    border-collapse: collapse; /* セル間の境界線を結合 */
+    margin: var(--spacing-md) 0; /* 上下のマージン */
+    overflow-x: auto;      /* 横にはみ出る場合はスクロール可能に */
+    display: block;        /* ブロック要素として表示（スクロール用） */
 }
 
+/* 
+ * レスポンシブデザイン設定
+ * 異なる画面サイズに対応するためのスタイル調整
+ */
+
+/* 大型タブレット・小型デスクトップ向け (1024px以下) */
 @media (max-width: 1024px) {
     :root {
-        --spacing-lg: 1.25rem;
-        --spacing-xl: 1.75rem;
-        --spacing-2xl: 2.5rem;
-        --card-width: 85%;
+        --spacing-lg: 1.25rem;   /* 大スペースを少し小さく */
+        --spacing-xl: 1.75rem;   /* 特大スペースを小さく */
+        --spacing-2xl: 2.5rem;   /* 最大スペースを小さく */
+        --card-width: 85%;       /* カード幅を広げる */
     }
-    h1 { font-size: 2.25rem; }
-    h2 { font-size: 1.75rem; }
+    h1 { font-size: 2.25rem; }   /* 見出しサイズ調整 */
+    h2 { font-size: 1.75rem; }   /* 見出しサイズ調整 */
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* グリッドカラムを狭く */
     }
 }
 
+/* タブレット向け (768px以下) */
 @media (max-width: 768px) {
     :root {
-        --spacing-lg: 1rem;
-        --spacing-xl: 1.5rem;
-        --spacing-2xl: 2rem;
-        --card-width: 90%;
+        --spacing-lg: 1rem;      /* 大スペースをさらに小さく */
+        --spacing-xl: 1.5rem;    /* 特大スペースをさらに小さく */
+        --spacing-2xl: 2rem;     /* 最大スペースをさらに小さく */
+        --card-width: 90%;       /* カード幅をさらに広げる */
     }
     html {
-        font-size: 15px;
+        font-size: 15px;         /* ベースフォントサイズを小さく */
     }
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.35rem; }
+    h1 { font-size: 2rem; }      /* 見出しサイズ調整 */
+    h2 { font-size: 1.5rem; }    /* 見出しサイズ調整 */
+    h3 { font-size: 1.35rem; }   /* 見出しサイズ調整 */
     .card {
-        padding: var(--spacing-md);
-        border-radius: var(--radius-sm);
+        padding: var(--spacing-md); /* カードのパディングを減らす */
+        border-radius: var(--radius-sm); /* 角丸を小さく */
     }
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: var(--spacing-md);
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* グリッドカラムをさらに狭く */
+        gap: var(--spacing-md);   /* グリッド間隔を小さく */
     }
     .button {
-        width: 100%;
-        margin-bottom: var(--spacing-sm);
+        width: 100%;              /* ボタンを幅いっぱいに */
+        margin-bottom: var(--spacing-sm); /* ボタンの下にマージンを追加 */
     }
 }
 
+/* スマートフォン向け (480px以下) */
 @media (max-width: 480px) {
     :root {
-        --card-width: 95%;
-        --spacing-md: 0.8rem;
+        --card-width: 95%;        /* カード幅をほぼいっぱいに */
+        --spacing-md: 0.8rem;     /* 中スペースをさらに小さく */
     }
     html {
-        font-size: 14px;
+        font-size: 14px;          /* ベースフォントサイズをさらに小さく */
     }
-    h1 { font-size: 1.75rem; }
-    h2 { font-size: 1.25rem; }
-    h3 { font-size: 1.1rem; }
+    h1 { font-size: 1.75rem; }    /* 見出しサイズ調整 */
+    h2 { font-size: 1.25rem; }    /* 見出しサイズ調整 */
+    h3 { font-size: 1.1rem; }     /* 見出しサイズ調整 */
     .card {
-        padding: var(--spacing-sm);
+        padding: var(--spacing-sm); /* カードのパディングをさらに減らす */
     }
     .grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* グリッドを1列に */
     }
     .container {
-        padding: 0 calc(var(--container-padding) * 0.75);
+        padding: 0 calc(var(--container-padding) * 0.75); /* コンテナパディングを小さく */
     }
 }
 </style>

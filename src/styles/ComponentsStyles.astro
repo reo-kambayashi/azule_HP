@@ -1,214 +1,257 @@
 <style is:global>
+/* 
+ * コンポーネントスタイル定義
+ * このファイルでは、リリースカードとツアーカードに関連するスタイルを定義しています
+ */
+
+/* リリースカードとツアーカードの共通スタイル - 情報を表示するメインのカードコンポーネント */
 .release-card,
 .tour-card {
-    width: var(--card-width);
-    max-width: var(--card-max-width);
-    margin: 0 auto var(--spacing-xl);
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-lg);
-    background: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-base);
-    box-shadow: var(--box-shadow-card);
-    flex-wrap: wrap;
+    width: var(--card-width);           /* カードの幅（グローバル変数から取得） */
+    max-width: var(--card-max-width);   /* 最大幅の制限 */
+    margin: 0 auto var(--spacing-xl);   /* 上下左右のマージン（中央揃え） */
+    display: flex;                       /* フレックスボックスレイアウトを使用 */
+    align-items: flex-start;            /* アイテムを上端に揃える */
+    gap: var(--spacing-lg);             /* アイテム間の間隔 */
+    background: var(--color-white);     /* 背景色を白に設定 */
+    padding: var(--spacing-lg);         /* 内側の余白 */
+    border-radius: var(--radius-base);  /* 角を丸くする */
+    box-shadow: var(--box-shadow-card); /* カードに影を追加 */
+    flex-wrap: wrap;                    /* 必要に応じて折り返し */
 }
 
+/* リリースカバー画像のスタイル */
 .release-cover {
-    width: 300px;
-    height: auto;
-    object-fit: cover;
-    flex-shrink: 0;
-    border-radius: var(--radius-sm);
-    box-shadow: var(--box-shadow-card);
+    width: 300px;                        /* 画像の幅を固定 */
+    height: auto;                        /* 高さは自動調整（アスペクト比維持） */
+    object-fit: cover;                   /* 画像のサイズ調整方法 */
+    flex-shrink: 0;                      /* フレックスアイテムの縮小を防止 */
+    border-radius: var(--radius-sm);     /* 画像の角を丸くする */
+    box-shadow: var(--box-shadow-card);  /* 画像に影を追加 */
 }
 
+/* リリース情報のスタイル - タイトル、日付、トラックリストなどの情報を格納 */
 .release-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex: 1;                   /* 利用可能なスペースを埋める */
+    display: flex;             /* フレックスボックスレイアウトを使用 */
+    flex-direction: column;    /* 子要素を縦に並べる */
+    justify-content: center;   /* 中央揃え（縦方向） */
 }
 
+/* リリースタイトルのスタイル */
 .release-title {
-    font-size: 1.5rem;
-    margin: 0 0 var(--spacing-sm);
-    text-align: left;
+    font-size: 1.5rem;                  /* フォントサイズ設定 */
+    margin: 0 0 var(--spacing-sm);      /* 下部にのみマージンを設定 */
+    text-align: left;                   /* テキストを左揃え */
 }
 
+/* リリース日のスタイル */
 .release-date {
-    font-size: 1rem;
-    color: var(--color-text-light);
-    margin-bottom: var(--spacing-md);
+    font-size: 1rem;                    /* フォントサイズ設定 */
+    color: var(--color-text-light);     /* 薄い色のテキスト */
+    margin-bottom: var(--spacing-md);   /* 下部マージンを設定 */
 }
 
+/* トラックリストのスタイル */
 .tracklist {
-    list-style: decimal inside;
-    padding: 0;
-    margin: 0;
+    list-style: decimal inside;    /* 数字付きリスト（内側に表示） */
+    padding: 0;                    /* パディングをリセット */
+    margin: 0;                     /* マージンをリセット */
 }
 
+/* トラックリストの各項目のスタイル */
 .tracklist li {
-    margin-bottom: var(--spacing-sm);
-    font-size: 1rem;
-    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);  /* 項目間のマージン */
+    font-size: 1rem;                   /* フォントサイズ設定 */
+    color: var(--color-text);          /* テキスト色 */
 }
 
+/* サブスクリプションリンク（Spotify、Apple Musicなど）のコンテナスタイル */
 .subscription-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
+    display: flex;                    /* フレックスボックスレイアウトを使用 */
+    flex-wrap: wrap;                  /* 必要に応じて折り返し */
+    gap: var(--spacing-sm);           /* リンク間の間隔 */
+    margin-top: var(--spacing-md);    /* 上部マージン */
 }
 
+/* 個別のサブスクリプションリンクスタイル */
 .sub-link {
-    display: inline-block;
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-secondary);
-    background-color: transparent;
-    border: 1px solid var(--color-secondary);
-    border-radius: var(--radius-base);
-    transition: var(--transition-base);
-    text-decoration: none;
+    display: inline-block;              /* インラインブロックとして表示 */
+    padding: var(--spacing-sm) var(--spacing-md); /* 上下・左右のパディング */
+    font-size: 0.9rem;                  /* フォントサイズを小さく */
+    font-weight: 600;                   /* フォントを太く */
+    color: var(--color-secondary);      /* テキスト色 */
+    background-color: transparent;      /* 背景を透明に */
+    border: 1px solid var(--color-secondary); /* 境界線 */
+    border-radius: var(--radius-base);  /* 角を丸くする */
+    transition: var(--transition-base); /* アニメーション効果 */
+    text-decoration: none;              /* 下線を削除 */
 }
 
+/* ホバー時のサブスクリプションリンクスタイル */
 .sub-link:hover {
-    background-color: var(--color-secondary);
-    color: var(--color-white);
-    transform: translateY(-2px);
-    text-decoration: none;
+    background-color: var(--color-secondary); /* 背景色を変更 */
+    color: var(--color-white);               /* テキスト色を白に */
+    transform: translateY(-2px);             /* 少し上に移動する効果 */
+    text-decoration: none;                   /* 下線なし */
 }
 
+/* ツアーセクション全体のスタイル */
 .tour {
-    padding: var(--spacing-xl);
+    padding: var(--spacing-xl);         /* 周囲のパディング */
 }
 
+/* ツアーリスト（複数のツアー情報）のスタイル */
 .tour-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-lg);
-    max-width: var(--container-max-width);
-    margin: 0 auto;
+    display: flex;                        /* フレックスボックスレイアウトを使用 */
+    flex-direction: column;               /* 子要素を縦に並べる */
+    gap: var(--spacing-lg);               /* ツアーカード間の間隔 */
+    max-width: var(--container-max-width); /* 最大幅の制限 */
+    margin: 0 auto;                       /* 中央揃え */
 }
 
+/* ツアー情報のスタイル - 日時、会場、詳細情報などを表示 */
 .tour-info {
-    order: 1;
-    flex: 1;
-    padding: var(--spacing-sm);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    box-sizing: border-box;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+    order: 1;                 /* フレックスアイテムの表示順序 */
+    flex: 1;                  /* 利用可能なスペースを埋める */
+    padding: var(--spacing-sm); /* 内側の余白 */
+    display: flex;            /* フレックスボックスレイアウトを使用 */
+    flex-direction: column;   /* 子要素を縦に並べる */
+    justify-content: center;  /* 中央揃え（縦方向） */
+    width: 100%;              /* 幅を100%に設定 */
+    box-sizing: border-box;   /* パディングとボーダーを幅に含める */
+    overflow-wrap: break-word; /* 長いテキストを折り返し（古い仕様） */
+    word-wrap: break-word;    /* 長いテキストを折り返し（新しい仕様） */
 }
 
+/* ツアー情報内のリンクと段落のスタイル */
 .tour-info a, 
 .tour-info p {
-    margin: 0;
-    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
-    max-width: 100%;
-    word-break: break-word;
+    margin: 0;                /* マージンをリセット */
+    /* レスポンシブなフォントサイズ（画面幅に応じて0.9remから1.3remまで変化） */
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem); 
+    max-width: 100%;          /* 最大幅を制限 */
+    word-break: break-word;   /* 単語の途中でも必要に応じて折り返し */
 }
 
+/* ツアー予約セクションのスタイル */
 .tour-reserve {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--spacing-sm);
+    width: 100%;              /* 幅を100%に設定 */
+    display: flex;            /* フレックスボックスレイアウトを使用 */
+    flex-wrap: wrap;          /* 必要に応じて折り返し */
+    align-items: center;      /* アイテムを中央揃え（横方向） */
+    gap: var(--spacing-sm);   /* アイテム間の間隔 */
 }
 
+/* ツアー予約リンクのスタイル */
 .tour-reserve a {
-    color: var(--color-link);
-    margin-top: var(--spacing-md);
-    display: inline-block;
-    word-break: break-word;
+    color: var(--color-link);   /* リンク色 */
+    margin-top: var(--spacing-md); /* 上部マージン */
+    display: inline-block;      /* インラインブロックとして表示 */
+    word-break: break-word;     /* 長いURLでも折り返し可能に */
 }
 
+/* ホバー時のツアー予約リンクスタイル */
 .tour-reserve a:hover {
-    color: var(--color-link-hover);
+    color: var(--color-link-hover); /* ホバー時の色 */
 }
 
+/* ツアーフライヤー（画像）コンテナのスタイル */
 .tour-flyer {
-    order: 2;
-    padding: var(--spacing-md);
-    flex: 0 0 300px;
-    box-sizing: border-box;
+    order: 2;                 /* フレックスアイテムの表示順序（テキストの後） */
+    padding: var(--spacing-md); /* 内側の余白 */
+    flex: 0 0 300px;          /* 幅を300pxに固定、伸縮なし */
+    box-sizing: border-box;   /* パディングとボーダーを幅に含める */
 }
 
+/* ツアーカード内の画像のスタイル */
 .tour-card img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    flex-shrink: 0;
-    border-radius: var(--radius-sm);
-    box-shadow: var(--box-shadow-card);
+    width: 100%;                       /* 親要素の幅いっぱいに表示 */
+    height: auto;                      /* 高さは自動調整（アスペクト比維持） */
+    object-fit: cover;                 /* 画像のサイズ調整方法 */
+    flex-shrink: 0;                    /* フレックスアイテムの縮小を防止 */
+    border-radius: var(--radius-sm);   /* 画像の角を丸くする */
+    box-shadow: var(--box-shadow-card); /* 画像に影を追加 */
 }
 
+/* 
+ * レスポンシブデザイン - タブレット向け（768px以下）
+ * タブレットサイズでのレイアウト調整
+ */
 @media (max-width: 768px) {
+    /* カードのレイアウトを縦型に変更 */
     .release-card,
     .tour-card {
-        flex-direction: column;
-        align-items: center;
-        width: 90%;
-        padding: var(--spacing-md);
-        gap: var(--spacing-md);
+        flex-direction: column;    /* 子要素を縦に並べる */
+        align-items: center;       /* 中央揃え */
+        width: 90%;                /* 画面幅の90%に調整 */
+        padding: var(--spacing-md); /* パディングを小さくする */
+        gap: var(--spacing-md);    /* 間隔を小さくする */
     }
     
+    /* 画像を画面幅に合わせて拡大 */
     .release-cover,
     .tour-card img,
     .tour-flyer {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
+        width: 100%;               /* 幅を100%に設定 */
+        max-width: 100%;           /* 最大幅も100%に */
+        margin: 0 auto;            /* 中央揃え */
     }
     
+    /* 情報セクションの幅調整 */
     .release-info,
     .tour-info {
-        width: 100%;
-        padding: var(--spacing-xs);
+        width: 100%;               /* 幅を100%に設定 */
+        padding: var(--spacing-xs); /* パディングを小さくする */
     }
     
+    /* サブスクリプションリンクを中央揃えに */
     .subscription-links {
-        justify-content: center;
+        justify-content: center;   /* 中央揃え */
     }
     
+    /* ツアー予約セクションのレイアウト調整 */
     .tour-reserve {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: column;    /* 子要素を縦に並べる */
+        align-items: flex-start;   /* 左揃え */
     }
     
+    /* ツアー予約ボタンの幅調整 */
     .tour-reserve a.button {
-        width: auto;
-        max-width: 100%;
-        overflow-wrap: break-word;
+        width: auto;               /* 自動幅設定 */
+        max-width: 100%;           /* はみ出さないように制限 */
+        overflow-wrap: break-word; /* 長いテキストを折り返し */
     }
     
+    /* タイトルを中央揃えに変更 */
     .release-title,
     .tour-info h3 {
-        text-align: center;
-        margin-top: var(--spacing-sm);
+        text-align: center;        /* テキストを中央揃え */
+        margin-top: var(--spacing-sm); /* 上部マージンを追加 */
     }
     
+    /* リリース日も中央揃えに */
     .release-date {
-        text-align: center;
+        text-align: center;        /* テキストを中央揃え */
     }
 }
 
+/* 
+ * レスポンシブデザイン - スマートフォン向け（480px以下）
+ * 小さい画面での更なるレイアウト調整
+ */
 @media (max-width: 480px) {
+    /* カードの余白と幅を調整 */
     .tour-card, 
     .release-card {
-        padding: var(--spacing-sm);
-        width: 95%;
+        padding: var(--spacing-sm); /* パディングをさらに小さく */
+        width: 95%;                /* 画面幅の95%に調整 */
     }
     
+    /* ツアー情報のテキストサイズを小さく */
     .tour-info a, 
     .tour-info p {
-        font-size: 0.9rem;
+        font-size: 0.9rem;        /* フォントサイズを小さく固定 */
     }
 }
 </style>
