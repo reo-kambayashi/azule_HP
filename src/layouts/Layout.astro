@@ -9,8 +9,6 @@ const base = import.meta.env.BASE_URL; // e.g. "/azule_HP/"
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- スタイルシートの読み込み方法 -->
-        <link rel="stylesheet" href={`${base}styles/Layout.css`} />
         <!-- Favicon -->
         <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
         <!-- Generator Meta -->
@@ -36,3 +34,11 @@ const base = import.meta.env.BASE_URL; // e.g. "/azule_HP/"
         <Footer />
     </body>
 </html>
+
+<style>
+/* レイアウト固有のスタイル */
+main.container {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+</style>
