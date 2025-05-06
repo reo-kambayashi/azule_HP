@@ -6,7 +6,7 @@ export default defineConfig({
     base: '/azule_HP/',
     output: "static",
     trailingSlash: 'always',
-    site: 'https://reo-kambayashi.github.io/azule_HP',
+    site: 'https://reo-kambayashi.github.io/azule_HP/',
     integrations: [sitemap()],
 });
 
