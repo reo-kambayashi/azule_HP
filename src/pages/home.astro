@@ -81,6 +81,20 @@ const base = import.meta.env.BASE_URL;
     margin-top: var(--spacing-md);
     margin-bottom: var(--spacing-md);
     text-align: center;
+    color: var(--color-primary);
+}
+
+/* リリース情報用のスタイル */
+.highlight {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.release {
+    display: inline-block; /* インラインブロック要素として表示 */
 }
 
 .hero .header-img {
@@ -108,11 +122,17 @@ const base = import.meta.env.BASE_URL;
 
     .hero h1 {
         margin: var(--spacing-sm) 0;
+        line-height: 1.5;
     }
 
     .hero .header-img {
         max-width: 100%;
         margin: var(--spacing-md) auto var(--spacing-lg);
+    }
+
+    .release {
+        display: block; /* 小さい画面では改行させる */
+        margin-top: var(--spacing-xs);
     }
 }
 </style>
