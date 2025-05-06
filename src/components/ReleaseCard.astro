@@ -19,7 +19,7 @@ const { title, cover, releaseDate, tracks, links} = Astro.props;
 // カバー画像のパスにベースパスを適用
 const coverPath = `${import.meta.env.BASE_URL}${cover}`;
 ---  
-<article class="release-card">  
+<article class="release-card fade-in-left">  
     <img  
         class="release-cover"  
         src={coverPath}  

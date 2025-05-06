@@ -14,7 +14,7 @@ const { tour } = Astro.props;
 const formattedTicketPrice = tour.ticketPrice?.replace(/\n/g, '<br />');
 const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
 ---
-<article class="tour-card">
+<article class="tour-card fade-in-left">
     <div class="tour-info">
         <h3>{tour.title}</h3>
         <p>日程: {tour.date}</p>
