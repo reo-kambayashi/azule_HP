@@ -1,11 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import '../styles/components.css';
+import ComponentsStyles from '../components/ComponentsStyles.astro';
 import '../styles/tour.css';
 import TourCard from '../components/TourCard.astro';
 import tours from '../data/tour.json';
 ---
 <Layout>
+    <ComponentsStyles />
     <section class="tour-page">
         <h1 class="tour-page-title">Live</h1>
         

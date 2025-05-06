@@ -1,6 +1,9 @@
-/* src/styles/components.css */
-/* 共通スタイルはglobal.cssに移動しました */
+---
+// src/components/ComponentsStyles.astro
+// コンポーネント関連のスタイルをまとめたAstroコンポーネント
+---
 
+<style is:global>
 /* === カード共通スタイルの拡張 === */
 .release-card,
 .tour-card {
@@ -221,4 +224,4 @@
         font-size: 0.9rem;
     }
 }
-
+</style>

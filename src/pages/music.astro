@@ -2,10 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import ReleaseCard from '../components/ReleaseCard.astro';
 import releases from '../data/releases.json';
-import '../styles/components.css';
+import ComponentsStyles from '../components/ComponentsStyles.astro';
 import '../styles/music.css';
 ---
 <Layout>
+    <ComponentsStyles />
     <section class="music-page">
         <h1 class="music-page-title">Releases</h1>
         
