@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import MemberCard from '../components/MemberCard.astro';
 import members from '../data/members.json';
+import ComponentsStyles from '../styles/ComponentsStyles.astro';
 
 // メンバーの型定義を追加
 interface Member {
@@ -16,6 +17,7 @@ const typedMembers = members as Member[];
 ---
 
 <Layout>
+    <ComponentsStyles />
     <section class="about-page">
         <div class="about">
             <div class="about-header fade-in-left">
@@ -27,7 +29,7 @@ const typedMembers = members as Member[];
             
             <div class="member-box">
                 <h2>Member</h2>
-                <div class="member-profile">
+                <div class="member-profile fade-in-left">
                     {typedMembers.map((member) => (
                         <MemberCard 
                             role={member.role} 

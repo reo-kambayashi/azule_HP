@@ -1,12 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import contact from '../data/contact.json';
+import ComponentsStyles from '../styles/ComponentsStyles.astro';
 
 const xHandle = new URL(contact.x).pathname.slice(1);
 const instagramHandle = new URL(contact.instagram).pathname.slice(1);
 const youtubeHandle = new URL(contact.youtube).pathname.slice(1);
 ---
 <Layout>
+    <ComponentsStyles />
     <section class="contact-page">
         <div class="contact fade-in-left">
             <h1>Contact / SNS</h1>
