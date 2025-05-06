@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Parts from '../components/parts.astro';
+import MemberCard from '../components/MemberCard.astro';
 ---
 
 <Layout>
@@ -16,10 +16,10 @@ import Parts from '../components/parts.astro';
             <div class="member-box">
                 <h2>Member</h2>
                 <div class="member-profile">
-                    <Parts role="Gt. Vo." memberName="鈴木啓明" description="hogehoge" imageSrc="images/masshiro.jpg" />
-                    <Parts role="Gt." memberName="神林励旺" description="hogehoge" imageSrc="images/masshiro.jpg" />
-                    <Parts role="Ba." memberName="大脇伊織" description="hogehoge" imageSrc="images/masshiro.jpg" />
-                    <Parts role="Dr." memberName="柴田そよか" description="hogehoge" imageSrc="images/masshiro.jpg" />
+                    <MemberCard role="Gt. Vo." memberName="鈴木啓明" description="hogehoge" imageSrc="images/masshiro.jpg" />
+                    <MemberCard role="Gt." memberName="神林励旺" description="hogehoge" imageSrc="images/masshiro.jpg" />
+                    <MemberCard role="Ba." memberName="大脇伊織" description="hogehoge" imageSrc="images/masshiro.jpg" />
+                    <MemberCard role="Dr." memberName="柴田そよか" description="hogehoge" imageSrc="images/masshiro.jpg" />
                 </div>            
             </div>
         </div>
@@ -57,51 +57,18 @@ import Parts from '../components/parts.astro';
 
 .member-box h2 {
     margin-bottom: var(--spacing-lg);
+    text-align: center;
 }
 
+/* メンバーカード用のグリッドレイアウトを改善 */
 .member-profile {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--spacing-lg);
     margin-top: var(--spacing-md);
 }
 
-.member {
-    padding: var(--spacing-md);
-    border-radius: var(--radius-base);
-    background-color: var(--color-white);
-    box-shadow: var(--box-shadow-card);
-}
-
-.member-content {
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-}
-
-.member-photo {
-    width: 120px;
-    height: auto;
-    border-radius: var(--radius-sm);
-    box-shadow: var(--box-shadow-card);
-}
-
-.member-info {
-    flex: 1;
-    min-width: 200px;
-}
-
-.member h3 {
-    margin-bottom: var(--spacing-sm);
-    font-size: 1.25rem;
-    text-align: left;
-}
-
-.member p {
-    margin: var(--spacing-xs) 0;
-    line-height: 1.4;
-}
+/* 古いメンバーカードのスタイルは不要なので削除 */
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
@@ -117,24 +84,13 @@ import Parts from '../components/parts.astro';
     
     .member-profile {
         gap: var(--spacing-md);
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
-    
-    .member {
-        padding: var(--spacing-sm);
-    }
-    
-    .member-content {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .member-info {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .member h3 {
-        text-align: center;
+}
+
+@media (max-width: 480px) {
+    .member-profile {
+        grid-template-columns: 1fr;
     }
 }
 </style>
