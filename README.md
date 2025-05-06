@@ -2,7 +2,7 @@
 
 Astroフレームワークを使用したAzuleのウェブサイトプロジェクトです。
 
-## 🚀 プロジェクト構成
+## プロジェクト構成
 
 ```
 /
@@ -12,6 +12,7 @@ Astroフレームワークを使用したAzuleのウェブサイトプロジェ�
 ├── tsconfig.json         // TypeScript設定
 ├── README.md             // このファイル
 ├── public/               // 静的ファイル（ビルド時にそのままコピーされる）
+│   ├── 404.html          // GitHub Pages用のリダイレクトページ
 │   ├── favicon.svg       // サイトのアイコン
 │   ├── images/           // 画像ファイル
 │   │   ├── logo.png
@@ -25,17 +26,6 @@ Astroフレームワークを使用したAzuleのウェブサイトプロジェ�
 │   │   └── releases/     // リリース作品の画像
 │   │       ├── Carte Vierge.JPG
 │   │       └── RepEat.jpg
-│   └── styles/           // CSSファイル
-│       ├── about.css
-│       ├── components.css
-│       ├── contact.css
-│       ├── Footer.css
-│       ├── global.css
-│       ├── Header.css
-│       ├── home.css
-│       ├── Layout.css
-│       ├── music.css
-│       └── tour.css
 └── src/                  // ソースコード
     ├── assets/           // アセットファイル
     │   ├── astro.svg
@@ -43,7 +33,7 @@ Astroフレームワークを使用したAzuleのウェブサイトプロジェ�
     ├── components/       // 再利用可能なコンポーネント
     │   ├── Footer.astro
     │   ├── Header.astro
-    │   ├── parts.astro
+    │   ├── MemberCard.astro
     │   ├── ReleaseCard.astro
     │   ├── TourCard.astro
     │   ├── TrackList.astro
@@ -62,19 +52,11 @@ Astroフレームワークを使用したAzuleのウェブサイトプロジェ�
     │   ├── music.astro
     │   └── tour.astro
     └── styles/           // CSSファイル（src内）
-        ├── about.css
-        ├── components.css
-        ├── contact.css
-        ├── Footer.css
-        ├── global.css
-        ├── Header.css
-        ├── home.css
-        ├── Layout.css
-        ├── music.css
-        └── tour.css
+        ├── ComponentsStyles.astro
+        ├── Global.astro
 ```
 
-## 📦 主要コンポーネントとファイルの役割
+## 主要コンポーネントとファイルの役割
 
 ### ページ (src/pages/)
 - `index.astro`: メインエントリーポイント
@@ -90,7 +72,7 @@ Astroフレームワークを使用したAzuleのウェブサイトプロジェ�
 - `ReleaseCard.astro`: リリース作品カード
 - `TourCard.astro`: ライブ情報カード
 - `TrackList.astro`: 曲目リスト
-- `parts.astro`: 共通UIパーツ
+- `MemberCard.astro`: メンバー情報カード
 - `Welcome.astro`: ウェルカムセクション
 
 ### データ (src/data/)
@@ -98,7 +80,7 @@ Astroフレームワークを使用したAzuleのウェブサイトプロジェ�
 - `tour.json`: ライブスケジュール情報
 - `contact.json`: 連絡先情報
 
-## 🧞 開発コマンド
+## 開発コマンド
 
 プロジェクトルートから実行できるコマンド:
 
@@ -109,7 +91,8 @@ Astroフレームワークを使用したAzuleのウェブサイトプロジェ�
 | `npm run build`     | 本番用ビルドを `./dist/` に生成           |
 | `npm run preview`   | デプロイ前にビルドをプレビュー             |
 
-## 📝 注意事項
+## 注意事項
 - 画像は `public/images` に保存してください
 - スタイルシートは対応するコンポーネントまたはページ名に合わせて命名してください
 - データ更新は `src/data` 内の対応するJSONファイルを編集してください
+- GitHub Pagesでのルーティングを正しく動作させるため、`astro.config.mjs`の`base`設定と`public/404.html`を適切に設定してください
