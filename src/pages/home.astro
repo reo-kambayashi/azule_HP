@@ -22,17 +22,16 @@ interface TourItem {
 // unknown を挟んで型アサーション
 const tour = tourData as unknown as TourItem[];
 const latestRelease = releases[0];  // 最新リリース（配列の先頭）
+const base = import.meta.env.BASE_URL;
 ---
 <Layout>
     <ComponentsStyles />
     <!-- ヒーローセクション -->
-    <section class="hero section">    
-        <h1>
-            goodなmusicを奏でたいyo!!
-        </h1>
+    <section class="hero section">
+        <h1>goodなmusicを奏でたいyo!!</h1>
         <img
             class="header-img"
-            src="images/top.JPG"
+            src={`${base}images/top.JPG`}
             alt="ヘッダー画像"
         />
     </section>
