@@ -1,0 +1,26 @@
+[
+    {
+        "role": "Gt. Vo.",
+        "memberName": "鈴木啓明",
+        "description": "hogehoge",
+        "imageSrc": "images/Hiro.JPG"
+    },
+    {
+        "role": "Gt.",
+        "memberName": "神林励旺",
+        "description": "hogehoge", 
+        "imageSrc": "images/Reo.JPG"
+    },
+    {
+        "role": "Ba.",
+        "memberName": "大脇伊織",
+        "description": "hogehoge",
+        "imageSrc": "images/Iori.jpg"
+    },
+    {
+        "role": "Dr.",
+        "memberName": "柴田そよか", 
+        "description": "hogehoge",
+        "imageSrc": "images/Shibata.JPG"
+    }
+]

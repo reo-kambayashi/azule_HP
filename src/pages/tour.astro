@@ -3,21 +3,41 @@ import Layout from '../layouts/Layout.astro';
 import ComponentsStyles from '../styles/ComponentsStyles.astro';
 import TourCard from '../components/TourCard.astro';
 import tours from '../data/tour.json';
+
+// ツアーデータをidによって分類
+const currentTours = tours.filter(tour => tour.id === 1);
+const pastTours = tours.filter(tour => tour.id === 2);
 ---
 <Layout>
     <ComponentsStyles />
     <section class="tour-page">
         <h1 class="tour-page-title">Live</h1>
         
+        <!-- 現在のツアー -->
         <div class="tour-section">
-            {tours.length > 0 ? (
-                <div class="tour-list">
-                    {tours.map((tour: any) => (
+            <h2 class="tour-section-title">Scheduled</h2>
+            {currentTours.length > 0 ? (
+                <div class="tour-list fade-in-left">
+                    {currentTours.map((tour: any) => (
                         <TourCard tour={tour} />
                     ))}
                 </div>
             ) : (
                 <p class="tour-empty">現在予定されているライブはありません。</p>
+            )}
+        </div>
+        
+        <!-- 過去のツアー -->
+        <div class="past-tour-section">
+            <h2 class="tour-section-title">Past</h2>
+            {pastTours.length > 0 ? (
+                <div class="tour-list fade-in-left">
+                    {pastTours.map((tour: any) => (
+                        <TourCard tour={tour} />
+                    ))}
+                </div>
+            ) : (
+                <p class="tour-empty">過去のライブ情報はありません。</p>
             )}
         </div>
     </section>
@@ -44,8 +64,22 @@ import tours from '../data/tour.json';
     text-align: center;
 }
 
-.tour-section {
+.tour-section-title {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    color: var(--color-primary);
+}
+
+.tour-section, .past-tour-section {
     margin-bottom: var(--spacing-2xl);
+}
+
+.past-tour-section {
+    margin-top: var(--spacing-2xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
 }
 
 .tour-empty {
@@ -53,9 +87,6 @@ import tours from '../data/tour.json';
     padding: var(--spacing-lg);
     color: var(--color-text-light);
     font-style: italic;
-}
-
-.tour-empty {
     background-color: var(--color-white);
     border-radius: var(--radius-base);
     box-shadow: var(--box-shadow-card);
@@ -70,12 +101,17 @@ import tours from '../data/tour.json';
         padding: var(--spacing-sm) 0;
     }
     
-    .tour-page-title {
+    .tour-page-title, .tour-section-title {
         margin-bottom: var(--spacing-md);
     }
     
-    .tour-section {
+    .tour-section, .past-tour-section {
         margin-bottom: var(--spacing-xl);
+    }
+    
+    .past-tour-section {
+        margin-top: var(--spacing-xl);
+        padding-top: var(--spacing-md);
     }
 }
 </style>

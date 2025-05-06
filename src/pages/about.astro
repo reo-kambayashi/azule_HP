@@ -1,6 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MemberCard from '../components/MemberCard.astro';
+import members from '../data/members.json';
+
+// メンバーの型定義を追加
+interface Member {
+    role: string;
+    memberName: string;
+    description: string;
+    imageSrc: string;
+}
+
+// 型付きメンバー配列として扱う
+const typedMembers = members as Member[];
 ---
 
 <Layout>
@@ -9,17 +21,21 @@ import MemberCard from '../components/MemberCard.astro';
             <div class="about-header">
                 <h1 class="about-title">Our Message</h1>
                 <p>
-                    啓明さんの思いの丈を書きまくる場所
+                    Now Editing...
                 </p>
             </div>
             
             <div class="member-box">
                 <h2>Member</h2>
                 <div class="member-profile">
-                    <MemberCard role="Gt. Vo." memberName="鈴木啓明" description="hogehoge" imageSrc="images/masshiro.jpg" />
-                    <MemberCard role="Gt." memberName="神林励旺" description="hogehoge" imageSrc="images/masshiro.jpg" />
-                    <MemberCard role="Ba." memberName="大脇伊織" description="hogehoge" imageSrc="images/masshiro.jpg" />
-                    <MemberCard role="Dr." memberName="柴田そよか" description="hogehoge" imageSrc="images/masshiro.jpg" />
+                    {typedMembers.map((member) => (
+                        <MemberCard 
+                            role={member.role} 
+                            memberName={member.memberName} 
+                            description={member.description} 
+                            imageSrc={member.imageSrc} 
+                        />
+                    ))}
                 </div>            
             </div>
         </div>
@@ -37,22 +53,30 @@ import MemberCard from '../components/MemberCard.astro';
     padding: var(--spacing-md) var(--spacing-md);
 }
 
-.about-header, 
-.member-box {
+.about-header {
     background: var(--color-white);
     border-radius: var(--radius-base);
     box-shadow: var(--box-shadow-card);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     margin-bottom: var(--spacing-xl);
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: var(--spacing-lg);
 }
 
-.about-title {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    margin-bottom: var(--spacing-md);
-    color: var(--color-primary);
+.member-box {
+    background: var(--color-white);
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
+    padding: var(--spacing-lg); /* マージンを統一 */
+    margin-bottom: var(--spacing-lg); /* 下部マージンを統一 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; /* はみ出しを防止 */
 }
 
 .member-box h2 {
@@ -61,29 +85,37 @@ import MemberCard from '../components/MemberCard.astro';
 }
 
 .member-profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-lg);
-    margin-top: var(--spacing-md);
-    width: 90%;
-    max-width: 600px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg); /* ギャップを統一 */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 var(--spacing-lg); /* 内側に統一された余白を追加 */
+}
+
+/* 中画面サイズでも同じギャップとマージンを適用 */
+@media (max-width: 1024px) {
+    .member-profile {
+        grid-template-columns: repeat(2, 1fr); /* 2列グリッド (2x2) */
+    }
 }
 
 @media (max-width: 768px) {
     .about {
-        padding: var(--spacing-sm);
+        padding: var(--spacing-lg);
     }
     
     .about-header, 
     .member-box {
-        padding: var(--spacing-md);
+        padding: var(--spacing-lg);
         margin-bottom: var(--spacing-lg);
     }
-    
+}
+
+/* 小画面サイズでも同じギャップとマージンを適用 */
+@media (max-width: 576px) {
     .member-profile {
-        gap: var(--spacing-md);
+        grid-template-columns: 1fr; /* 1列グリッド (1x4) */
     }
 }
 </style>
