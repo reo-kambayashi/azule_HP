@@ -27,8 +27,6 @@ import MemberCard from '../components/MemberCard.astro';
 </Layout>
 
 <style>
-/* 共通スタイルはglobal.cssに移動しました */
-
 .about-page {
     padding: var(--spacing-md) 0;
 }
@@ -39,7 +37,6 @@ import MemberCard from '../components/MemberCard.astro';
     padding: var(--spacing-md) var(--spacing-md);
 }
 
-/* カードコンポーネントを使用 */
 .about-header, 
 .member-box {
     background: var(--color-white);
@@ -49,7 +46,7 @@ import MemberCard from '../components/MemberCard.astro';
     margin-bottom: var(--spacing-xl);
     display: flex;
     flex-direction: column;
-    align-items: center; /* ボックス内の要素を水平方向に中央揃え */
+    align-items: center;
 }
 
 .about-title {
@@ -63,19 +60,17 @@ import MemberCard from '../components/MemberCard.astro';
     text-align: center;
 }
 
-/* メンバーカードを縦に並べ、中央に配置 */
 .member-profile {
     display: flex;
     flex-direction: column;
-    align-items: center; /* カードを水平方向に中央揃え */
-    justify-content: center; /* カードを垂直方向に中央揃え */
+    align-items: center;
+    justify-content: center;
     gap: var(--spacing-lg);
     margin-top: var(--spacing-md);
-    width: 90%; /* ボックス内で最大幅を取る */
-    max-width: 600px; /* メンバーカードの最大幅を制限 */
+    width: 90%;
+    max-width: 600px;
 }
 
-/* レスポンシブ対応 */
 @media (max-width: 768px) {
     .about {
         padding: var(--spacing-sm);

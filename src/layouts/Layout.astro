@@ -9,12 +9,9 @@ const base = import.meta.env.BASE_URL; // e.g. "/azule_HP/"
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- Favicon -->
         <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
-        <!-- Generator Meta -->
         <meta name="generator" content={Astro.generator} />
         <title>Azule Orchid</title>
-        <!-- Google Fonts (absolute URL remains valid) -->
         <link
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet"
@@ -22,21 +19,15 @@ const base = import.meta.env.BASE_URL; // e.g. "/azule_HP/"
         <Global />
     </head>
     <body>
-        <!-- Site Header -->
         <Header />
-
-        <!-- Main Content -->
         <main class="container">
         <slot />
         </main>
-
-        <!-- Site Footer -->
         <Footer />
     </body>
 </html>
 
 <style>
-/* レイアウト固有のスタイル */
 main.container {
     padding-top: 1rem;
     padding-bottom: 2rem;

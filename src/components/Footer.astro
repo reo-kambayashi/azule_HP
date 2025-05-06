@@ -1,5 +1,4 @@
 ---
-// CSSインポートは不要になります
 const base = import.meta.env.BASE_URL;
 ---
 <footer class="site-footer">
@@ -64,7 +63,6 @@ const base = import.meta.env.BASE_URL;
     background-color: rgba(0, 0, 0, 0.03);
 }
 
-/* レスポンシブ対応 */
 @media (max-width: 768px) {
     .site-footer .container {
         flex-direction: column;
@@ -82,7 +80,6 @@ const base = import.meta.env.BASE_URL;
     }
 }
 
-/* 小型モバイル向け追加対応 */
 @media (max-width: 480px) {
     .site-footer .footer-nav .nav-links {
         gap: var(--spacing-sm);

@@ -1,10 +1,4 @@
----
-// src/styles/ComponentsStyles.astro
-// コンポーネント関連のスタイルをまとめたAstroコンポーネント
----
-
 <style is:global>
-/* === カード共通スタイルの拡張 === */
 .release-card,
 .tour-card {
     width: var(--card-width);
@@ -20,7 +14,6 @@
     flex-wrap: wrap;
 }
 
-/* === ReleaseCard === */
 .release-cover {
     width: 300px;
     height: auto;
@@ -49,7 +42,6 @@
     margin-bottom: var(--spacing-md);
 }
 
-/* === TrackList === */
 .tracklist {
     list-style: decimal inside;
     padding: 0;
@@ -62,7 +54,6 @@
     color: var(--color-text);
 }
 
-/* === サブスクリプションリンク === */
 .subscription-links {
     display: flex;
     flex-wrap: wrap;
@@ -90,7 +81,6 @@
     text-decoration: none;
 }
 
-/* === TourPage and TourCard styles === */
 .tour {
     padding: var(--spacing-xl);
 }
@@ -103,7 +93,6 @@
     margin: 0 auto;
 }
 
-/* === TourCard component === */
 .tour-info {
     order: 1;
     flex: 1;
@@ -111,22 +100,22 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%; /* 幅を明示的に設定 */
-    box-sizing: border-box; /* パディングを含めた幅に設定 */
-    overflow-wrap: break-word; /* 長いテキストを強制的に折り返す */
-    word-wrap: break-word; /* IE/Edge互換性のため */
+    width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .tour-info a, 
 .tour-info p {
     margin: 0;
     font-size: clamp(0.9rem, 2.5vw, 1.3rem);
-    max-width: 100%; /* コンテナをはみ出さないように */
-    word-break: break-word; /* 必要に応じて単語の途中でも折り返す */
+    max-width: 100%;
+    word-break: break-word;
 }
 
 .tour-reserve {
-    width: 100%; /* 幅を明示的に設定 */
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -137,7 +126,7 @@
     color: var(--color-link);
     margin-top: var(--spacing-md);
     display: inline-block;
-    word-break: break-word; /* 長いURLも折り返す */
+    word-break: break-word;
 }
 
 .tour-reserve a:hover {
@@ -160,7 +149,6 @@
     box-shadow: var(--box-shadow-card);
 }
 
-/* === レスポンシブ対応 === */
 @media (max-width: 768px) {
     .release-card,
     .tour-card {
@@ -195,9 +183,9 @@
     }
     
     .tour-reserve a.button {
-        width: auto; /* ボタンの幅を内容に合わせる */
-        max-width: 100%; /* コンテナをはみ出さないように */
-        overflow-wrap: break-word; /* 長いテキストを強制的に折り返す */
+        width: auto;
+        max-width: 100%;
+        overflow-wrap: break-word;
     }
     
     .release-title,
@@ -211,7 +199,6 @@
     }
 }
 
-/* 小型モバイル向け追加対応 */
 @media (max-width: 480px) {
     .tour-card, 
     .release-card {

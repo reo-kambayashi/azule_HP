@@ -6,7 +6,6 @@ export interface Props {
     imageSrc: string;
 }
 const { role, memberName, description, imageSrc } = Astro.props;
-// 画像パスにベースパスを適用（他のカードコンポーネントと統一）
 const imageFullPath = `${import.meta.env.BASE_URL}${imageSrc}`;
 ---
 
