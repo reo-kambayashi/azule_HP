@@ -1,48 +1,115 @@
-# Astro Starter Kit: Basics
+# Azule ウェブサイト
 
-```sh
-npm create astro@latest -- --template basics
+Astroフレームワークを使用したAzuleのウェブサイトプロジェクトです。
+
+## 🚀 プロジェクト構成
+
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+├── astro.config.mjs      // Astroの設定ファイル
+├── env.d.ts              // 環境変数の型定義
+├── package.json          // 依存関係とスクリプト
+├── tsconfig.json         // TypeScript設定
+├── README.md             // このファイル
+├── public/               // 静的ファイル（ビルド時にそのままコピーされる）
+│   ├── favicon.svg       // サイトのアイコン
+│   ├── images/           // 画像ファイル
+│   │   ├── logo.png
+│   │   ├── masshiro.jpg
+│   │   ├── top.JPG
+│   │   ├── wood-texture.jpg
+│   │   ├── live_fliyer/  // ライブのフライヤー画像
+│   │   │   ├── 2025-05-09.JPG
+│   │   │   ├── 2025-05-17.JPG
+│   │   │   └── 2025-06-29.JPG
+│   │   └── releases/     // リリース作品の画像
+│   │       ├── Carte Vierge.JPG
+│   │       └── RepEat.jpg
+│   └── styles/           // CSSファイル
+│       ├── about.css
+│       ├── components.css
+│       ├── contact.css
+│       ├── Footer.css
+│       ├── global.css
+│       ├── Header.css
+│       ├── home.css
+│       ├── Layout.css
+│       ├── music.css
+│       └── tour.css
+└── src/                  // ソースコード
+    ├── assets/           // アセットファイル
+    │   ├── astro.svg
+    │   └── background.svg
+    ├── components/       // 再利用可能なコンポーネント
+    │   ├── Footer.astro
+    │   ├── Header.astro
+    │   ├── parts.astro
+    │   ├── ReleaseCard.astro
+    │   ├── TourCard.astro
+    │   ├── TrackList.astro
+    │   └── Welcome.astro
+    ├── data/             // JSONデータ
+    │   ├── contact.json
+    │   ├── releases.json
+    │   └── tour.json
+    ├── layouts/          // ページレイアウト
+    │   └── Layout.astro
+    ├── pages/            // ページコンポーネント
+    │   ├── about.astro
+    │   ├── contact.astro
+    │   ├── home.astro
+    │   ├── index.astro
+    │   ├── music.astro
+    │   └── tour.astro
+    └── styles/           // CSSファイル（src内）
+        ├── about.css
+        ├── components.css
+        ├── contact.css
+        ├── Footer.css
+        ├── global.css
+        ├── Header.css
+        ├── home.css
+        ├── Layout.css
+        ├── music.css
+        └── tour.css
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 📦 主要コンポーネントとファイルの役割
 
-## 🧞 Commands
+### ページ (src/pages/)
+- `index.astro`: メインエントリーポイント
+- `home.astro`: ホームページコンテンツ
+- `about.astro`: バンド紹介ページ
+- `music.astro`: 音楽作品紹介ページ
+- `tour.astro`: ライブ情報ページ
+- `contact.astro`: 連絡先ページ
 
-All commands are run from the root of the project, from a terminal:
+### コンポーネント (src/components/)
+- `Header.astro`: サイトヘッダーとナビゲーション
+- `Footer.astro`: サイトフッター
+- `ReleaseCard.astro`: リリース作品カード
+- `TourCard.astro`: ライブ情報カード
+- `TrackList.astro`: 曲目リスト
+- `parts.astro`: 共通UIパーツ
+- `Welcome.astro`: ウェルカムセクション
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### データ (src/data/)
+- `releases.json`: リリース作品情報
+- `tour.json`: ライブスケジュール情報
+- `contact.json`: 連絡先情報
 
-## 👀 Want to learn more?
+## 🧞 開発コマンド
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+プロジェクトルートから実行できるコマンド:
+
+| コマンド             | 動作                                     |
+| :------------------ | :--------------------------------------- |
+| `npm install`       | 依存関係をインストール                     |
+| `npm run dev`       | 開発サーバーを `localhost:4321` で起動     |
+| `npm run build`     | 本番用ビルドを `./dist/` に生成           |
+| `npm run preview`   | デプロイ前にビルドをプレビュー             |
+
+## 📝 注意事項
+- 画像は `public/images` に保存してください
+- スタイルシートは対応するコンポーネントまたはページ名に合わせて命名してください
+- データ更新は `src/data` 内の対応するJSONファイルを編集してください
