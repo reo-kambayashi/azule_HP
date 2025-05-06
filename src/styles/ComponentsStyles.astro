@@ -18,6 +18,16 @@
     border-radius: var(--radius-base);  /* 角を丸くする */
     box-shadow: var(--box-shadow-card); /* カードに影を追加 */
     flex-wrap: wrap;                    /* 必要に応じて折り返し */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+/* リリースカードとツアーカードのホバーアニメーション */
+.release-card:hover,
+.tour-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* リリースカバー画像のスタイル */
@@ -28,6 +38,11 @@
     flex-shrink: 0;                      /* フレックスアイテムの縮小を防止 */
     border-radius: var(--radius-sm);     /* 画像の角を丸くする */
     box-shadow: var(--box-shadow-card);  /* 画像に影を追加 */
+    transition: transform 0.5s ease;
+}
+
+.release-cover:hover {
+    transform: scale(1.05);
 }
 
 /* リリース情報のスタイル - タイトル、日付、トラックリストなどの情報を格納 */
@@ -86,6 +101,21 @@
     border-radius: var(--radius-base);  /* 角を丸くする */
     transition: var(--transition-base); /* アニメーション効果 */
     text-decoration: none;              /* 下線を削除 */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.sub-link:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--color-secondary);
+    transition: width 0.3s ease;
+    z-index: -1;
 }
 
 /* ホバー時のサブスクリプションリンクスタイル */
@@ -94,6 +124,10 @@
     color: var(--color-white);               /* テキスト色を白に */
     transform: translateY(-2px);             /* 少し上に移動する効果 */
     text-decoration: none;                   /* 下線なし */
+}
+
+.sub-link:hover:before {
+    width: 100%;
 }
 
 /* ツアーセクション全体のスタイル */
@@ -162,6 +196,8 @@
     padding: var(--spacing-md); /* 内側の余白 */
     flex: 0 0 300px;          /* 幅を300pxに固定、伸縮なし */
     box-sizing: border-box;   /* パディングとボーダーを幅に含める */
+    overflow: hidden;
+    border-radius: var(--radius-sm);
 }
 
 /* ツアーカード内の画像のスタイル */
@@ -172,6 +208,17 @@
     flex-shrink: 0;                    /* フレックスアイテムの縮小を防止 */
     border-radius: var(--radius-sm);   /* 画像の角を丸くする */
     box-shadow: var(--box-shadow-card); /* 画像に影を追加 */
+    transition: transform 0.5s ease;
+}
+
+.tour-card img:hover {
+    transform: scale(1.05);
+}
+
+/* 画像コンテナ用のオーバーフロー設定 */
+.release-cover-container {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
 }
 
 /* 
@@ -253,5 +300,48 @@
     .tour-info p {
         font-size: 0.9rem;        /* フォントサイズを小さく固定 */
     }
+}
+
+/* ページ読み込み時のフェードインアニメーション */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* カード順にアニメーション遅延を追加 */
+.release-card:nth-child(1),
+.tour-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.release-card:nth-child(2),
+.tour-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.release-card:nth-child(3),
+.tour-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* スクロールアニメーション用クラス */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 </style>
