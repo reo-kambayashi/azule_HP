@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Parts from '../components/parts.astro';
-import '../styles/about.css';
 ---
 
 <Layout>
@@ -26,3 +25,116 @@ import '../styles/about.css';
         </div>
     </section>
 </Layout>
+
+<style>
+/* 共通スタイルはglobal.cssに移動しました */
+
+.about-page {
+    padding: var(--spacing-md) 0;
+}
+
+.about {
+    max-width: var(--card-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-md) var(--spacing-md);
+}
+
+/* カードコンポーネントを使用 */
+.about-header, 
+.member-box {
+    background: var(--color-white);
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.about-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary);
+}
+
+.member-box h2 {
+    margin-bottom: var(--spacing-lg);
+}
+
+.member-profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+}
+
+.member {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-base);
+    background-color: var(--color-white);
+    box-shadow: var(--box-shadow-card);
+}
+
+.member-content {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.member-photo {
+    width: 120px;
+    height: auto;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--box-shadow-card);
+}
+
+.member-info {
+    flex: 1;
+    min-width: 200px;
+}
+
+.member h3 {
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.25rem;
+    text-align: left;
+}
+
+.member p {
+    margin: var(--spacing-xs) 0;
+    line-height: 1.4;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .about {
+        padding: var(--spacing-sm);
+    }
+    
+    .about-header, 
+    .member-box {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .member-profile {
+        gap: var(--spacing-md);
+    }
+    
+    .member {
+        padding: var(--spacing-sm);
+    }
+    
+    .member-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .member-info {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .member h3 {
+        text-align: center;
+    }
+}
+</style>
