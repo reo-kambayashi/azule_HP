@@ -2,6 +2,9 @@
 
 Astroフレームワークを使用したAzuleのウェブサイトプロジェクトです。
 
+## プロジェクト概要
+Azuleの公式ウェブサイトを構築するためのプロジェクトです。Astroを使用しており、静的サイト生成を活用しています。
+
 ## プロジェクト構成
 
 ```
@@ -10,7 +13,23 @@ Astroフレームワークを使用したAzuleのウェブサイトプロジェ�
 ├── env.d.ts              // 環境変数の型定義
 ├── package.json          // 依存関係とスクリプト
 ├── tsconfig.json         // TypeScript設定
-├── README.md             // このファイル
+├── README.md             // プロジェクト概要と開発ガイド
+├── doc/                  // ドキュメント
+│   ├── about.md          // Aboutページの説明
+│   ├── ComponentsStyles.md // コンポーネントスタイルの説明
+│   ├── contact.md        // Contactページの説明
+│   ├── Footer.md         // Footerコンポーネントの説明
+│   ├── Global.md         // グローバルスタイルの説明
+│   ├── Header.md         // Headerコンポーネントの説明
+│   ├── home.md           // Homeページの説明
+│   ├── index.md          // Indexページの説明
+│   ├── MemberCard.md     // MemberCardコンポーネントの説明
+│   ├── music.md          // Musicページの説明
+│   ├── ReleaseCard.md    // ReleaseCardコンポーネントの説明
+│   ├── tour.md           // Tourページの説明
+│   ├── TourCard.md       // TourCardコンポーネントの説明
+│   ├── TrackList.md      // TrackListコンポーネントの説明
+│   └── Welcome.md        // Welcomeコンポーネントの説明
 ├── public/               // 静的ファイル（ビルド時にそのままコピーされる）
 │   ├── 404.html          // GitHub Pages用のリダイレクトページ
 │   ├── favicon.svg       // サイトのアイコン
@@ -91,8 +110,25 @@ Astroフレームワークを使用したAzuleのウェブサイトプロジェ�
 | `npm run build`     | 本番用ビルドを `./dist/` に生成           |
 | `npm run preview`   | デプロイ前にビルドをプレビュー             |
 
+## ドキュメントリンク
+- [Aboutページの説明](./doc/about.md)
+- [コンポーネントスタイルの説明](./doc/ComponentsStyles.md)
+- [Contactページの説明](./doc/contact.md)
+- [Footerコンポーネントの説明](./doc/Footer.md)
+- [グローバルスタイルの説明](./doc/Global.md)
+- [Headerコンポーネントの説明](./doc/Header.md)
+- [Homeページの説明](./doc/home.md)
+- [Indexページの説明](./doc/index.md)
+- [MemberCardコンポーネントの説明](./doc/MemberCard.md)
+- [Musicページの説明](./doc/music.md)
+- [ReleaseCardコンポーネントの説明](./doc/ReleaseCard.md)
+- [Tourページの説明](./doc/tour.md)
+- [TourCardコンポーネントの説明](./doc/TourCard.md)
+- [TrackListコンポーネントの説明](./doc/TrackList.md)
+- [Welcomeコンポーネントの説明](./doc/Welcome.md)
+
 ## 注意事項
-- 画像は `public/images` に保存してください
-- スタイルシートは対応するコンポーネントまたはページ名に合わせて命名してください
-- データ更新は `src/data` 内の対応するJSONファイルを編集してください
-- GitHub Pagesでのルーティングを正しく動作させるため、`astro.config.mjs`の`base`設定と`public/404.html`を適切に設定してください
+- 画像は `public/images` に保存してください。
+- スタイルシートは対応するコンポーネントまたはページ名に合わせて命名してください。
+- データ更新は `src/data` 内の対応するJSONファイルを編集してください。
+- GitHub Pagesでのルーティングを正しく動作させるため、`astro.config.mjs`の`base`設定と`public/404.html`を適切に設定してください。
