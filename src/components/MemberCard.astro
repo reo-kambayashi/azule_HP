@@ -9,7 +9,7 @@ const { role, memberName, description, imageSrc } = Astro.props;
 const imageFullPath = `${import.meta.env.BASE_URL}${imageSrc}`;
 ---
 
-<article class="member-card fade-in-up">
+<article class="member-card fade-in-left">
     <div class="member-photo-container">
         <img src={imageFullPath} alt={memberName} class="member-photo" />
     </div>
