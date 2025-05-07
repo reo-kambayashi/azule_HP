@@ -42,6 +42,7 @@
 │   │   └── releases/     // リリース作品の画像
 │   │       ├── Carte Vierge.JPG
 │   │       └── RepEat.jpg
+│   └── js/               // JavaScriptファイル
 └── src/                  // ソースコード
     ├── assets/           // アセットファイル
     │   ├── astro.svg
@@ -71,3 +72,5 @@
         ├── ComponentsStyles.astro
         ├── Global.astro
 ```
+
+各フォルダやファイルの詳細については、対応するドキュメントをご覧ください。
