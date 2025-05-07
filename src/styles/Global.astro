@@ -60,6 +60,9 @@
     --breakpoint-md: 768px;  /* タブレット用 */
     --breakpoint-lg: 1024px; /* 小型デスクトップ用 */
     --breakpoint-xl: 1280px; /* 大型デスクトップ用 */
+    
+    /* タッチターゲットサイズ - モバイルでのタップしやすさを向上 */
+    --touch-target-min: 44px; /* 最小タッチエリア (Apple HIG推奨) */
 }
 
 /* HTMLのベーススタイル */
@@ -81,6 +84,7 @@ body {
     flex-direction: column;    /* 縦方向にアイテムを配置 */
     min-height: 100vh;         /* 最小の高さをビューポートの高さに設定 */
     overflow-x: hidden;        /* 横方向のスクロールを無効化 */
+    -webkit-overflow-scrolling: touch; /* iOS用のスムーズスクロール */
 }
 
 /* 見出し要素のスタイル */
@@ -106,6 +110,9 @@ a {
     color: inherit;                   /* 親要素から色を継承 */
     text-decoration: none;            /* 下線を削除 */
     transition: var(--transition-base); /* トランジション効果を追加 */
+    min-height: var(--touch-target-min); /* タップエリアの最小高さ */
+    display: inline-flex;             /* インラインフレックスボックスとして表示 */
+    align-items: center;              /* 縦方向中央揃え */
 }
 
 /* ホバー時のリンクスタイル */
@@ -128,6 +135,9 @@ main.container {
     flex: 1;                          /* 空きスペースを埋める */
     padding-top: var(--spacing-md);   /* 上部のパディング */
     padding-bottom: var(--spacing-xl); /* 下部のパディング */
+    box-sizing: border-box;           /* パディングを幅の計算に含める */
+    width: 100%;                      /* 幅を100%に設定 */
+    overflow-x: hidden;               /* 横方向のスクロールを無効化 */
 }
 
 /* カードコンポーネントのスタイル */
@@ -141,11 +151,15 @@ main.container {
     max-width: var(--card-max-width);  /* 最大幅を制限 */
     margin-left: auto;                 /* 左右の自動マージンで */
     margin-right: auto;                /* 中央配置する */
+    box-sizing: border-box;            /* パディングを幅の計算に含める */
 }
 
 /* ボタンのスタイル */
 .button {
-    display: inline-block;              /* インラインブロック要素として表示 */
+    display: inline-flex;              /* インラインフレックス要素として表示 */
+    justify-content: center;           /* 水平方向中央揃え */
+    align-items: center;               /* 垂直方向中央揃え */
+    min-height: var(--touch-target-min); /* タップエリアの最小高さ */
     padding: var(--spacing-sm) var(--spacing-md); /* パディング（上下、左右） */
     font-weight: 600;                   /* フォントの太さ */
     background-color: transparent;      /* 背景を透明に */
@@ -169,6 +183,8 @@ main.container {
 /* セクションのスタイル - コンテンツのまとまりを表す */
 .section {
     margin-bottom: var(--spacing-2xl); /* 下部マージン */
+    width: 100%;                       /* 幅を100%に設定 */
+    box-sizing: border-box;            /* パディングを幅の計算に含める */
 }
 
 /* 画像のスタイル */
@@ -177,6 +193,7 @@ img {
     height: auto;      /* アスペクト比を維持 */
     display: block;    /* ブロック要素として表示 */
     margin: 0 auto;    /* 中央配置 */
+    will-change: transform; /* GPUアクセラレーションを有効化 */
 }
 
 /* グリッドレイアウト - 複数の要素を均等に配置 */
@@ -184,6 +201,8 @@ img {
     display: grid;                                  /* グリッドレイアウトを使用 */
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* レスポンシブなカラム設定 */
     gap: var(--spacing-lg);                         /* グリッドアイテム間の間隔 */
+    width: 100%;                                   /* 幅を100%に設定 */
+    box-sizing: border-box;                        /* パディングを幅の計算に含める */
 }
 
 /* フレックスコンテナ - 柔軟なレイアウト用 */
@@ -191,6 +210,8 @@ img {
     display: flex;           /* フレックスボックスレイアウトを使用 */
     flex-wrap: wrap;         /* 必要に応じて折り返す */
     gap: var(--spacing-md);  /* アイテム間の間隔 */
+    width: 100%;             /* 幅を100%に設定 */
+    box-sizing: border-box;  /* パディングを幅の計算に含める */
 }
 
 /* テーブルのスタイル */
@@ -249,7 +270,7 @@ table {
         --card-width: 90%;       /* カード幅をさらに広げる */
     }
     html {
-        font-size: 15px;         /* ベースフォントサイズを小さく */
+        font-size: 16px;         /* モバイルでも16pxを維持（可読性向上） */
     }
     h1 { font-size: 2rem; }      /* 見出しサイズ調整 */
     h2 { font-size: 1.5rem; }    /* 見出しサイズ調整 */
@@ -265,6 +286,11 @@ table {
     .button {
         width: 100%;              /* ボタンを幅いっぱいに */
         margin-bottom: var(--spacing-sm); /* ボタンの下にマージンを追加 */
+        padding: var(--spacing-md) var(--spacing-md); /* パディングを増やしてタップしやすく */
+    }
+    /* リンクの間隔をモバイルで広げる */
+    a:not(.button) {
+        padding: var(--spacing-xs) 0; /* 上下のパディングを追加 */
     }
 }
 
@@ -275,19 +301,41 @@ table {
         --spacing-md: 0.8rem;     /* 中スペースをさらに小さく */
     }
     html {
-        font-size: 14px;          /* ベースフォントサイズをさらに小さく */
+        font-size: 16px;          /* 可読性のため16pxを維持 */
     }
     h1 { font-size: 1.75rem; }    /* 見出しサイズ調整 */
     h2 { font-size: 1.25rem; }    /* 見出しサイズ調整 */
     h3 { font-size: 1.1rem; }     /* 見出しサイズ調整 */
     .card {
         padding: var(--spacing-sm); /* カードのパディングをさらに減らす */
+        width: 95%;                /* 画面幅に合わせて調整 */
     }
     .grid {
         grid-template-columns: 1fr; /* グリッドを1列に */
     }
     .container {
         padding: 0 calc(var(--container-padding) * 0.75); /* コンテナパディングを小さく */
+    }
+    /* ボタン間のスペースを確保 */
+    .button + .button {
+        margin-top: var(--spacing-md);
+    }
+}
+
+/* 小型スマートフォン向け (375px以下) */
+@media (max-width: 375px) {
+    :root {
+        --card-width: 100%;       /* カード幅をいっぱいに */
+        --container-padding: var(--spacing-sm); /* コンテナの内側余白を減らす */
+    }
+    .card {
+        border-radius: var(--radius-sm); /* 角丸を小さく */
+    }
+    h1 { font-size: 1.5rem; }    /* 見出しサイズをさらに小さく */
+    h2 { font-size: 1.2rem; }    /* 見出しサイズをさらに小さく */
+    /* ボタンのテキストサイズを調整 */
+    .button {
+        font-size: 0.9rem;
     }
 }
 </style>

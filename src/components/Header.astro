@@ -6,7 +6,7 @@ const base = import.meta.env.BASE_URL;
     <div class="container">
         <h1 class="logo">
             <a href={import.meta.env.BASE_URL}>
-                <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="Azule Orchid" />
+                <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="Azule Orchid" fetchpriority="high" />
             </a>
         </h1>
         <button class="hamburger-menu" aria-label="メニューを開く" aria-expanded="false" aria-controls="main-nav-list">
@@ -61,6 +61,8 @@ const base = import.meta.env.BASE_URL;
     border-bottom: 3px solid var(--color-border);
     background-color: var(--header-bg);
     box-shadow: var(--box-shadow-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .site-header .container {
@@ -78,6 +80,8 @@ const base = import.meta.env.BASE_URL;
     font-weight: 700;
     text-decoration: none;
     color: var(--color-text);
+    display: flex;
+    align-items: center;
 }
 
 .site-header .logo img {
@@ -99,6 +103,8 @@ const base = import.meta.env.BASE_URL;
     cursor: pointer;
     padding: 0;
     z-index: 1001; /* ナビゲーションより手前に */
+    min-height: var(--touch-target-min); /* タップエリアの最小高さ */
+    min-width: var(--touch-target-min); /* タップエリアの最小幅 */
 }
 
 .hamburger-bar {
@@ -133,6 +139,8 @@ const base = import.meta.env.BASE_URL;
     transition: transform 0.3s ease-in-out;
     padding-bottom: var(--spacing-md);
     z-index: 1000; /* ロゴや他の要素よりは手前、ハンバーガーボタンよりは奥 */
+    max-height: 80vh; /* ビューポート高さの80%までに制限 */
+    overflow-y: auto; /* 内容が多い場合はスクロール可能に */
 }
 
 .site-header .main-nav.is-active {
@@ -147,7 +155,7 @@ const base = import.meta.env.BASE_URL;
     flex-direction: column; /* 常に縦並び */
     width: 100%;             
     align-items: center; /* 中央揃え */
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs); /* 間隔を狭く */
     padding-top: var(--spacing-md);
 }
 
@@ -163,7 +171,7 @@ const base = import.meta.env.BASE_URL;
     justify-content: center; /* 中央揃え */
     align-items: center; /* 中央揃え */
     width: 100%;
-    padding: var(--spacing-sm);
+    padding: var(--spacing-md); /* パディングを増やしてタップしやすく */
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
@@ -174,15 +182,17 @@ const base = import.meta.env.BASE_URL;
     border-radius: var(--radius-sm);
     transition: var(--transition-base);
     text-decoration: none;
+    min-height: var(--touch-target-min); /* タップエリアの最小高さ */
 }
 
 .site-header .main-nav .nav-links li .nav-link .en {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
+    margin-bottom: var(--spacing-xs);
 }
 
 .site-header .main-nav .nav-links li .nav-link .jp {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: normal;
     opacity: 0.9;
 }
@@ -191,6 +201,13 @@ const base = import.meta.env.BASE_URL;
     color: var(--color-link-hover);
     background-color: rgba(0,0,0,0.05); /* ホバー時の背景色を少しつける */
     text-decoration: none;
+}
+
+/* フォーカス状態の視覚的フィードバック */
+.hamburger-menu:focus,
+.site-header .main-nav .nav-links li .nav-link:focus {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
 }
 
 /* メディアクエリの調整 */
@@ -203,26 +220,37 @@ const base = import.meta.env.BASE_URL;
         margin-top: 0;
         height: clamp(1.2rem, 4vw, 2.5rem);
     }
-    /* ハンバーガーメニューは既にデフォルトで表示されているため、ここでの display: flex は不要 */
 }
 
 @media (max-width: 480px) {
     .site-header .main-nav .nav-links li .nav-link {
         font-size: 0.9rem; /* さらに小さい画面用にフォントサイズ調整 */
+        padding: var(--spacing-sm) var(--spacing-md); /* パディング調整 */
+    }
+    
+    .site-header .main-nav .nav-links li .nav-link .en {
+        font-size: 0.9rem;
+    }
+    
+    .site-header .main-nav .nav-links li .nav-link .jp {
+        font-size: 0.75rem;
     }
 }
 
-/* 
-   370pxのメディアクエリは、上記のスタイルでカバーされるため、
-   特定の調整が不要であれば削除またはコメントアウトも検討できます。
-*/
-/*
-@media (max-width: 370px) {
-    // .site-header .main-nav .nav-links li .nav-link {
-    //     font-size: 0.8rem; 
-    // }
+/* スモールフォン向け改善 */
+@media (max-width: 375px) {
+    .site-header .container {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .site-header .logo img {
+        height: clamp(1rem, 4vw, 2rem);
+    }
+    
+    .hamburger-menu {
+        transform: scale(0.9); /* 少し小さく */
+    }
 }
-*/
 
 /* PCサイズ（769px以上）のメディアクエリ */
 @media (min-width: 769px) {
@@ -236,6 +264,8 @@ const base = import.meta.env.BASE_URL;
         box-shadow: none; /* 影を削除 */
         background: none; /* 背景を透明に */
         padding: 0; /* パディングをリセット */
+        max-height: none; /* 高さ制限を解除 */
+        overflow-y: visible; /* スクロールを無効化 */
     }
     
     .site-header .main-nav .nav-links {
@@ -268,6 +298,13 @@ const base = import.meta.env.BASE_URL;
             mainNav.classList.toggle('is-active');
             const isActive = mainNav.classList.contains('is-active');
             hamburger.setAttribute('aria-expanded', isActive.toString());
+            
+            // スクロール制御（メニュー表示中はスクロール禁止）
+            if (isActive) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         });
 
         // メニュー外クリックでメニューを閉じる
@@ -281,6 +318,28 @@ const base = import.meta.env.BASE_URL;
                 hamburger.classList.remove('is-active');
                 mainNav.classList.remove('is-active');
                 hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // メニュー内のリンクをクリックした際にメニューを閉じる
+        const navLinks = mainNav.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('is-active');
+                mainNav.classList.remove('is-active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // ESCキーでメニューを閉じる（アクセシビリティ向上）
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && mainNav.classList.contains('is-active')) {
+                hamburger.classList.remove('is-active');
+                mainNav.classList.remove('is-active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
             }
         });
     }
