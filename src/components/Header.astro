@@ -64,7 +64,7 @@ const base = import.meta.env.BASE_URL;
 
 /* ハンバーガーメニューボタン */
 .hamburger-menu {
-    display: none; /* デフォルトでは非表示 */
+    display: flex; /* 常に表示 */
     flex-direction: column;
     justify-content: space-around;
     width: 30px;
@@ -96,124 +96,92 @@ const base = import.meta.env.BASE_URL;
     transform: translateY(-8px) rotate(-45deg);
 }
 
+/* メインナビゲーションのデフォルトスタイル（ハンバーガーメニューで開閉） */
+.site-header .main-nav {
+    position: absolute;
+    top: 100%; /* ヘッダーのすぐ下に配置 */
+    left: 0;
+    width: 100%;
+    background-color: var(--header-bg);
+    box-shadow: var(--box-shadow-card);
+    transform: translateY(-150%); /* 初期状態では画面外に隠す */
+    transition: transform 0.3s ease-in-out;
+    padding-bottom: var(--spacing-md);
+    z-index: 1000; /* ロゴや他の要素よりは手前、ハンバーガーボタンよりは奥 */
+}
+
+.site-header .main-nav.is-active {
+    transform: translateY(0); /* アクティブ時に表示 */
+}
 
 .site-header .main-nav .nav-links {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid; /* デスクトップではグリッドレイアウト */
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    gap: var(--spacing-md);
+    display: flex;           
+    flex-direction: column; /* 常に縦並び */
+    width: 100%;             
+    align-items: center; /* 中央揃え */
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-md);
+}
+
+.site-header .main-nav .nav-links li {
+    margin: 0;
+    width: 90%; /* リンクの幅を調整 */
+    text-align: center;
 }
 
 .site-header .main-nav .nav-links li .nav-link {
-    display: inline-block;
-    padding: var(--spacing-sm) var(--spacing-md);
-    margin: 0 var(--spacing-xs);
+    display: block; /* リンクをブロック要素にして幅いっぱいにする */
+    width: 100%;
+    padding: var(--spacing-sm);
+    margin: 0;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    font-size: clamp(0.75rem, 1.5vw, 1rem); 
+    font-size: 1rem; 
     color: var(--header-txt);
     background-color: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-base);
+    border: 1px solid transparent; /* モバイルでは枠線を消すか、別途スタイル調整 */
+    border-radius: var(--radius-sm);
     transition: var(--transition-base);
+    text-decoration: none;
 }
 
 .site-header .main-nav .nav-links li .nav-link:hover {
     color: var(--color-link-hover);
-    transform: translateY(-2px);
+    background-color: rgba(0,0,0,0.05); /* ホバー時の背景色を少しつける */
     text-decoration: none;
 }
 
+/* メディアクエリの調整 */
 @media (max-width: 768px) {
     .site-header .container {
-        /* flex-direction: row; ロゴとハンバーガーを横並びにするため */
-        /* align-items: center; */
         padding: var(--spacing-sm) var(--spacing-md);
     }
 
-    .site-header .logo {
-        margin-bottom: 0; /* モバイルではロゴ下のマージンを削除 */
-    }
-    
     .site-header .logo img {
-        margin-top: 0; /* モバイルではロゴ上のマージンを削除 */
-        height: clamp(1.2rem, 4vw, 2.5rem); /* モバイル用のロゴサイズ調整 */
+        margin-top: 0;
+        height: clamp(1.2rem, 4vw, 2.5rem);
     }
-
-    .hamburger-menu {
-        display: flex; /* 768px以下で表示 */
-    }
-
-    .site-header .main-nav {
-        /* モバイルではナビゲーションを絶対配置または固定配置で表示 */
-        position: absolute;
-        top: 100%; /* ヘッダーのすぐ下に配置 */
-        left: 0;
-        width: 100%;
-        background-color: var(--header-bg);
-        box-shadow: var(--box-shadow-card);
-        transform: translateY(-150%); /* 初期状態では画面外に隠す */
-        transition: transform 0.3s ease-in-out;
-        padding-bottom: var(--spacing-md);
-    }
-
-    .site-header .main-nav.is-active {
-        transform: translateY(0); /* アクティブ時に表示 */
-    }
-
-    .site-header .main-nav .nav-links {
-        display: flex;           
-        flex-direction: column; /* モバイルでは縦並び */
-        width: 100%;             
-        align-items: center; /* 中央揃え */
-        gap: var(--spacing-sm);
-        padding-top: var(--spacing-md);
-    }
-
-    .site-header .main-nav .nav-links li {
-        margin: 0;
-        width: 90%; /* リンクの幅を調整 */
-        text-align: center;
-    }
-
-    .site-header .main-nav .nav-links li .nav-link {
-        display: block; /* リンクをブロック要素にして幅いっぱいにする */
-        width: 100%;
-        font-size: 1rem; /* モバイルでのフォントサイズ調整 */
-        padding: var(--spacing-sm);
-        margin: 0;
-        border-radius: var(--radius-sm);
-    }
+    /* ハンバーガーメニューは既にデフォルトで表示されているため、ここでの display: flex は不要 */
 }
 
 @media (max-width: 480px) {
-    /* 480px以下では特に変更なし、768pxのスタイルを継承 */
     .site-header .main-nav .nav-links li .nav-link {
         font-size: 0.9rem; /* さらに小さい画面用にフォントサイズ調整 */
     }
 }
 
-/* 370pxのメディアクエリは、上記の768pxのスタイルでカバーされるため、
+/* 
+   370pxのメディアクエリは、上記のスタイルでカバーされるため、
    特定の調整が不要であれば削除またはコメントアウトも検討できます。
-   もし残す場合は、ハンバーガーメニューのスタイルとの整合性を確認してください。 */
+*/
 /*
 @media (max-width: 370px) {
-    .site-header .main-nav .nav-links {
-        // grid-template-columns: 1fr; // ハンバーガーメニューでは不要
-        // width: 90%;
-    }
-    
-    .site-header .main-nav .nav-links li {
-        // margin: calc(var(--spacing-xs) / 3) 0;
-    }
-    
-    .site-header .main-nav .nav-links li .nav-link {
-        // font-size: 0.65rem;
-        // padding: calc(var(--spacing-xs) * 0.6);
-    }
+    // .site-header .main-nav .nav-links li .nav-link {
+    //     font-size: 0.8rem; 
+    // }
 }
 */
 </style>
