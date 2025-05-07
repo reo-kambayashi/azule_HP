@@ -350,4 +350,30 @@
     opacity: 1;
     transform: translateX(0);
 }
+
+/* モーション低減設定への対応 */
+@media (prefers-reduced-motion: reduce) {
+    .release-card:hover,
+    .tour-card:hover,
+    .release-cover:hover,
+    .sub-link:hover,
+    .tour-card img:hover {
+        transform: none;
+        transition: none;
+    }
+    
+    .fade-in-up,
+    .fade-in-left {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        animation: none;
+    }
+    
+    .fade-in-up.visible,
+    .fade-in-left.visible {
+        opacity: 1;
+        transform: none;
+    }
+}
 </style>

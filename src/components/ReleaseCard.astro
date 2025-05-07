@@ -47,12 +47,12 @@ const coverPath = `${import.meta.env.BASE_URL}${cover}`;
         {links && (
             <div class="subscription-links">
                 {links.youtube && (
-                <a href={links.youtube} target="_blank" rel="noopener" class="sub-link button">
+                <a href={links.youtube} target="_blank" rel="noopener" class="sub-link button" aria-label={`${title}をYouTubeで聴く（新しいタブが開きます）`}>
                     YouTubeで聴く
                 </a>
                 )}
                 {links.subscription && (
-                <a href={links.subscription} target="_blank" rel="noopener" class="sub-link button">
+                <a href={links.subscription} target="_blank" rel="noopener" class="sub-link button" aria-label={`${title}をサブスクリプションサービスで聴く（新しいタブが開きます）`}>
                     サブスクリプションで聴く
                 </a>
                 )}
