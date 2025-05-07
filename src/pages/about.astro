@@ -14,9 +14,17 @@ interface Member {
 
 // 型付きメンバー配列として扱う
 const typedMembers = members as Member[];
+
+// SEO情報
+const title = "About Us | Azule Orchid";
+const metaDescription = "Azule Orchid（アズールオーキッド）のバンドメンバー紹介。仙台を拠点に活動するポストポップバンドの魅力とメンバープロフィール。";
 ---
 
-<Layout>
+<Layout 
+    title={title}
+    metaDescription={metaDescription}
+    ogImage="images/top.JPG"
+>
     <ComponentsStyles />
     <section class="about-page">
         <div class="about">

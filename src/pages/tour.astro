@@ -7,8 +7,15 @@ import tours from '../data/tour.json';
 // ツアーデータをidによって分類
 const currentTours = tours.filter(tour => tour.id === 1);
 const pastTours = tours.filter(tour => tour.id === 2);
+
+// SEO情報
+const title = "Live | Azule Orchid";
+const metaDescription = "Azule Orchidのライブ・イベント情報。予定されているライブと過去のライブ履歴をご紹介します。";
 ---
-<Layout>
+<Layout
+    title={title}
+    metaDescription={metaDescription}
+>
     <ComponentsStyles />
     <section class="tour-page">
         <h1 class="tour-page-title">Live</h1>

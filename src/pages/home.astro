@@ -21,9 +21,17 @@ interface TourItem {
 const tour = tourData as unknown as TourItem[];
 const latestRelease = releases[0];
 const base = import.meta.env.BASE_URL;
+
+// SEO情報
+const title = "Azule Orchid | Official Site";
+const metaDescription = "Azule Orchid（アズールオーキッド）は仙台を拠点に活動するバンド。最新リリースやライブ情報をチェックしよう。";
 ---
 
-<Layout>
+<Layout 
+    title={title}
+    metaDescription={metaDescription}
+    ogImage="images/top.JPG"
+>
     <ComponentsStyles />
     <section class="hero section fade-in-up">
         <!-- 一番目立たせたい連絡など -->
