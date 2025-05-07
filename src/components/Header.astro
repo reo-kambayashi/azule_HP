@@ -197,5 +197,19 @@ const base = import.meta.env.BASE_URL;
             const isActive = mainNav.classList.contains('is-active');
             hamburger.setAttribute('aria-expanded', isActive.toString());
         });
+
+        // メニュー外クリックでメニューを閉じる
+        document.addEventListener('click', (event) => {
+            const target = event.target as Node; // event.targetをNode型にキャスト
+            // メニューが開いていて、クリックされた要素がナビゲーションメニューとハンバーガーボタンのどちらでもない場合
+            if (mainNav.classList.contains('is-active') && 
+                !mainNav.contains(target) && 
+                !hamburger.contains(target)) {
+                
+                hamburger.classList.remove('is-active');
+                mainNav.classList.remove('is-active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
     }
 </script>
