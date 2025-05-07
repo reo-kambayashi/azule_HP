@@ -87,30 +87,42 @@ const base = import.meta.env.BASE_URL;
 }
 
 .banner {
-    background-image: linear-gradient(45deg, var(--color-accent), var(--color-primary-accent)); /* グラデーション背景 */
-    background-color: var(--color-bg); 
-    color: var(--color-text-on-accent); /* 背景色に映える文字色 */
-    padding: var(--spacing-md) var(--spacing-lg); /* 少しパディングを大きく */
-    border-radius: var(--radius-md); /* 角丸を少し大きく */
+    background-color: rgba(255, 255, 255, 0.85); /* 若干透明度のある白背景 */
+    color: var(--color-text);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
     text-align: center;
-    margin-bottom: var(--spacing-lg); /* マージンを調整 */
-    box-shadow: var(--shadow-xl); /* より強い影 */
-    font-size: clamp(1.8rem, 4vw, 2.5rem); /* h1より少し小さめ */
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* テキストシャドウ */
-    opacity: 1; /* アニメーション削除のため、初期状態から表示 */
-    position: relative; /* z-index を有効にするため */
-    z-index: 1000;    /* ぼかしレイヤーより手前に表示 */
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    font-size: clamp(1.4rem, 2.5vw, 1.7rem); /* フォントサイズ調整 */
+    font-weight: normal;
+    border: 1px solid var(--color-border-light);
+    letter-spacing: 0.05em;
+    text-shadow: none;
+    position: relative;
+    z-index: 1000;
+    transition: var(--transition-base);
+}
+
+.banner:hover {
+    background-color: rgba(255, 255, 255, 0.95); /* ホバー時に少し不透明度を上げる */
+    transform: translateY(-1px); /* 微妙に上に移動 */
+    box-shadow: var(--shadow-base); /* 影を少し強く */
 }
 
 .banner .highlight {
-    color: var(--color-primary-accent); /* 強調部分の色 */
+    color: var(--color-accent);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.banner:hover .highlight {
+    color: var(--color-secondary); /* ホバー時に色を少し明るく */
 }
 
 .banner .italic {
     font-style: italic;
 }
-
 
 .italic {
     font-style: italic;

@@ -184,6 +184,39 @@ const base = import.meta.env.BASE_URL;
     // }
 }
 */
+
+/* PCサイズ（769px以上）のメディアクエリ */
+@media (min-width: 769px) {
+    .hamburger-menu {
+        display: none; /* PCでは非表示 */
+    }
+    
+    .site-header .main-nav {
+        position: static; /* 絶対配置からの解除 */
+        transform: none; /* 変形をリセット */
+        box-shadow: none; /* 影を削除 */
+        background: none; /* 背景を透明に */
+        padding: 0; /* パディングをリセット */
+    }
+    
+    .site-header .main-nav .nav-links {
+        flex-direction: row; /* 水平方向に並べる */
+        justify-content: flex-end; /* 右寄せ */
+        align-items: center; /* 中央揃え */
+        padding-top: 0; /* 上部のパディングを削除 */
+    }
+    
+    .site-header .main-nav .nav-links li {
+        width: auto; /* 幅を自動に */
+        margin: 0 var(--spacing-xs); /* 左右にマージンを追加 */
+    }
+    
+    .site-header .main-nav .nav-links li .nav-link {
+        padding: var(--spacing-xs) var(--spacing-sm); /* パディングを調整 */
+        width: auto; /* 幅を自動に */
+        font-size: 0.9rem; /* フォントサイズを調整 */
+    }
+}
 </style>
 
 <script>
