@@ -16,21 +16,61 @@ const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
 ---
 <article class="tour-card fade-in-left">
     <div class="tour-info">
-        <h3>{tour.title}</h3>
+        <h3><strong>{tour.title}</strong></h3>
         <p>日程: {tour.date}</p>
         <p>会場: {tour.venue}</p>
         {tour.city && <p>場所: {tour.city}</p>}
         {tour.ticketPrice && <p>チケット代: <span set:html={formattedTicketPrice} /></p>}
         {tour.reserve && (
-            <p class="tour-reserve">
-                チケットの予約はこちらから:
-                <a href={tour.reserve} target="_blank" rel="noopener noreferrer" class="button">
-                    チケット予約
-                </a>
+            <p class="tour-reserve-notice">
+                <strong>チケットの予約は画像をクリック/タップ</strong>
             </p>
         )}
     </div>
     <div class="tour-flyer">
-        <img src={flyerPath} alt={`「${tour.title}」${tour.date}開催ライブのフライヤー`} loading="lazy" />
+        {tour.reserve ? (
+            <a href={tour.reserve} target="_blank" rel="noopener noreferrer" class="flyer-link" aria-label={`「${tour.title}」のチケット予約（新しいタブが開きます）`}>
+                <img src={flyerPath} alt={`「${tour.title}」${tour.date}開催ライブのフライヤー（クリックで予約ページへ）`} loading="lazy" />
+            </a>
+        ) : (
+            <img src={flyerPath} alt={`「${tour.title}」${tour.date}開催ライブのフライヤー`} loading="lazy" />
+        )}
     </div>
 </article>
+
+<style>
+    .flyer-link {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .flyer-link::after {
+        content: "予約する";
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(59, 130, 246, 0.9);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .flyer-link:hover {
+        transform: scale(1.03);
+    }
+
+    .flyer-link:hover::after {
+        opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .flyer-link:hover {
+            transform: none;
+        }
+    }
+</style>
