@@ -23,7 +23,7 @@ const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
         {tour.ticketPrice && <p>チケット代: <span set:html={formattedTicketPrice} /></p>}
         {tour.reserve && (
             <p class="tour-reserve">
-                予約はこちらから:
+                チケットの予約はこちらから:
                 <a href={tour.reserve} target="_blank" rel="noopener noreferrer" class="button">Link</a>
             </p>
         )}
