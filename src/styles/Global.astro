@@ -202,6 +202,24 @@ table {
     display: block;        /* ブロック要素として表示（スクロール用） */
 }
 
+/* キーボード操作時のフォーカス状態を明確にする */
+:focus {
+    outline: 3px solid var(--color-secondary);
+    outline-offset: 2px;
+}
+
+/* マウスやタッチでのフォーカスはより控えめに */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* キーボードフォーカスは明確に表示 */
+:focus-visible {
+    outline: 3px solid var(--color-secondary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-white);
+}
+
 /* 
  * レスポンシブデザイン設定
  * 異なる画面サイズに対応するためのスタイル調整
