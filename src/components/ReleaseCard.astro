@@ -18,6 +18,8 @@ export interface Props {
 const { title, cover, releaseDate, tracks, links} = Astro.props;
 // カバー画像のパスにベースパスを適用
 const coverPath = `${import.meta.env.BASE_URL}${cover}`;
+// タイトルの改行を<br>タグに変換
+const formattedTitle = title.replace(/\n/g, '<br />');
 ---  
 <article class="release-card fade-in-left">  
     <img  
@@ -27,7 +29,7 @@ const coverPath = `${import.meta.env.BASE_URL}${cover}`;
         loading="lazy"
     />  
     <div class="release-info">  
-        <h3 class="release-title">{title}</h3>  
+        <h3 class="release-title" set:html={formattedTitle}></h3>  
         <time  
             class="release-date"  
             datetime={releaseDate}  

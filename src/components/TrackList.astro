@@ -4,9 +4,11 @@ export interface Props {
 }
 
 const { tracks } = Astro.props;
+// 各トラック名の改行を<br>タグに変換
+const formattedTracks = tracks.map(track => track.replace(/\n/g, '<br />'));
 ---
 <ol class="tracklist">
-    {tracks.map((track) => (
-        <li class="track-item">{track}</li>
+    {formattedTracks.map((track) => (
+        <li class="track-item" set:html={track}></li>
     ))}
 </ol>
