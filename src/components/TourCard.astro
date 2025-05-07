@@ -13,11 +13,55 @@ export interface Props {
 const { tour } = Astro.props;
 const formattedTicketPrice = tour.ticketPrice?.replace(/\n/g, '<br />');
 const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
+
+// 曜日表示を追加した日付フォーマット
+function formatDateWithDay(dateString: string): string {
+    const [year, month, day] = dateString.split('.').map(Number);
+    const date = new Date(year, month - 1, day);
+    const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+    const dayOfWeek = weekdays[date.getDay()];
+    return `${year}年${month}月${day}日(${dayOfWeek})`;
+}
+
+const formattedDate = formatDateWithDay(tour.date);
+
+// サーバーサイドでの初期表示用に日付計算（クライアントサイドでは再計算される）
+// この値はJavaScriptが無効な場合のフォールバックとして使用
+const [yearStr, monthStr, dayStr] = tour.date.split('.');
+const eventDateObj = new Date(
+    parseInt(yearStr),
+    parseInt(monthStr) - 1, // 月は0から始まるため、-1する
+    parseInt(dayStr)
+);
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+eventDateObj.setHours(0, 0, 0, 0);
+
+const diffTime = eventDateObj.getTime() - today.getTime();
+const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+const initialDaysRemaining = Math.abs(diffDays);
+const initialIsPast = diffDays < 0;
+const initialIsToday = diffDays === 0;
 ---
+
 <article class="tour-card fade-in-left">
     <div class="tour-info">
         <h3><strong>{tour.title}</strong></h3>
-        <p>日程: {tour.date}</p>
+        <p>日程: {formattedDate}</p>
+        
+        <!-- カウントダウン表示 - data-属性を追加してJSから処理できるようにする -->
+        <p class="countdown-display" 
+           data-event-date={tour.date} 
+           data-is-past={initialIsPast.toString()} 
+           data-is-today={initialIsToday.toString()} 
+           data-days-remaining={initialDaysRemaining}>
+            {initialIsToday && <span class="countdown-text">本日開催!</span>}
+            {!initialIsPast && !initialIsToday && (
+                <>開催まであと<span class="countdown-number">{initialDaysRemaining}</span>日</>
+            )}
+            {initialIsPast && !initialIsToday && "開催終了"}
+        </p>
+        
         <p>会場: {tour.venue}</p>
         {tour.city && <p>場所: {tour.city}</p>}
         {tour.ticketPrice && <p>チケット代: <span set:html={formattedTicketPrice} /></p>}
@@ -30,13 +74,75 @@ const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
     <div class="tour-flyer">
         {tour.reserve ? (
             <a href={tour.reserve} target="_blank" rel="noopener noreferrer" class="flyer-link" aria-label={`「${tour.title}」のチケット予約（新しいタブが開きます）`}>
-                <img src={flyerPath} alt={`「${tour.title}」${tour.date}開催ライブのフライヤー（クリックで予約ページへ）`} loading="lazy" />
+                <img src={flyerPath} alt={`「${tour.title}」${formattedDate}開催ライブのフライヤー（クリックで予約ページへ）`} loading="lazy" />
             </a>
         ) : (
-            <img src={flyerPath} alt={`「${tour.title}」${tour.date}開催ライブのフライヤー`} loading="lazy" />
+            <img src={flyerPath} alt={`「${tour.title}」${formattedDate}開催ライブのフライヤー`} loading="lazy" />
         )}
     </div>
 </article>
+
+<script>
+    // カウントダウンを更新する関数
+    function updateCountdowns() {
+        // すべてのカウントダウン表示要素を取得
+        const countdownElements = document.querySelectorAll('.countdown-display[data-event-date]');
+        
+        countdownElements.forEach(element => {
+            // data属性からイベント日を取得
+            const dateStr = element.getAttribute('data-event-date');
+            if (!dateStr) return;
+            
+            // YYYY.MM.DD形式をパース
+            const [year, month, day] = dateStr.split('.').map(Number);
+            const eventDate = new Date(year, month - 1, day); // 月は0から始まるため、-1
+            
+            // 現在の日付
+            const now = new Date();
+            // 時間を無視するために日付部分のみを設定
+            now.setHours(0, 0, 0, 0);
+            eventDate.setHours(0, 0, 0, 0);
+            
+            // 日数の差を計算
+            const diffTime = eventDate.getTime() - now.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // 日付の状態を設定
+            const daysRemaining = Math.abs(diffDays);
+            const isPast = diffDays < 0;
+            const isToday = diffDays === 0;
+            
+            // クラス名を設定
+            element.classList.remove('today', 'past-event');
+            if (isToday) {
+                element.classList.add('today');
+            } else if (isPast) {
+                element.classList.add('past-event');
+            }
+            
+            // 表示内容を更新
+            if (isToday) {
+                element.innerHTML = '<span class="countdown-text">本日開催!</span>';
+            } else if (!isPast) {
+                element.innerHTML = `開催まであと<span class="countdown-number">${daysRemaining}</span>日`;
+            } else {
+                element.innerHTML = '開催終了';
+            }
+            
+            // data属性も更新
+            element.setAttribute('data-is-past', isPast.toString());
+            element.setAttribute('data-is-today', isToday.toString());
+            element.setAttribute('data-days-remaining', daysRemaining.toString());
+        });
+    }
+    
+    // ページ読み込み時に更新
+    updateCountdowns();
+    
+    // 日付が変わる可能性を考慮して、1分ごとに更新
+    // 実運用では更新頻度はニーズに合わせて調整してください
+    setInterval(updateCountdowns, 60000);
+</script>
 
 <style>
     .flyer-link {
@@ -70,7 +176,51 @@ const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* ホバー時に影を追加 */
     }
 
+    /* カウントダウン表示のスタイル */
+    .countdown-display {
+        background-color: rgba(100, 122, 203, 0.1); /* --color-accentを薄く */
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: var(--radius-base);
+        font-weight: 600;
+        margin: 5px 0 10px;
+        /* ホバリングエフェクト（パルスアニメーション）を削除 */
+    }
+
+    .countdown-number {
+        font-size: 1.2em;
+        color: var(--color-accent);
+        font-weight: 700;
+        margin: 0 3px;
+    }
+
+    .countdown-text {
+        color: var(--color-secondary);
+        font-weight: 700;
+    }
+
+    .today {
+        background-color: rgba(59, 130, 246, 0.15); /* --color-secondaryを薄く */
+        border: 1px solid var(--color-secondary);
+    }
+
+    .past-event {
+        background-color: #f0f0f0;
+        color: var(--color-text-light);
+    }
+
+    /* カウントダウンのパルスアニメーションを削除 */
+    /* @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.03); }
+        100% { transform: scale(1); }
+    } */
+
+    /* モーション低減設定への対応 */
     @media (prefers-reduced-motion: reduce) {
+        .countdown-display {
+            animation: none;
+        }
         .flyer-link:hover {
             transform: none;
         }
