@@ -18,7 +18,27 @@ interface TourItem {
     reserve?: string;
 }
 
-const tour = tourData as unknown as TourItem[];
+// 現在の日付を取得
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+// 日付文字列をDateオブジェクトに変換する関数
+function parseDate(dateStr: string): Date {
+    const [year, month, day] = dateStr.split('.').map(Number);
+    return new Date(year, month - 1, day);
+}
+
+// ツアーデータから今日以降のイベントを抽出して日付順にソート
+const upcomingTours = tourData
+    .filter(tour => {
+        const eventDate = parseDate(tour.date);
+        return eventDate >= today;
+    })
+    .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
+
+// 最も近い日付のイベントを取得（存在すれば）
+const nextTour = upcomingTours.length > 0 ? upcomingTours[0] : null;
+
 const latestRelease = releases[0];
 const base = import.meta.env.BASE_URL;
 
@@ -64,16 +84,9 @@ const metaDescription = "Azule Orchid（アズールオーキッド）は仙台�
 
     <section class="next-live section fade-in-left">
         <h2>Next Live</h2>
-        {tour.length > 0 ? (
+        {nextTour ? (
             <div class="tour-list">
-                {(() => {
-                    const nextTour = tour.find((item) => item.id === 1);
-                    return nextTour ? (
-                        <TourCard tour={nextTour} />
-                    ) : (
-                        <p class="tour-empty">現在予定されているライブはありません。</p>
-                    );
-                })()}
+                <TourCard tour={nextTour} />
             </div>
         ) : (
             <p class="tour-empty">現在予定されているライブはありません。</p>

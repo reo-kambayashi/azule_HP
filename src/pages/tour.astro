@@ -4,9 +4,30 @@ import ComponentsStyles from '../styles/ComponentsStyles.astro';
 import TourCard from '../components/TourCard.astro';
 import tours from '../data/tour.json';
 
-// ツアーデータをidによって分類
-const currentTours = tours.filter(tour => tour.id === 1);
-const pastTours = tours.filter(tour => tour.id === 2);
+// 現在の日付を取得
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+// 日付文字列をDateオブジェクトに変換する関数
+function parseDate(dateStr: string): Date {
+    const [year, month, day] = dateStr.split('.').map(Number);
+    return new Date(year, month - 1, day);
+}
+
+// ツアーデータを日付に基づいて分類
+const currentTours = tours
+    .filter(tour => {
+        const eventDate = parseDate(tour.date);
+        return eventDate >= today;
+    })
+    .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
+
+const pastTours = tours
+    .filter(tour => {
+        const eventDate = parseDate(tour.date);
+        return eventDate < today;
+    })
+    .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime()); // 過去のイベントは新しい順
 
 // SEO情報
 const title = "Live | Azule Orchid";
