@@ -9,8 +9,13 @@ const base = import.meta.env.BASE_URL;
                 <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="Azule Orchid" />
             </a>
         </h1>
+        <button class="hamburger-menu" aria-label="メニューを開く" aria-expanded="false" aria-controls="main-nav-list">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+        </button>
         <nav class="main-nav">
-            <ul class="nav-links">
+            <ul class="nav-links" id="main-nav-list">
                 <li><a href={import.meta.env.BASE_URL} class="nav-link">Home</a></li>
                 <li><a href={`${import.meta.env.BASE_URL}about/`} class="nav-link">About Us</a></li>
                 <li><a href={`${import.meta.env.BASE_URL}music/`} class="nav-link">Releases</a></li>
@@ -54,16 +59,51 @@ const base = import.meta.env.BASE_URL;
     margin-top: var(--spacing-md);
     height: clamp(1.5rem, 5vw, 3rem);
     width: auto;
+    display: block; /* 画像が予期せぬスペースを持たないように */
 }
+
+/* ハンバーガーメニューボタン */
+.hamburger-menu {
+    display: none; /* デフォルトでは非表示 */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001; /* ナビゲーションより手前に */
+}
+
+.hamburger-bar {
+    width: 100%;
+    height: 3px;
+    background-color: var(--header-txt);
+    border-radius: 2px;
+    transition: all 0.3s linear;
+}
+
+.hamburger-menu.is-active .hamburger-bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-menu.is-active .hamburger-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.is-active .hamburger-bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
 
 .site-header .main-nav .nav-links {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
+    display: grid; /* デスクトップではグリッドレイアウト */
     grid-auto-flow: column;
     grid-auto-columns: max-content;
-    grid-template-rows: auto;
     gap: var(--spacing-md);
 }
 
@@ -89,97 +129,105 @@ const base = import.meta.env.BASE_URL;
 
 @media (max-width: 768px) {
     .site-header .container {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: calc(var(--spacing-sm) * 1.5) var(--spacing-md);
+        /* flex-direction: row; ロゴとハンバーガーを横並びにするため */
+        /* align-items: center; */
+        padding: var(--spacing-sm) var(--spacing-md);
     }
 
     .site-header .logo {
-        margin-bottom: var(--spacing-sm);
+        margin-bottom: 0; /* モバイルではロゴ下のマージンを削除 */
+    }
+    
+    .site-header .logo img {
+        margin-top: 0; /* モバイルではロゴ上のマージンを削除 */
+        height: clamp(1.2rem, 4vw, 2.5rem); /* モバイル用のロゴサイズ調整 */
+    }
+
+    .hamburger-menu {
+        display: flex; /* 768px以下で表示 */
     }
 
     .site-header .main-nav {
-        align-self: center;
+        /* モバイルではナビゲーションを絶対配置または固定配置で表示 */
+        position: absolute;
+        top: 100%; /* ヘッダーのすぐ下に配置 */
+        left: 0;
         width: 100%;
+        background-color: var(--header-bg);
+        box-shadow: var(--box-shadow-card);
+        transform: translateY(-150%); /* 初期状態では画面外に隠す */
+        transition: transform 0.3s ease-in-out;
+        padding-bottom: var(--spacing-md);
+    }
+
+    .site-header .main-nav.is-active {
+        transform: translateY(0); /* アクティブ時に表示 */
     }
 
     .site-header .main-nav .nav-links {
         display: flex;           
-        flex-direction: row;     
+        flex-direction: column; /* モバイルでは縦並び */
         width: 100%;             
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: calc(var(--spacing-sm) * 0.8);
+        align-items: center; /* 中央揃え */
+        gap: var(--spacing-sm);
+        padding-top: var(--spacing-md);
     }
 
     .site-header .main-nav .nav-links li {
-        margin: 0 calc(var(--spacing-xs) / 2);
+        margin: 0;
+        width: 90%; /* リンクの幅を調整 */
+        text-align: center;
     }
 
     .site-header .main-nav .nav-links li .nav-link {
-        font-size: clamp(0.6rem, 2vw, 1rem);
-        padding: calc(var(--spacing-xs) * 0.8) calc(var(--spacing-sm) * 0.6);
-        margin: auto;
+        display: block; /* リンクをブロック要素にして幅いっぱいにする */
+        width: 100%;
+        font-size: 1rem; /* モバイルでのフォントサイズ調整 */
+        padding: var(--spacing-sm);
+        margin: 0;
         border-radius: var(--radius-sm);
-        white-space: nowrap;
     }
 }
 
 @media (max-width: 480px) {
-    .site-header .container {
-        padding: var(--spacing-xs) var(--spacing-sm);
-    }
-
-    .site-header .logo {
-        width: 100%;
-        text-align: center;
-    }
-
-    .site-header .main-nav .nav-links {
-        gap: var(--spacing-xs);
-        justify-content: center;
-        padding: var(--spacing-xs) 0;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        width: 95%;
-        margin: 0 auto;
-    }
-
-    .site-header .main-nav .nav-links li {
-        flex: 0 0 auto;
-        min-width: auto;
-        max-width: none;
-        margin: calc(var(--spacing-xs) / 2);
-        box-sizing: border-box;
-    }
-    
+    /* 480px以下では特に変更なし、768pxのスタイルを継承 */
     .site-header .main-nav .nav-links li .nav-link {
-        font-size: 0.7rem;
-        padding: calc(var(--spacing-xs) * 0.7);
-        width: 100%;
-        text-align: center;
-        display: block;
-        box-sizing: border-box;
-    }
-
-    .site-header .logo img {
-        height: clamp(1.2rem, 4vw, 2.5rem);
+        font-size: 0.9rem; /* さらに小さい画面用にフォントサイズ調整 */
     }
 }
 
+/* 370pxのメディアクエリは、上記の768pxのスタイルでカバーされるため、
+   特定の調整が不要であれば削除またはコメントアウトも検討できます。
+   もし残す場合は、ハンバーガーメニューのスタイルとの整合性を確認してください。 */
+/*
 @media (max-width: 370px) {
     .site-header .main-nav .nav-links {
-        grid-template-columns: 1fr;
-        width: 90%;
+        // grid-template-columns: 1fr; // ハンバーガーメニューでは不要
+        // width: 90%;
     }
     
     .site-header .main-nav .nav-links li {
-        margin: calc(var(--spacing-xs) / 3) 0;
+        // margin: calc(var(--spacing-xs) / 3) 0;
     }
     
     .site-header .main-nav .nav-links li .nav-link {
-        font-size: 0.65rem;
-        padding: calc(var(--spacing-xs) * 0.6);
+        // font-size: 0.65rem;
+        // padding: calc(var(--spacing-xs) * 0.6);
     }
 }
+*/
 </style>
+
+<script>
+    const hamburger = document.querySelector('.hamburger-menu');
+    const mainNav = document.querySelector('.main-nav');
+
+    if (hamburger && mainNav) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('is-active');
+            mainNav.classList.toggle('is-active');
+            const isActive = mainNav.classList.contains('is-active');
+            hamburger.setAttribute('aria-expanded', isActive.toString());
+        });
+    }
+</script>
