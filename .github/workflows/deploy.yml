@@ -6,6 +6,9 @@ on:
     branches: [ main ]
   # 手動で実行する場合のトリガー
   workflow_dispatch:
+  # 日本時間の朝3時（UTC 18:00、前日）に毎日自動実行
+  schedule:
+    - cron: '0 18 * * *'
 
 # JOBSの権限設定
 permissions:
