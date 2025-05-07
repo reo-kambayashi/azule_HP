@@ -315,6 +315,18 @@
         padding: var(--spacing-md) var(--spacing-lg); /* パディングを増やす */
         min-height: var(--touch-target-min);         /* 最小高さを設定 */
     }
+
+    /* ボタンのタップエリアを調整 */
+    .sub-link {
+        font-size: 0.85rem;                              /* フォントサイズを小さく */
+        padding: var(--spacing-xs) var(--spacing-sm);    /* パディングを小さく */
+        min-height: auto;                                /* 最小高さの制約を解除 */
+    }
+    
+    .tour-reserve a.button {
+        padding: var(--spacing-sm) var(--spacing-md);    /* ツアー予約ボタンのパディングを調整 */
+        min-height: var(--touch-target-min);             /* 最小高さを設定 */
+    }
 }
 
 /* 
@@ -350,7 +362,9 @@
     
     /* ボタンのテキストサイズ調整 */
     .sub-link {
-        font-size: 0.85rem;    /* フォントサイズをさらに小さく */
+        font-size: 0.85rem;                              /* フォントサイズを小さく */
+        padding: var(--spacing-xs) var(--spacing-sm);    /* パディングを小さく */
+        min-height: auto;              
     }
 }
 
