@@ -56,8 +56,8 @@ const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
         padding: 5px 10px;
         border-radius: 4px;
         font-size: 0.9rem;
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        opacity: 1; /* 常に表示するために1にする */
+        transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     .flyer-link:hover {
@@ -65,7 +65,9 @@ const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
     }
 
     .flyer-link:hover::after {
-        opacity: 1;
+        transform: scale(1.1); /* ホバー時に少し大きく表示 */
+        background: rgba(59, 130, 246, 1); /* ホバー時に不透明度を上げる */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* ホバー時に影を追加 */
     }
 
     @media (prefers-reduced-motion: reduce) {
