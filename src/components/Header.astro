@@ -4,11 +4,16 @@ const base = import.meta.env.BASE_URL;
 
 <header class="site-header">
     <div class="container">
-        <h1 class="logo">
-            <a href={import.meta.env.BASE_URL}>
-                <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="Azule Orchid" fetchpriority="high" />
-            </a>
-        </h1>
+        <div class="logo-container">
+            <h1 class="logo">
+                <a href={import.meta.env.BASE_URL}>
+                    <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="Azule Orchid" fetchpriority="high" />
+                </a>
+            </h1>
+            <h2 class="header-concept">
+                共鳴する"あなた"を絡み合う音に乗せて
+            </h2>
+        </div>
         <button class="hamburger-menu" aria-label="メニューを開く" aria-expanded="false" aria-controls="main-nav-list">
             <span class="hamburger-bar"></span>
             <span class="hamburger-bar"></span>
@@ -63,6 +68,14 @@ const base = import.meta.env.BASE_URL;
     box-shadow: var(--box-shadow-card);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+/* スクロール時のヘッダースタイル変更（JSと併用） */
+.site-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .site-header .container {
@@ -74,6 +87,33 @@ const base = import.meta.env.BASE_URL;
     justify-content: space-between;
 }
 
+.site-header .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 中央揃え */
+    width: clamp(160px, 25vw, 280px); /* 画面幅に応じて160px〜280pxの間で自動調整 */
+    max-width: 100%; /* はみ出さないように */
+    margin-right: clamp(var(--spacing-xs), 2vw, var(--spacing-md)); /* マージンも画面幅に応じて調整 */
+    transition: all 0.3s ease; /* サイズ変更をなめらかに */
+}
+
+.site-header .header-concept {
+    font-size: clamp(0.65rem, 1.2vw, 0.9rem); /* フォントサイズを画面幅に合わせて調整 */
+    font-weight: normal;
+    margin-top: var(--spacing-xs);
+    color: var(--header-txt);
+    opacity: 0.9;
+    white-space: nowrap; /* テキストの折り返しを防止 */
+    width: 100%; /* ロゴコンテナの幅いっぱいに */
+    text-align: center; /* 中央揃え */
+    transition: font-size 0.3s ease; /* フォントサイズ変更をなめらかに */
+}
+
+.site-header .logo {
+    width: 100%; /* ロゴコンテナの幅いっぱいに */
+    text-align: center; /* 中央揃え */
+}
+
 .site-header .logo a {
     font-family: 'Roboto', sans-serif;
     font-size: clamp(1rem, 2vw, 2rem);
@@ -82,13 +122,20 @@ const base = import.meta.env.BASE_URL;
     color: var(--color-text);
     display: flex;
     align-items: center;
+    justify-content: center; /* 中央揃え */
+    width: 100%; /* ロゴコンテナの幅いっぱいに */
 }
 
 .site-header .logo img {
-    margin-top: var(--spacing-md);
-    height: clamp(1.5rem, 5vw, 3rem);
-    width: auto;
+    margin-top: clamp(0px, 1vw, var(--spacing-md)); /* マージンを画面幅に合わせて調整 */
+    width: 100%; /* 幅を100%に設定してコンテナいっぱいに広げる */
+    height: auto; /* 高さを自動調整してアスペクト比を維持 */
     display: block; /* 画像が予期せぬスペースを持たないように */
+    transition: transform 0.3s ease, margin-top 0.3s ease; /* 変形とマージン変更をなめらかに */
+}
+
+.site-header .logo a:hover img {
+    transform: scale(1.02);
 }
 
 /* ハンバーガーメニューボタン */
@@ -105,6 +152,17 @@ const base = import.meta.env.BASE_URL;
     z-index: 1001; /* ナビゲーションより手前に */
     min-height: var(--touch-target-min); /* タップエリアの最小高さ */
     min-width: var(--touch-target-min); /* タップエリアの最小幅 */
+    position: relative; /* 追加 */
+}
+
+.hamburger-menu::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
 }
 
 .hamburger-bar {
@@ -136,7 +194,7 @@ const base = import.meta.env.BASE_URL;
     background-color: var(--header-bg);
     box-shadow: var(--box-shadow-card);
     transform: translateY(-150%); /* 初期状態では画面外に隠す */
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     padding-bottom: var(--spacing-md);
     z-index: 1000; /* ロゴや他の要素よりは手前、ハンバーガーボタンよりは奥 */
     max-height: 80vh; /* ビューポート高さの80%までに制限 */
@@ -171,36 +229,34 @@ const base = import.meta.env.BASE_URL;
     justify-content: center; /* 中央揃え */
     align-items: center; /* 中央揃え */
     width: 100%;
-    padding: var(--spacing-md); /* パディングを増やしてタップしやすく */
+    padding: clamp(var(--spacing-sm), 1.5vw, var(--spacing-md)); /* パディングを画面幅に合わせて調整 */
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    font-size: 1rem; 
+    font-size: clamp(0.85rem, 1.2vw, 1rem); /* フォントサイズを画面幅に合わせて調整 */
     color: var(--header-txt);
     background-color: transparent;
     border: 1px solid transparent; /* モバイルでは枠線を消すか、別途スタイル調整 */
     border-radius: var(--radius-sm);
-    transition: var(--transition-base);
+    transition: var(--transition-base), font-size 0.3s ease, padding 0.3s ease; /* 追加のプロパティもなめらかに変化 */
     text-decoration: none;
     min-height: var(--touch-target-min); /* タップエリアの最小高さ */
 }
 
 .site-header .main-nav .nav-links li .nav-link .en {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 1.2vw, 1rem); /* フォントサイズを画面幅に合わせて調整 */
     font-weight: 600;
     margin-bottom: var(--spacing-xs);
+    white-space: nowrap; /* 改行を防止 */
+    transition: font-size 0.3s ease; /* フォントサイズ変更をなめらかに */
 }
 
 .site-header .main-nav .nav-links li .nav-link .jp {
-    font-size: 0.8rem;
+    font-size: clamp(0.65rem, 1vw, 0.8rem); /* フォントサイズを画面幅に合わせて調整 */
     font-weight: normal;
     opacity: 0.9;
-}
-
-.site-header .main-nav .nav-links li .nav-link:hover {
-    color: var(--color-link-hover);
-    background-color: rgba(0,0,0,0.05); /* ホバー時の背景色を少しつける */
-    text-decoration: none;
+    white-space: nowrap; /* 改行を防止 */
+    transition: font-size 0.3s ease; /* フォントサイズ変更をなめらかに */
 }
 
 /* フォーカス状態の視覚的フィードバック */
@@ -218,7 +274,21 @@ const base = import.meta.env.BASE_URL;
 
     .site-header .logo img {
         margin-top: 0;
-        height: clamp(1.2rem, 4vw, 2.5rem);
+        width: 100%; /* 幅を100%に設定 */
+        height: auto; /* 高さを自動調整 */
+    }
+
+    .site-header .header-concept {
+        font-size: 0.8rem;
+    }
+    
+    .site-header .logo-container {
+        width: 220px; /* モバイルでは幅を少し小さく */
+        margin-right: var(--spacing-xs); /* 右の余白を小さく */
+    }
+    
+    .site-header .logo {
+        width: 100%; /* ロゴコンテナの幅いっぱいに */
     }
 }
 
@@ -235,6 +305,19 @@ const base = import.meta.env.BASE_URL;
     .site-header .main-nav .nav-links li .nav-link .jp {
         font-size: 0.75rem;
     }
+
+    .site-header .header-concept {
+        font-size: 0.7rem; /* さらに小さいフォントサイズ */
+        width: 100%; /* 幅を確実に100%にする */
+    }
+    
+    .site-header .logo-container {
+        width: 180px; /* さらに小さい画面では幅を小さく */
+    }
+    
+    .site-header .logo {
+        width: 100%; /* コンテナいっぱいに */
+    }
 }
 
 /* スモールフォン向け改善 */
@@ -244,11 +327,25 @@ const base = import.meta.env.BASE_URL;
     }
     
     .site-header .logo img {
-        height: clamp(1rem, 4vw, 2rem);
+        width: 100%; /* 幅を100%に設定 */
+        height: auto; /* 高さを自動調整 */
     }
     
     .hamburger-menu {
         transform: scale(0.9); /* 少し小さく */
+    }
+
+    .site-header .header-concept {
+        font-size: 0.65rem; /* 極小デバイス用 */
+        width: 100%; /* 幅を確実に100%にする */
+    }
+    
+    .site-header .logo-container {
+        width: 160px; /* 極小デバイス用に幅を調整 */
+    }
+    
+    .site-header .logo {
+        width: 100%; /* コンテナいっぱいに */
     }
 }
 
@@ -281,9 +378,28 @@ const base = import.meta.env.BASE_URL;
     }
     
     .site-header .main-nav .nav-links li .nav-link {
-        padding: var(--spacing-xs) var(--spacing-sm); /* パディングを調整 */
+        padding: var(--spacing-xs) var(--spacing-md); /* パディング横幅増加 */
         width: auto; /* 幅を自動に */
         font-size: 0.9rem; /* フォントサイズを調整 */
+        position: relative;
+    }
+    
+    /* アクティブリンクのインジケーター */
+    .site-header .main-nav .nav-links li .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: var(--color-secondary);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+    
+    .site-header .main-nav .nav-links li .nav-link:hover::after,
+    .site-header .main-nav .nav-links li .nav-link.active::after {
+        width: 70%;
     }
 }
 </style>
