@@ -109,12 +109,12 @@ const metaDescription = "Azule Orchid（アズールオーキッド）は仙台�
 }
 
 .banner {
-    background-color: rgba(255, 255, 255, 0.85); /* 若干透明度のある白背景 */
+    background-color: rgba(255, 255, 255, 0.5); /* 若干透明度のある白背景 */
     color: var(--color-text);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--radius-sm);
     text-align: center;
-    margin-bottom: var(--spacing-lg);
+    margin:0 auto var(--spacing-lg);
     box-shadow: var(--shadow-sm);
     font-size: clamp(1.4rem, 2.5vw, 1.7rem); /* フォントサイズ調整 */
     font-weight: normal;
@@ -124,22 +124,13 @@ const metaDescription = "Azule Orchid（アズールオーキッド）は仙台�
     position: relative;
     z-index: 1000;
     transition: var(--transition-base);
-}
-
-.banner:hover {
-    background-color: rgba(255, 255, 255, 0.95); /* ホバー時に少し不透明度を上げる */
-    transform: translateY(-1px); /* 微妙に上に移動 */
-    box-shadow: var(--shadow-base); /* 影を少し強く */
+    width: 75%;
 }
 
 .banner .highlight {
     color: var(--color-accent);
     font-weight: 500;
     transition: color 0.2s ease;
-}
-
-.banner:hover .highlight {
-    color: var(--color-secondary); /* ホバー時に色を少し明るく */
 }
 
 .banner .italic {
