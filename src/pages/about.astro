@@ -31,7 +31,7 @@ const metaDescription = "Azule Orchid（アズールオーキッド）のバン�
             <div class="about-header fade-in-left">
                 <h1 class="concept">共鳴する"あなた"を絡み合う音に乗せて</h1>
                 <p>
-                    
+                    Now Editing...
                 </p>
             </div>
             
@@ -138,4 +138,26 @@ const metaDescription = "Azule Orchid（アズールオーキッド）のバン�
         margin: 0 auto;
     }
 }
+
+.concept {
+    font-size: clamp(1.2rem, 3vw, 1.8rem); /* 元のサイズより小さく */
+    font-weight: 300; /* フォントウェイトを軽く */
+    color: var(--color-primary); /* 薄い色に */
+    letter-spacing: 0.05em; /* 文字間隔を少し広く */
+    line-height: 1.6;
+    opacity: 0.85; /* 少し透明に */
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-md);
+    text-shadow: none; /* テキストシャドウを削除 */
+    position: relative;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .concept {
+        font-size: 1.1rem;
+        padding: var(--spacing-xs);
+    }
+}
+
 </style>
