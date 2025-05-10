@@ -1,0 +1,288 @@
+<script>
+// Intersection Observerを使ってスクロール時にアニメーション
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.fade-in-up, .fade-in-left').forEach(el => {
+        observer.observe(el);
+    });
+
+    // カウントダウンを更新する関数
+    function updateCountdowns() {
+        // すべてのカウントダウン表示要素を取得
+        const countdownElements = document.querySelectorAll('.countdown-display[data-event-date]');
+        
+        countdownElements.forEach(element => {
+            // data属性からイベント日を取得
+            const dateStr = element.getAttribute('data-event-date');
+            if (!dateStr) return;
+            
+            // YYYY.MM.DD形式をパース
+            const [year, month, day] = dateStr.split('.').map(Number);
+            const eventDate = new Date(year, month - 1, day); // 月は0から始まるため、-1
+            
+            // 現在の日付
+            const now = new Date();
+            // 時間を無視するために日付部分のみを設定
+            now.setHours(0, 0, 0, 0);
+            eventDate.setHours(0, 0, 0, 0);
+            
+            // 日数の差を計算
+            const diffTime = eventDate.getTime() - now.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // 日付の状態を設定
+            const daysRemaining = Math.abs(diffDays);
+            const isPast = diffDays < 0;
+            const isToday = diffDays === 0;
+            
+            // クラス名を設定
+            element.classList.remove('today', 'past-event');
+            if (isToday) {
+                element.classList.add('today');
+            } else if (isPast) {
+                element.classList.add('past-event');
+            }
+            
+            // 表示内容を更新
+            if (isToday) {
+                element.innerHTML = '<span class="countdown-text">本日開催!</span>';
+            } else if (!isPast) {
+                element.innerHTML = `開催まであと<span class="countdown-number">${daysRemaining}</span>日`;
+            } else {
+                element.innerHTML = '開催終了';
+            }
+            
+            // data属性も更新
+            element.setAttribute('data-is-past', isPast.toString());
+            element.setAttribute('data-is-today', isToday.toString());
+            element.setAttribute('data-days-remaining', daysRemaining.toString());
+        });
+    }
+    
+    // ページ読み込み時に更新
+    updateCountdowns();
+    
+    // 日付が変わる可能性を考慮して、1分ごとに更新
+    // 実運用では更新頻度はニーズに合わせて調整してください
+    setInterval(updateCountdowns, 60000);
+
+    // tour.astroのスクリプト
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // 時刻をリセットして日付のみで比較
+
+    // YYYY.MM.DD 形式の日付文字列をDateオブジェクトに変換する関数
+    function parseClientDate(dateStr: string) {
+        if (!dateStr) return null;
+        const parts = dateStr.split('.').map(Number);
+        if (parts.length === 3 && !parts.some(isNaN)) {
+            // JavaScriptの月は0から始まるため、月-1で調整
+            return new Date(parts[0], parts[1] - 1, parts[2]);
+        }
+        console.warn('Invalid date format encountered:', dateStr);
+        return null; 
+    }
+
+    const currentToursList = document.getElementById('current-tours-list');
+    const pastToursList = document.getElementById('past-tours-list');
+    const noCurrentToursMessage = document.getElementById('no-current-tours-message');
+    const noPastToursMessage = document.getElementById('no-past-tours-message');
+    const allToursPool = document.getElementById('all-tours-pool');
+
+    if (currentToursList && pastToursList && noCurrentToursMessage && noPastToursMessage && allToursPool) {
+        const tourItemWrappers = Array.from(allToursPool.children);
+
+        const clientCurrentToursElements: HTMLElement[] = [];
+        const clientPastToursElements: HTMLElement[] = [];
+
+        tourItemWrappers.forEach(wrapper => {
+            if (!(wrapper instanceof HTMLElement)) return;
+
+            const eventDateStr = wrapper.dataset.eventDate;
+            if (!eventDateStr) { // Check if eventDateStr is undefined or empty
+                console.warn('Skipping tour item due to missing date:', wrapper);
+                return;
+            }
+            const eventDate = parseClientDate(eventDateStr);
+            
+            if (!eventDate) {
+                // 無効な日付を持つアイテムはスキップ
+                console.warn('Skipping tour item due to invalid date:', wrapper);
+                return;
+            }
+
+            if (eventDate >= today) {
+                clientCurrentToursElements.push(wrapper);
+            } else {
+                clientPastToursElements.push(wrapper);
+            }
+        });
+
+        // 日付でソート
+        clientCurrentToursElements.sort((a, b) => {
+            const dateAStr = a.dataset.eventDate;
+            const dateBStr = b.dataset.eventDate;
+            if (!dateAStr || !dateBStr) return 0; // Handle undefined or empty strings
+            const dateA = parseClientDate(dateAStr);
+            const dateB = parseClientDate(dateBStr);
+            if (!dateA || !dateB) return 0;
+            return dateA.getTime() - dateB.getTime(); // Scheduled: 昇順 (古い順)
+        });
+        clientPastToursElements.sort((a, b) => {
+            const dateAStr = a.dataset.eventDate;
+            const dateBStr = b.dataset.eventDate;
+            if (!dateAStr || !dateBStr) return 0; // Handle undefined or empty strings
+            const dateA = parseClientDate(dateAStr);
+            const dateB = parseClientDate(dateBStr);
+            if (!dateA || !dateB) return 0;
+            return dateB.getTime() - dateA.getTime(); // Past: 降順 (新しい順)
+        });
+
+        // DOMに要素を追加
+        clientCurrentToursElements.forEach(el => currentToursList.appendChild(el));
+        clientPastToursElements.forEach(el => pastToursList.appendChild(el));
+
+        // 「ライブなし」メッセージの表示/非表示を更新
+        noCurrentToursMessage.style.display = clientCurrentToursElements.length === 0 ? 'block' : 'none';
+        noPastToursMessage.style.display = clientPastToursElements.length === 0 ? 'block' : 'none';
+    }
+
+    // Header.astroのスクリプト
+    const hamburger = document.querySelector('.hamburger-menu');
+    const mainNav = document.querySelector('.main-nav');
+
+    if (hamburger && mainNav) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('is-active');
+            mainNav.classList.toggle('is-active');
+            const isActive = mainNav.classList.contains('is-active');
+            hamburger.setAttribute('aria-expanded', isActive.toString());
+            
+            // スクロール制御（メニュー表示中はスクロール禁止）
+            if (isActive) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // メニュー外クリックでメニューを閉じる
+        document.addEventListener('click', (event) => {
+            const target = event.target as Node; // event.targetをNode型にキャスト
+            // メニューが開いていて、クリックされた要素がナビゲーションメニューとハンバーガーボタンのどちらでもない場合
+            if (mainNav.classList.contains('is-active') && 
+                !mainNav.contains(target) && 
+                !hamburger.contains(target)) {
+                
+                hamburger.classList.remove('is-active');
+                mainNav.classList.remove('is-active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // メニュー内のリンクをクリックした際にメニューを閉じる
+        const navLinks = mainNav.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('is-active');
+                mainNav.classList.remove('is-active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // ESCキーでメニューを閉じる（アクセシビリティ向上）
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && mainNav.classList.contains('is-active')) {
+                hamburger.classList.remove('is-active');
+                mainNav.classList.remove('is-active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+// public/404.htmlのスクリプト
+(function() {
+    // 既にDOMContentLoaded内にあるため、ここでは追加のリスナーは不要
+    // 404ページに遷移したかどうかを判断するより良い方法を検討する必要があります。
+    // 現在のパスが404.htmlを直接参照しているか、あるいは特定のカスタムヘッダーや
+    // グローバルJavaScript変数を通じて404状態が示されているかを確認するなど。
+    // ここでは例として、URLに '404.html' が含まれているかで簡易的に判断します。
+    if (document.title.includes('ページが見つかりません') || window.location.pathname.endsWith('404.html')) {
+        var path = window.location.pathname;
+        var repo = '/azule_HP'; // Astro.site.pathname または import.meta.env.BASE_URL を使いたいが、クライアントサイドJSなので直接は使えない
+        // Astroプロジェクトでは通常、リダイレクトはサーバーサイドまたはビルド時に設定されるため、
+        // このクライアントサイドのリダイレクトが期待通りに機能するか、Astroのルーティングとの競合を避けるか注意が必要です。
+        // sessionStorageを使ったリダイレクトはSPA的な挙動を意図しているかもしれませんが、
+        // Astroの静的サイトでは、ビルド時に正しいパスが生成されるべきです。
+        // このロジックはGitHub Pagesのカスタム404ページでSPAリダイレクトを行うための一般的なパターンの可能性があります。
+        // Astroの `trailingSlash: 'always'` や `build.format = 'directory'` 設定と関連してくるかもしれません。
+
+        // sessionStorageにリダイレクト先を保存するロジックは、Astroの<script>タグ内ではそのまま動作しますが、
+        // Astroの思想としては、このようなクライアントサイドのみでのリダイレクトは推奨されない場合があります。
+        // 代わりにAstroの機能（例：リダイレクトコンポーネントやサーバーエンドポイント）を使うことが望ましいです。
+        // しかし、既存の `public/404.html` の動作を維持するため、ここではロジックを移植します。
+        
+        // `import.meta.env.BASE_URL` はクライアントサイドの<script>タグ内では直接利用できません。
+        // もしBASE_URLが必要な場合は、ビルド時にHTMLに埋め込むか、別途APIから取得するなどの工夫が必要です。
+        // ここではハードコードされた '/azule_HP' を使いますが、これは柔軟性に欠けます。
+        // より良い方法は、Astroコンポーネントのフロントマターで `import.meta.env.BASE_URL` を取得し、
+        // それを `data-base-url` のような属性としてHTML要素に渡し、クライアントサイドJSで読み取ることです。
+        
+        // sessionStorage.redirectのロジックがGitHub PagesのSPAリダイレクトハックの一部であると仮定して移植します。
+        // ただし、Astroでは通常、このような処理は不要か、異なる方法で行われます。
+        if (sessionStorage.redirect && sessionStorage.redirect.startsWith(window.location.origin + repo)) {
+             // 既にリダイレクト処理が試みられた可能性がある場合（無限ループを避けるため）
+             // 何もしないか、エラーメッセージを表示するなどの処理を検討
+            console.warn("Redirect already attempted or in progress from sessionStorage.");
+        } else {
+            var originalPath = window.location.pathname;
+            var basePath = '/azule_HP'; // ハードコード
+            var correctedPath = originalPath;
+
+            if (originalPath.startsWith(basePath + basePath)) {
+                // 重複したベースパスを修正 (例: /azule_HP/azule_HP/foo -> /azule_HP/foo)
+                correctedPath = originalPath.substring(basePath.length);
+            }
+            
+            // sessionStorageに保存するパスは、ベースパスを除いた相対パスにするか、
+            // もしくはベースパスを含む完全なパスにするか、リダイレクト先の期待する形式に合わせる。
+            // 元のスクリプトは `window.location.origin + repo + path` を保存していた。
+            // `path` は `repo` を除いたもの。
+            let redirectTarget = sessionStorage.getItem('redirect');
+            if (redirectTarget) {
+                // 既にリダイレクト先が保存されていれば、そこにリダイレクト
+                // ただし、これが無限ループを引き起こさないように注意が必要
+                // window.location.replace(redirectTarget);
+                // sessionStorage.removeItem('redirect'); // リダイレクト後に削除
+                console.log("Original 404.html script would redirect to (from sessionStorage):", redirectTarget);
+            } else {
+                // 典型的なGitHub Pages SPAリダイレクトハックのパターン
+                // 現在のパスを保存し、ルートにリダイレクトして、ルートのJSが適切なページに再ルーティングする。
+                // ただし、このscript.astroは全ページで読み込まれるため、このロジックが意図通りに機能するかは注意が必要。
+                // Astroの404ページは `src/pages/404.astro` で処理するのが一般的。
+                // `public/404.html` はGitHub PagesなどのホスティングプロバイダがSPAモードでない場合にフォールバックとして使うもの。
+                var redirectTo = window.location.pathname.replace(window.location.origin, '');
+                if (redirectTo.startsWith(basePath)) {
+                    redirectTo = redirectTo.substring(basePath.length);
+                }
+                if (!redirectTo.startsWith('/')) {
+                    redirectTo = '/' + redirectTo;
+                }
+                // sessionStorage.setItem('redirect', basePath + redirectTo);
+                // window.location.href = basePath; // ルートにリダイレクト
+                console.log("Original 404.html script would set sessionStorage.redirect to:", basePath + redirectTo, "and redirect to:", basePath);
+            }
+        }
+    }
+})(); // This closes the IIFE for 404.html script
+}); // This closes the DOMContentLoaded event listener
+</script>

@@ -84,68 +84,6 @@ const initialIsToday = diffDays === 0;
     </div>
 </article>
 
-<script>
-    // カウントダウンを更新する関数
-    function updateCountdowns() {
-        // すべてのカウントダウン表示要素を取得
-        const countdownElements = document.querySelectorAll('.countdown-display[data-event-date]');
-        
-        countdownElements.forEach(element => {
-            // data属性からイベント日を取得
-            const dateStr = element.getAttribute('data-event-date');
-            if (!dateStr) return;
-            
-            // YYYY.MM.DD形式をパース
-            const [year, month, day] = dateStr.split('.').map(Number);
-            const eventDate = new Date(year, month - 1, day); // 月は0から始まるため、-1
-            
-            // 現在の日付
-            const now = new Date();
-            // 時間を無視するために日付部分のみを設定
-            now.setHours(0, 0, 0, 0);
-            eventDate.setHours(0, 0, 0, 0);
-            
-            // 日数の差を計算
-            const diffTime = eventDate.getTime() - now.getTime();
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            // 日付の状態を設定
-            const daysRemaining = Math.abs(diffDays);
-            const isPast = diffDays < 0;
-            const isToday = diffDays === 0;
-            
-            // クラス名を設定
-            element.classList.remove('today', 'past-event');
-            if (isToday) {
-                element.classList.add('today');
-            } else if (isPast) {
-                element.classList.add('past-event');
-            }
-            
-            // 表示内容を更新
-            if (isToday) {
-                element.innerHTML = '<span class="countdown-text">本日開催!</span>';
-            } else if (!isPast) {
-                element.innerHTML = `開催まであと<span class="countdown-number">${daysRemaining}</span>日`;
-            } else {
-                element.innerHTML = '開催終了';
-            }
-            
-            // data属性も更新
-            element.setAttribute('data-is-past', isPast.toString());
-            element.setAttribute('data-is-today', isToday.toString());
-            element.setAttribute('data-days-remaining', daysRemaining.toString());
-        });
-    }
-    
-    // ページ読み込み時に更新
-    updateCountdowns();
-    
-    // 日付が変わる可能性を考慮して、1分ごとに更新
-    // 実運用では更新頻度はニーズに合わせて調整してください
-    setInterval(updateCountdowns, 60000);
-</script>
-
 <style>
     .flyer-link {
         display: block;

@@ -3,18 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>ページが見つかりません - Azule Orchid</title>
-    <script>
-        (function() {
-        var path = window.location.pathname;
-        var repo = '/azule_HP';
-        if (path.indexOf(repo) === 0) {
-            path = path.substring(repo.length);
-        }
-        if (path.charAt(0) !== '/') path = '/' + path;
-        sessionStorage.redirect = window.location.origin + repo + path;
-        window.location.href = window.location.origin + repo;
-        })();
-    </script>
     </head>
     <body>
     <h1>ページが見つかりません</h1>
