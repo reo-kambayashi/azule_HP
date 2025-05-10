@@ -1,30 +1,36 @@
 name: Deploy to GitHub Pages
 
 on:
-  # main ブランチへのプッシュ時に実行
   push:
     branches: [ main ]
-  # 手動実行用トリガー
   workflow_dispatch:
-  # 毎日日本時間朝3時（UTC18:00）に自動実行
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '0 18 * * *'    # 毎日 JST 3:00（UTC18:00）に実行
 
 permissions:
   contents: read
   pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
+          cache: 'npm'
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
 
       - name: Install dependencies
         run: npm ci
@@ -32,16 +38,12 @@ jobs:
       - name: Build with Astro
         run: npm run build
 
-      - name: Move sitemap files into base directory
-        run: |
-          mv dist/sitemap-index.xml dist/azule_HP/
-          mv dist/sitemap-0.xml      dist/azule_HP/
+      # ── mv ステップは不要 ──
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # GitHub Pages に公開したいフォルダを指定
-          path: ./dist/azule_HP
+          path: ./dist
 
   deploy:
     needs: build
