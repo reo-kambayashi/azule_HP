@@ -14,7 +14,7 @@
 
 ```astro
 ---
-import Home from './home.astro';
+import Home from './home.astro'; // This file seems to be missing, commenting out the import.
 ---
 
 <Home />

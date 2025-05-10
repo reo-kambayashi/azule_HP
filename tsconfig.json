@@ -6,9 +6,16 @@
     },
     "include": [
         ".astro/types.d.ts",
-        "**/*"
+        "src/**/*.astro",
+        "src/**/*.ts",
+        "src/**/*.js",
+        "src/**/*.json",
+        "astro.config.mjs",
+        "env.d.ts"
     ],
     "exclude": [
-        "dist"
+        "node_modules",
+        "dist",
+        "public"
     ]
 }

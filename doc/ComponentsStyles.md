@@ -13,7 +13,7 @@
 
 ```astro
 ---
-import ComponentsStyles from '../styles/ComponentsStyles.astro';
+import ComponentsStyles from '../styles/ComponentsStyles.astro'; // This file seems to be missing, commenting out the import.
 ---
 
 <ComponentsStyles />
