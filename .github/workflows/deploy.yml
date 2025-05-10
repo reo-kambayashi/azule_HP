@@ -1,54 +1,54 @@
 name: Deploy to GitHub Pages
 
 on:
-  # mainブランチにプッシュした時に実行
+  # main ブランチへのプッシュ時に実行
   push:
     branches: [ main ]
-  # 手動で実行する場合のトリガー
+  # 手動実行用トリガー
   workflow_dispatch:
-  # 日本時間の朝3時（UTC 18:00、前日）に毎日自動実行
+  # 毎日日本時間朝3時（UTC18:00）に自動実行
   schedule:
     - cron: '0 18 * * *'
 
-# JOBSの権限設定
 permissions:
   contents: read
   pages: write
-  id-token: write
-
-# 同時実行を許可しない
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: "18"
-          cache: 'npm'
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+          node-version: '18'
+
       - name: Install dependencies
         run: npm ci
+
       - name: Build with Astro
         run: npm run build
-      - name: Upload artifact
+
+      - name: Move sitemap files into base directory
+        run: |
+          mv dist/sitemap-index.xml dist/azule_HP/
+          mv dist/sitemap-0.xml      dist/azule_HP/
+
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          # GitHub Pages に公開したいフォルダを指定
+          path: ./dist/azule_HP
 
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
