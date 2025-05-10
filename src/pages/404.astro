@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "ページが見つかりません - Azule Orchid";
+const metaDescription = "お探しのページは見つかりませんでした。";
+---
+<Layout title={title} metaDescription={metaDescription}>
+  <section class="not-found-page">
+    <h1>404 - ページが見つかりません</h1>
+    <p>お探しのページは見つかりませんでした。URLが正しいかご確認ください。</p>
+    <p>
+      <a href={import.meta.env.BASE_URL || '/'} class="button">ホームページに戻る</a>
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .not-found-page {
+    text-align: center;
+    padding: var(--spacing-xl) var(--spacing-md);
+    min-height: 60vh; /* フッターが画面下部に来るように調整 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .not-found-page h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .not-found-page p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-text);
+  }
+
+  .button {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    text-decoration: none;
+    border-radius: var(--radius-base);
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .button:hover {
+    background-color: var(--color-accent-dark); /* ホバー時の色を定義 (Global.astroに追加が必要かも) */
+  }
+</style>

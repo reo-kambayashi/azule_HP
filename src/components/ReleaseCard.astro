@@ -62,3 +62,261 @@ const formattedTitle = title.replace(/\n/g, '<br />');
         )}
     </div>  
 </article>
+
+<style>
+/* ReleaseCard Styles from ComponentsStyles.astro */
+.release-card {
+    width: var(--card-width);
+    max-width: var(--card-max-width);
+    margin: 0 auto var(--spacing-xl);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-base);
+    box-shadow: var(--box-shadow-card);
+    flex-wrap: wrap;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.release-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.release-cover {
+    width: 300px;
+    height: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--box-shadow-card);
+    transition: transform 0.5s ease;
+    max-width: 100%;
+}
+
+.release-cover:hover {
+    transform: scale(1.05);
+}
+
+.release-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    width: 100%;
+}
+
+.release-title {
+    font-size: 1.5rem;
+    margin: 0 0 var(--spacing-sm);
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.release-date {
+    font-size: 1rem;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+}
+
+.tracklist {
+    list-style: decimal inside;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tracklist li {
+    margin-bottom: var(--spacing-xs);
+    font-size: 1rem;
+    color: var(--color-text);
+    padding: 0;
+    word-wrap: break-word;
+}
+
+.subscription-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sub-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    background-color: transparent;
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-base);
+    transition: var(--transition-base);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.sub-link:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--color-secondary);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.sub-link:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.sub-link:hover:before {
+    width: 100%;
+}
+
+.release-cover-container {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+}
+
+/* Responsive Styles for ReleaseCard */
+@media (max-width: 768px) {
+    .release-card {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+    .release-cover {
+        width: 80%;
+        max-width: 300px;
+        margin: 1rem auto 0;
+    }
+    .release-info {
+        width: 100%;
+        padding: var(--spacing-xs);
+    }
+    .subscription-links {
+        justify-content: center;
+    }
+    .release-title {
+        text-align: center;
+        margin-top: var(--spacing-md);
+    }
+    .release-date {
+        text-align: center;
+    }
+    .sub-link {
+        font-size: 0.85rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        min-height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .release-card {
+        padding: var(--spacing-sm);
+        width: 95%;
+        gap: var(--spacing-sm);
+    }
+    .release-cover {
+        width: 70%;
+    }
+    .subscription-links {
+        gap: var(--spacing-xs);
+    }
+    .sub-link {
+        font-size: 0.85rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        min-height: auto;
+    }
+}
+
+@media (max-width: 375px) {
+    .release-card {
+        width: 100%;
+        padding: var(--spacing-sm) var(--spacing-xs);
+    }
+    .release-title {
+        font-size: 1.2rem;
+    }
+    .tracklist {
+        padding: 0 var(--spacing-xs);
+    }
+    .release-cover {
+        width: 80%;
+    }
+}
+
+/* Animation Styles */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-left:nth-child(1),
+.release-card.fade-in-left:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.fade-in-left:nth-child(2),
+.release-card.fade-in-left:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.fade-in-left:nth-child(3),
+.release-card.fade-in-left:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.release-card.fade-in-left { /* Applied to the component's root */
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.release-card.fade-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .release-card:hover, .release-cover:hover, .sub-link:hover {
+        transform: none;
+        transition: none;
+    }
+    .fade-in-up, .release-card.fade-in-left {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        animation: none;
+    }
+    .fade-in-up.visible, .release-card.fade-in-left.visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+</style>

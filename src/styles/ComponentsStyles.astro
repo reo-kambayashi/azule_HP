@@ -5,464 +5,107 @@
  */
 
 /* リリースカードとツアーカードの共通スタイル - 情報を表示するメインのカードコンポーネント */
-.release-card,
-.tour-card {
-    width: var(--card-width);           /* カードの幅（グローバル変数から取得） */
-    max-width: var(--card-max-width);   /* 最大幅の制限 */
-    margin: 0 auto var(--spacing-xl);   /* 上下左右のマージン（中央揃え） */
-    display: flex;                       /* フレックスボックスレイアウトを使用 */
-    align-items: flex-start;            /* アイテムを上端に揃える */
-    gap: var(--spacing-lg);             /* アイテム間の間隔 */
-    background: var(--color-white);     /* 背景色を白に設定 */
-    padding: var(--spacing-lg);         /* 内側の余白 */
-    border-radius: var(--radius-base);  /* 角を丸くする */
-    box-shadow: var(--box-shadow-card); /* カードに影を追加 */
-    flex-wrap: wrap;                    /* 必要に応じて折り返し */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-sizing: border-box;             /* パディングを幅の計算に含める */
-}
+/* .release-card, .tour-card スタイルは各コンポーネントファイルに移動しました */
 
 /* リリースカードとツアーカードのホバーアニメーション */
-.release-card:hover,
-.tour-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
+/* .release-card:hover, .tour-card:hover スタイルは各コンポーネントファイルに移動しました */
 
 /* リリースカバー画像のスタイル */
-.release-cover {
-    width: 300px;                        /* 画像の幅を固定 */
-    height: auto;                        /* 高さは自動調整（アスペクト比維持） */
-    object-fit: cover;                   /* 画像のサイズ調整方法 */
-    flex-shrink: 0;                      /* フレックスアイテムの縮小を防止 */
-    border-radius: var(--radius-sm);     /* 画像の角を丸くする */
-    box-shadow: var(--box-shadow-card);  /* 画像に影を追加 */
-    transition: transform 0.5s ease;
-    max-width: 100%;                     /* 親要素からはみ出さないように */
-}
+/* .release-cover スタイルは ReleaseCard.astro に移動しました */
 
-.release-cover:hover {
-    transform: scale(1.05);
-}
+/* .release-cover:hover スタイルは ReleaseCard.astro に移動しました */
 
 /* リリース情報のスタイル - タイトル、日付、トラックリストなどの情報を格納 */
-.release-info {
-    flex: 1;                   /* 利用可能なスペースを埋める */
-    display: flex;             /* フレックスボックスレイアウトを使用 */
-    flex-direction: column;    /* 子要素を縦に並べる */
-    justify-content: center;   /* 中央揃え（縦方向） */
-    min-width: 0;             /* flexアイテムを縮小可能に */
-    width: 100%;               /* 幅を100%に設定 */
-}
+/* .release-info スタイルは ReleaseCard.astro に移動しました */
 
 /* リリースタイトルのスタイル */
-.release-title {
-    font-size: 1.5rem;                  /* フォントサイズ設定 */
-    margin: 0 0 var(--spacing-sm);      /* 下部にのみマージンを設定 */
-    text-align: left;                   /* テキストを左揃え */
-    word-wrap: break-word;              /* 長い単語を折り返し */
-}
+/* .release-title スタイルは ReleaseCard.astro に移動しました */
 
 /* リリース日のスタイル */
-.release-date {
-    font-size: 1rem;                    /* フォントサイズ設定 */
-    color: var(--color-text-light);     /* 薄い色のテキスト */
-    margin-bottom: var(--spacing-md);   /* 下部マージンを設定 */
-}
+/* .release-date スタイルは ReleaseCard.astro に移動しました */
 
 /* トラックリストのスタイル */
-.tracklist {
-    list-style: decimal inside;    /* 数字付きリスト（内側に表示） */
-    padding: 0;                    /* パディングをリセット */
-    margin: 0;                     /* マージンをリセット */
-    width: 100%;                  /* 幅を100%に設定 */
-    box-sizing: border-box;       /* パディングを幅の計算に含める */
-}
+/* .tracklist スタイルは ReleaseCard.astro に移動しました */
 
 /* トラックリストの各項目のスタイル */
-.tracklist li {
-    margin-bottom: var(--spacing-xs);  /* 項目間のマージンを小さく変更（--spacing-sm から --spacing-xs へ） */
-    font-size: 1rem;                   /* フォントサイズ設定 */
-    color: var(--color-text);          /* テキスト色 */
-    padding: 0;      /* 上下にパディングを追加（タップしやすく） */
-    word-wrap: break-word;             /* 長い単語を折り返し */
-}
+/* .tracklist li スタイルは ReleaseCard.astro に移動しました */
 
 /* サブスクリプションリンク（Spotify、Apple Musicなど）のコンテナスタイル */
-.subscription-links {
-    display: flex;                    /* フレックスボックスレイアウトを使用 */
-    flex-wrap: wrap;                  /* 必要に応じて折り返し */
-    gap: var(--spacing-sm);           /* リンク間の間隔 */
-    margin-top: var(--spacing-md);    /* 上部マージン */
-    width: 100%;                      /* 幅を100%に設定 */
-    box-sizing: border-box;           /* パディングを幅の計算に含める */
-}
+/* .subscription-links スタイルは ReleaseCard.astro に移動しました */
 
 /* 個別のサブスクリプションリンクスタイル */
-.sub-link {
-    display: inline-flex;              /* インラインフレックス要素として表示 */
-    justify-content: center;           /* 水平方向中央揃え */
-    align-items: center;               /* 垂直方向中央揃え */
-    min-height: var(--touch-target-min); /* タップエリアの最小高さ */
-    padding: var(--spacing-xs) var(--spacing-md); /* 上下のパディングを小さく変更 */
-    font-size: 0.9rem;                  /* フォントサイズを小さく */
-    font-weight: 600;                   /* フォントを太く */
-    color: var(--color-secondary);      /* テキスト色 */
-    background-color: transparent;      /* 背景を透明に */
-    border: 1px solid var(--color-secondary); /* 境界線 */
-    border-radius: var(--radius-base);  /* 角を丸くする */
-    transition: var(--transition-base); /* アニメーション効果 */
-    text-decoration: none;              /* 下線を削除 */
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
+/* .sub-link スタイルは ReleaseCard.astro に移動しました */
 
-.sub-link:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background-color: var(--color-secondary);
-    transition: width 0.3s ease;
-    z-index: -1;
-}
+/* .sub-link:before スタイルは ReleaseCard.astro に移動しました */
 
 /* ホバー時のサブスクリプションリンクスタイル */
-.sub-link:hover {
-    background-color: var(--color-secondary); /* 背景色を変更 */
-    color: var(--color-white);               /* テキスト色を白に */
-    transform: translateY(-2px);             /* 少し上に移動する効果 */
-    text-decoration: none;                   /* 下線なし */
-}
+/* .sub-link:hover スタイルは ReleaseCard.astro に移動しました */
 
-.sub-link:hover:before {
-    width: 100%;
-}
+/* .sub-link:hover:before スタイルは ReleaseCard.astro に移動しました */
 
 /* ツアーセクション全体のスタイル */
-.tour {
-    padding: var(--spacing-xl);         /* 周囲のパディング */
-    width: 100%;                        /* 幅を100%に設定 */
-    box-sizing: border-box;             /* パディングを幅の計算に含める */
-}
+/* .tour スタイルは TourCard.astro または tour.astro ページに移動しました */
 
 /* ツアーリスト（複数のツアー情報）のスタイル */
-.tour-list {
-    display: flex;                        /* フレックスボックスレイアウトを使用 */
-    flex-direction: column;               /* 子要素を縦に並べる */
-    gap: var(--spacing-lg);               /* ツアーカード間の間隔 */
-    max-width: var(--container-max-width); /* 最大幅の制限 */
-    margin: 0 auto;                       /* 中央揃え */
-    width: 100%;                          /* 幅を100%に設定 */
-    box-sizing: border-box;               /* パディングを幅の計算に含める */
-}
+/* .tour-list スタイルは TourCard.astro または tour.astro ページに移動しました */
 
 /* ツアー情報のスタイル - 日時、会場、詳細情報などを表示 */
-.tour-info {
-    order: 1;                 /* フレックスアイテムの表示順序 */
-    flex: 1;                  /* 利用可能なスペースを埋める */
-    padding: var(--spacing-sm); /* 内側の余白 */
-    display: flex;            /* フレックスボックスレイアウトを使用 */
-    flex-direction: column;   /* 子要素を縦に並べる */
-    justify-content: center;  /* 中央揃え（縦方向） */
-    width: 100%;              /* 幅を100%に設定 */
-    box-sizing: border-box;   /* パディングとボーダーを幅に含める */
-    overflow-wrap: break-word; /* 長いテキストを折り返し（古い仕様） */
-    word-wrap: break-word;    /* 長いテキストを折り返し（新しい仕様） */
-    min-width: 0;             /* flexアイテムを縮小可能に */
-}
+/* .tour-info スタイルは TourCard.astro に移動しました */
 
 /* ツアー情報内のリンクと段落のスタイル */
-.tour-info a, 
-.tour-info p {
-    margin: 0;                /* マージンをリセット */
-    /* レスポンシブなフォントサイズ（画面幅に応じて0.9remから1.3remまで変化） */
-    font-size: clamp(0.9rem, 2.5vw, 1.3rem); 
-    max-width: 100%;          /* 最大幅を制限 */
-    word-break: break-word;   /* 単語の途中でも必要に応じて折り返し */
-    padding: var(--spacing-xs) 0; /* 上下にパディングを追加（タップしやすく） */
-}
+/* .tour-info a, .tour-info p スタイルは TourCard.astro に移動しました */
 
 /* ツアー予約セクションのスタイル */
-.tour-reserve {
-    width: 100%;              /* 幅を100%に設定 */
-    display: flex;            /* フレックスボックスレイアウトを使用 */
-    flex-wrap: wrap;          /* 必要に応じて折り返し */
-    align-items: center;      /* アイテムを中央揃え（横方向） */
-    gap: var(--spacing-sm);   /* アイテム間の間隔 */
-    margin-top: var(--spacing-sm); /* 上部マージン */
-    box-sizing: border-box;   /* パディングを幅の計算に含める */
-}
+/* .tour-reserve スタイルは TourCard.astro に移動しました */
 
 /* ツアー予約リンクのスタイル */
-.tour-reserve a {
-    color: var(--color-link);   /* リンク色 */
-    margin-top: var(--spacing-md); /* 上部マージン */
-    display: inline-flex;        /* インラインフレックスとして表示 */
-    align-items: center;         /* 垂直中央揃え */
-    word-break: break-word;      /* 長いURLでも折り返し可能に */
-    min-height: var(--touch-target-min); /* タップエリアの最小高さ */
-}
+/* .tour-reserve a スタイルは TourCard.astro に移動しました */
 
 /* ホバー時のツアー予約リンクスタイル */
-.tour-reserve a:hover {
-    color: var(--color-link-hover); /* ホバー時の色 */
-}
+/* .tour-reserve a:hover スタイルは TourCard.astro に移動しました */
 
 /* ツアーフライヤー（画像）コンテナのスタイル */
-.tour-flyer {
-    order: 2;                 /* フレックスアイテムの表示順序（テキストの後） */
-    padding: var(--spacing-md); /* 内側の余白 */
-    flex: 0 0 auto;           /* 自動サイズ調整に変更（固定値から変更） */
-    max-width: 300px;         /* 最大幅を設定 */
-    box-sizing: border-box;   /* パディングとボーダーを幅に含める */
-    overflow: hidden;
-    border-radius: var(--radius-sm);
-    display: flex;            /* 追加：フレックスボックスレイアウトを使用 */
-    justify-content: center;  /* 追加：中央揃え */
-    align-items: center;      /* 追加：中央揃え */
-    width: 100%;              /* 幅を100%に */
-}
+/* .tour-flyer スタイルは TourCard.astro に移動しました */
 
 /* ツアーカード内の画像のスタイル */
-.tour-card img {
-    width: 100%;                       /* 親要素の幅いっぱいに表示 */
-    height: auto;                      /* 高さは自動調整（アスペクト比維持） */
-    object-fit: contain;               /* 画像全体を表示（トリミングなし） */
-    flex-shrink: 0;                    /* フレックスアイテムの縮小を防止 */
-    border-radius: var(--radius-sm);   /* 画像の角を丸くする */
-    box-shadow: var(--box-shadow-card); /* 画像に影を追加 */
-    transition: transform 0.5s ease;
-    max-width: 100%;                   /* 親要素からはみ出さないように */
-}
+/* .tour-card img スタイルは TourCard.astro に移動しました */
 
-.tour-card img:hover {
-    transform: scale(1.05);
-}
+/* .tour-card img:hover スタイルは TourCard.astro に移動しました */
 
 /* 画像コンテナ用のオーバーフロー設定 */
-.release-cover-container {
-    overflow: hidden;
-    border-radius: var(--radius-sm);
-}
+/* .release-cover-container スタイルは ReleaseCard.astro に移動しました */
 
 /* 
  * レスポンシブデザイン - タブレット向け（768px以下）
  * タブレットサイズでのレイアウト調整
  */
-@media (max-width: 768px) {
-    /* カードのレイアウトを縦型に変更 */
-    .release-card,
-    .tour-card {
-        flex-direction: column;    /* 子要素を縦に並べる */
-        align-items: center;       /* 中央揃え */
-        width: 90%;                /* 画面幅の90%に調整 */
-        padding: var(--spacing-md); /* パディングを小さくする */
-        gap: var(--spacing-md);    /* 間隔を小さくする */
-    }
+/* @media (max-width: 768px) 内の関連スタイルは各コンポーネントファイルに移動しました */
     
-    /* 画像サイズを調整 */
-    .release-cover,
-    .tour-flyer {
-        width: 80%;               /* 幅を80%に設定（90%から縮小） */
-        max-width: 300px;          /* 最大幅を制限 */
-        margin: 1rem auto 0;       /* 上部マージンを追加、左右中央揃え */
-    }
-    
-    /* 情報セクションの幅調整 */
-    .release-info,
-    .tour-info {
-        width: 100%;               /* 幅を100%に設定 */
-        padding: var(--spacing-xs); /* パディングを小さくする */
-    }
-    
-    /* サブスクリプションリンクを中央揃えに */
-    .subscription-links {
-        justify-content: center;   /* 中央揃え */
-    }
-    
-    /* ツアー予約セクションのレイアウト調整 */
-    .tour-reserve {
-        flex-direction: column;    /* 子要素を縦に並べる */
-        align-items: flex-start;   /* 左揃え */
-    }
-    
-    /* ツアー予約ボタンの幅調整 */
-    .tour-reserve a.button {
-        width: auto;               /* 自動幅設定 */
-        max-width: 100%;           /* はみ出さないように制限 */
-        overflow-wrap: break-word; /* 長いテキストを折り返し */
-    }
-    
-    /* タイトルを中央揃えに変更 */
-    .release-title,
-    .tour-info h3 {
-        text-align: center;        /* テキストを中央揃え */
-        margin-top: var(--spacing-md); /* 上部マージンを追加 */
-    }
-    
-    /* リリース日も中央揃えに */
-    .release-date {
-        text-align: center;        /* テキストを中央揃え */
-    }
-    
-    /* ボタンのタップエリアを広げる */
-    .sub-link,
-    .tour-reserve a.button {
-        padding: var(--spacing-md) var(--spacing-lg); /* パディングを増やす */
-        min-height: var(--touch-target-min);         /* 最小高さを設定 */
-    }
-
-    /* ボタンのタップエリアを調整 */
-    .sub-link {
-        font-size: 0.85rem;                              /* フォントサイズを小さく */
-        padding: var(--spacing-xs) var(--spacing-sm);    /* パディングを小さく */
-        min-height: auto;                                /* 最小高さの制約を解除 */
-    }
-    
-    .tour-reserve a.button {
-        padding: var(--spacing-sm) var(--spacing-md);    /* ツアー予約ボタンのパディングを調整 */
-        min-height: var(--touch-target-min);             /* 最小高さを設定 */
-    }
-}
-
 /* 
  * レスポンシブデザイン - スマートフォン向け（480px以下）
  * 小さい画面での更なるレイアウト調整
  */
-@media (max-width: 480px) {
-    /* カードの余白と幅を調整 */
-    .tour-card, 
-    .release-card {
-        padding: var(--spacing-sm); /* パディングをさらに小さく */
-        width: 95%;                /* 画面幅の95%に調整 */
-        gap: var(--spacing-sm);    /* 間隔をさらに小さく */
-    }
-    
-    /* ツアー情報のテキストサイズを小さく */
-    .tour-info a, 
-    .tour-info p {
-        font-size: 1rem;        /* フォントサイズを小さく固定 */
-    }
-    
-    /* 画像サイズをさらに調整 */
-    .release-cover,
-    .tour-flyer {
-        width: 70%;           /* 幅を70%に縮小 */
-    }
-    
-    /* リンクエリアの調整 */
-    .subscription-links,
-    .tour-reserve {
-        gap: var(--spacing-xs); /* リンク間の間隔を小さく */
-    }
-    
-    /* ボタンのテキストサイズ調整 */
-    .sub-link {
-        font-size: 0.85rem;                              /* フォントサイズを小さく */
-        padding: var(--spacing-xs) var(--spacing-sm);    /* パディングを小さく */
-        min-height: auto;              
-    }
-}
+/* @media (max-width: 480px) 内の関連スタイルは各コンポーネントファイルに移動しました */
 
 /* 小型スマートフォン向け (375px以下) */
-@media (max-width: 375px) {
-    .release-card,
-    .tour-card {
-        width: 100%;         /* 画面幅いっぱいに */
-        padding: var(--spacing-sm) var(--spacing-xs); /* パディングを最小化 */
-    }
-    
-    /* タイトルを調整 */
-    .release-title,
-    .tour-info h3 {
-        font-size: 1.2rem;   /* フォントサイズを小さく */
-    }
-    
-    /* トラックリストのパディング調整 */
-    .tracklist {
-        padding: 0 var(--spacing-xs); /* 左右のパディングを追加 */
-    }
-    
-    /* 画像サイズをさらに最適化 */
-    .release-cover,
-    .tour-flyer {
-        width: 80%;          /* 幅を調整 */
-    }
-}
+/* @media (max-width: 375px) 内の関連スタイルは各コンポーネントファイルに移動しました */
 
 /* ページ読み込み時のフェードインアニメーション */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* @keyframes fadeIn は各コンポーネントファイルに移動しました */
 
 /* カード順にアニメーション遅延を追加 */
-.fade-in-left:nth-child(1),
-.fade-in-left.release-card:nth-child(1),
-.fade-in-left.tour-card:nth-child(1) {
-    animation-delay: 0.1s;
-}
-.fade-in-left:nth-child(2),
-.fade-in-left.release-card:nth-child(2),
-.fade-in-left.tour-card:nth-child(2) {
-    animation-delay: 0.2s;
-}
-.fade-in-left:nth-child(3),
-.fade-in-left.release-card:nth-child(3),
-.fade-in-left.tour-card:nth-child(3) {
-    animation-delay: 0.3s;
-}
+/* .fade-in-left:nth-child スタイルは各コンポーネントファイルに移動しました */
 
 /* スクロールアニメーション用クラス */
-.fade-in-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
+/* .fade-in-up スタイルは各コンポーネントファイルに移動しました */
 
-.fade-in-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* .fade-in-up.visible スタイルは各コンポーネントファイルに移動しました */
 
-.fade-in-left {
-    opacity: 0;
-    transform: translateX(-20px); /* -10rem から -20px に変更 - モバイル表示を考慮 */
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
+/* .fade-in-left スタイルは各コンポーネントファイルに移動しました */
 
-.fade-in-left.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
+/* .fade-in-left.visible スタイルは各コンポーネントファイルに移動しました */
 
 /* モーション低減設定への対応 */
-@media (prefers-reduced-motion: reduce) {
-    .release-card:hover,
-    .tour-card:hover,
-    .release-cover:hover,
-    .sub-link:hover,
-    .tour-card img:hover {
-        transform: none;
-        transition: none;
-    }
-    
-    .fade-in-up,
-    .fade-in-left {
-        opacity: 1;
-        transform: none;
-        transition: none;
-        animation: none;
-    }
-    
-    .fade-in-up.visible,
-    .fade-in-left.visible {
-        opacity: 1;
-        transform: none;
-    }
-}
+/* @media (prefers-reduced-motion: reduce) 内の関連スタイルは各コンポーネントファイルに移動しました */
+
 </style>

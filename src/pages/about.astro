@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import MemberCard from '../components/MemberCard.astro';
 import members from '../data/members.json';
-import ComponentsStyles from '../styles/ComponentsStyles.astro';
 
 // メンバーの型定義を追加
 interface Member {
@@ -25,7 +24,6 @@ const metaDescription = "Azule Orchid（アズールオーキッド）のバン�
     metaDescription={metaDescription}
     ogImage="images/top.JPG"
 >
-    <ComponentsStyles />
     <section class="about-page">
         <div class="about">
             <div class="about-header fade-in-left">
