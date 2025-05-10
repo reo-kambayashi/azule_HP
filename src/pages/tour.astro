@@ -4,34 +4,10 @@ import ComponentsStyles from '../styles/ComponentsStyles.astro';
 import TourCard from '../components/TourCard.astro';
 import tours from '../data/tour.json';
 
-// 現在の日付を取得
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-
-// 日付文字列をDateオブジェクトに変換する関数
-function parseDate(dateStr: string): Date {
-    const [year, month, day] = dateStr.split('.').map(Number);
-    return new Date(year, month - 1, day);
-}
-
-// ツアーデータを日付に基づいて分類
-const currentTours = tours
-    .filter(tour => {
-        const eventDate = parseDate(tour.date);
-        return eventDate >= today;
-    })
-    .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
-
-const pastTours = tours
-    .filter(tour => {
-        const eventDate = parseDate(tour.date);
-        return eventDate < today;
-    })
-    .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime()); // 過去のイベントは新しい順
-
-// SEO情報
+// SEO情報 (ビルド時)
 const title = "Live | Azule Orchid";
 const metaDescription = "Azule Orchidのライブ・イベント情報。予定されているライブと過去のライブ履歴をご紹介します。";
+// フロントマターでのビルド時分類は、クライアントサイドで処理するため、ここでは必須ではなくなります。
 ---
 <Layout
     title={title}
@@ -41,35 +17,119 @@ const metaDescription = "Azule Orchidのライブ・イベント情報。予定�
     <section class="tour-page">
         <h1 class="tour-page-title">Live</h1>
         
-        <!-- 現在のツアー -->
         <div class="tour-section">
             <h2 class="tour-section-title">Scheduled</h2>
-            {currentTours.length > 0 ? (
-                <div class="tour-list fade-in-left">
-                    {currentTours.map((tour: any) => (
-                        <TourCard tour={tour} />
-                    ))}
-                </div>
-            ) : (
-                <p class="tour-empty">現在予定されているライブはありません。</p>
-            )}
+            <div id="current-tours-list" class="tour-list fade-in-left">
+                {/* Populated by client-side JavaScript */}
+            </div>
+            <p id="no-current-tours-message" class="tour-empty" style="display: none;">現在予定されているライブはありません。</p>
         </div>
         
-        <!-- 過去のツアー -->
         <div class="past-tour-section">
             <h2 class="tour-section-title">Past</h2>
-            {pastTours.length > 0 ? (
-                <div class="tour-list fade-in-left">
-                    {pastTours.map((tour: any) => (
-                        <TourCard tour={tour} />
-                    ))}
+            <div id="past-tours-list" class="tour-list fade-in-left">
+                {/* Populated by client-side JavaScript */}
+            </div>
+            <p id="no-past-tours-message" class="tour-empty" style="display: none;">過去のライブ情報はありません。</p>
+        </div>
+
+        {/* Hidden container for all tour cards, rendered by Astro, manipulated by JS */}
+        <div id="all-tours-pool" style="display: none;">
+            {tours.map((tour: any) => (
+                <div class="tour-item-wrapper" data-event-date={tour.date}>
+                    <TourCard tour={tour} />
                 </div>
-            ) : (
-                <p class="tour-empty">過去のライブ情報はありません。</p>
-            )}
+            ))}
         </div>
     </section>
 </Layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // 時刻をリセットして日付のみで比較
+
+        // YYYY.MM.DD 形式の日付文字列をDateオブジェクトに変換する関数
+        function parseClientDate(dateStr: string) {
+            if (!dateStr) return null;
+            const parts = dateStr.split('.').map(Number);
+            if (parts.length === 3 && !parts.some(isNaN)) {
+                // JavaScriptの月は0から始まるため、月-1で調整
+                return new Date(parts[0], parts[1] - 1, parts[2]);
+            }
+            console.warn('Invalid date format encountered:', dateStr);
+            return null; 
+        }
+
+        const currentToursList = document.getElementById('current-tours-list');
+        const pastToursList = document.getElementById('past-tours-list');
+        const noCurrentToursMessage = document.getElementById('no-current-tours-message');
+        const noPastToursMessage = document.getElementById('no-past-tours-message');
+        const allToursPool = document.getElementById('all-tours-pool');
+
+        if (!currentToursList || !pastToursList || !noCurrentToursMessage || !noPastToursMessage || !allToursPool) {
+            console.error('Tour page DOM elements not found for client-side script.');
+            return;
+        }
+
+        const tourItemWrappers = Array.from(allToursPool.children);
+
+        const clientCurrentToursElements: HTMLElement[] = [];
+        const clientPastToursElements: HTMLElement[] = [];
+
+        tourItemWrappers.forEach(wrapper => {
+            if (!(wrapper instanceof HTMLElement)) return;
+
+            const eventDateStr = wrapper.dataset.eventDate;
+            if (!eventDateStr) { // Check if eventDateStr is undefined or empty
+                console.warn('Skipping tour item due to missing date:', wrapper);
+                return;
+            }
+            const eventDate = parseClientDate(eventDateStr);
+            
+            if (!eventDate) {
+                // 無効な日付を持つアイテムはスキップ
+                console.warn('Skipping tour item due to invalid date:', wrapper);
+                return;
+            }
+
+            if (eventDate >= today) {
+                clientCurrentToursElements.push(wrapper);
+            } else {
+                clientPastToursElements.push(wrapper);
+            }
+        });
+
+        // 日付でソート
+        clientCurrentToursElements.sort((a, b) => {
+            const dateAStr = a.dataset.eventDate;
+            const dateBStr = b.dataset.eventDate;
+            if (!dateAStr || !dateBStr) return 0; // Handle undefined or empty strings
+            const dateA = parseClientDate(dateAStr);
+            const dateB = parseClientDate(dateBStr);
+            if (!dateA || !dateB) return 0;
+            return dateA.getTime() - dateB.getTime(); // Scheduled: 昇順 (古い順)
+        });
+        clientPastToursElements.sort((a, b) => {
+            const dateAStr = a.dataset.eventDate;
+            const dateBStr = b.dataset.eventDate;
+            if (!dateAStr || !dateBStr) return 0; // Handle undefined or empty strings
+            const dateA = parseClientDate(dateAStr);
+            const dateB = parseClientDate(dateBStr);
+            if (!dateA || !dateB) return 0;
+            return dateB.getTime() - dateA.getTime(); // Past: 降順 (新しい順)
+        });
+
+        // DOMに要素を追加
+        clientCurrentToursElements.forEach(el => currentToursList.appendChild(el));
+        clientPastToursElements.forEach(el => pastToursList.appendChild(el));
+
+        // 「ライブなし」メッセージの表示/非表示を更新
+        noCurrentToursMessage.style.display = clientCurrentToursElements.length === 0 ? 'block' : 'none';
+        noPastToursMessage.style.display = clientPastToursElements.length === 0 ? 'block' : 'none';
+        
+    });
+</script>
 
 <style>
 .tour {
@@ -142,4 +202,14 @@ const metaDescription = "Azule Orchidのライブ・イベント情報。予定�
         padding-top: var(--spacing-md);
     }
 }
+
+.tour-item-wrapper {
+    display: block; 
+    /* 必要に応じてマージンなどを調整 */
+    /* margin-bottom: var(--spacing-md); */
+}
+
+/* tour-listのfade-in-leftアニメーションが動的に追加された要素で期待通りに動作しない場合、
+   個々のtour-item-wrapperにアニメーションを適用するか、
+   要素追加後にJavaScriptでアニメーションをトリガーする必要があるかもしれません。 */
 </style>
