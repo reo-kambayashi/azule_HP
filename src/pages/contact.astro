@@ -3,12 +3,17 @@ import Layout from '../layouts/Layout.astro';
 import contact from '../data/contact.json';
 
 // import ComponentsStyles from '../styles/ComponentsStyles.astro'; // 削除
-const title = "Contact | Azule Orchid";
+const title = "Contact | Azule Orchid (アズールオーキッド) | Azule";
+const metaDescription = "Azule Orchid（アズールオーキッド、azule orchid, あずーる）へのお問い合わせはこちらから。Azuleのライブ出演依頼、その他ご連絡をお待ちしております。各種SNSアカウントもこちらからご覧いただけます。";
 const xHandle = new URL(contact.x).pathname.slice(1);
 const instagramHandle = new URL(contact.instagram).pathname.slice(1);
 const youtubeHandle = new URL(contact.youtube).pathname.slice(1);
 ---
-<Layout>
+<Layout
+    title={title}
+    metaDescription={metaDescription}
+    keywords="Azule, Azule Orchid, azule, azule orchid, あずーる, アズール, contact,問い合わせ, SNS, email, X, Instagram, YouTube, ライブ依頼, 仙台, ポストポップ"
+>
     <!-- <ComponentsStyles /> --> <!-- 削除 -->
     <section class="contact-page">
         <div class="contact fade-in-left">
