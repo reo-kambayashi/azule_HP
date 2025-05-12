@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://reo-kambayashi.github.io/azule_HP/sitemap-index.xml
