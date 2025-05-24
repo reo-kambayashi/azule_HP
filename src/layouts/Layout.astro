@@ -1,73 +1,76 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Global from '../styles/Global.astro';
-import Script from '../components/script.astro'; // 追加
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Global from "../styles/Global.astro";
+import Script from "../components/script.astro"; // 追加
 
 interface Props {
-    title?: string;
-    metaDescription?: string;
-    ogImage?: string;
-    keywords?: string; // 追加
+  title?: string;
+  metaDescription?: string;
+  ogImage?: string;
+  keywords?: string; // 追加
 }
 
-const { 
-    title = "Azule Orchid (アズールオーキッド) | 仙台のポストポップバンド Azule", 
-    metaDescription = "Azule Orchid（アズールオーキッド、azule orchid, あずーる）は仙台を拠点に活動するポストポップバンド Azule。メロディアスな楽曲とエモーショナルな歌詞が特徴です。",
-    ogImage = "images/top.JPG",
-    keywords = "Azule, Azule Orchid, azule, azule orchid, あずーる, アズール, band, music, 仙台, sendai, ポストポップ" // 追加
+const {
+  title = "Azule Orchid (アズールオーキッド) | 仙台のポストポップバンド Azule",
+  metaDescription = "Azule Orchid（アズールオーキッド、azule orchid, あずーる）は仙台を拠点に活動するポストポップバンド Azule。メロディアスな楽曲とエモーショナルな歌詞が特徴です。",
+  ogImage = "images/top.JPG",
+  keywords = "Azule, Azule Orchid, azule, azule orchid, あずーる, アズール, band, music, 仙台, sendai, ポストポップ", // 追加
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const base = import.meta.env.BASE_URL; // e.g. "/azule_HP/"
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
-        <meta name="generator" content={Astro.generator} />
-        <title>{title}</title>
-        <meta name="description" content={metaDescription} />
-        <meta name="keywords" content={keywords} /> {/* 追加 */}
-        
-        <!-- Open Graph / Facebook -->
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:image" content={`${base}${ogImage}`} />
-        <meta property="og:url" content={canonicalURL} />
-        <meta property="og:type" content="website" />
-        
-        <!-- Twitter -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:image" content={`${base}${ogImage}`} />
-        
-        <!-- Canonical URL -->
-        <link rel="canonical" href={canonicalURL} />
-        
-        <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
-        rel="stylesheet"
-        />
-        <Global />
-        <Script /> <!-- 追加 -->
-    </head>
-    <body>
-        <Header />
-        <main class="container">
-        <slot />
-        </main>
-        <Footer />
-        <script src="/js/animations.js" defer></script>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={metaDescription} />
+    <meta name="keywords" content={keywords} />
+    {/* 追加 */}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={`${base}${ogImage}`} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={`${base}${ogImage}`} />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <Global />
+    <Script />
+    <!-- 追加 -->
+  </head>
+  <body>
+    <Header />
+    <main class="container">
+      <slot />
+    </main>
+    <Footer />
+    <script src="/js/animations.js" defer></script>
+  </body>
 </html>
 
 <style>
-main.container {
+  main.container {
     padding-top: 1rem;
     padding-bottom: 2rem;
-}
+  }
 </style>

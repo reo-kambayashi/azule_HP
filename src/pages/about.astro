@@ -1,14 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import MemberCard from '../components/MemberCard.astro';
-import members from '../data/members.json';
+import Layout from "../layouts/Layout.astro";
+import MemberCard from "../components/MemberCard.astro";
+import members from "../data/members.json";
 
 // メンバーの型定義を追加
 interface Member {
-    role: string;
-    memberName: string;
-    description: string;
-    imageSrc: string;
+  role: string;
+  memberName: string;
+  description: string;
+  imageSrc: string;
 }
 
 // 型付きメンバー配列として扱う
@@ -16,150 +16,208 @@ const typedMembers = members as Member[];
 
 // SEO情報
 const title = "About Us | Azule Orchid (アズールオーキッド) | Azule";
-const metaDescription = "Azule Orchid（アズールオーキッド、azule orchid, あずーる）のバンドメンバー紹介。Azuleの各メンバーのプロフィールや担当パートについてご紹介します。";
+const metaDescription =
+  "Azule Orchid（アズールオーキッド、azule orchid, あずーる）のバンドメンバー紹介。Azuleの各メンバーのプロフィールや担当パートについてご紹介します。";
 ---
 
-<Layout 
-    title={title}
-    metaDescription={metaDescription}
-    ogImage="images/top.JPG"
-    keywords="Azule, Azule Orchid, azule, azule orchid, あずーる, アズール, about us, band member, メンバー紹介, プロフィール, 仙台, ポストポップ"
+<Layout
+  title={title}
+  metaDescription={metaDescription}
+  ogImage="images/top.JPG"
+  keywords="Azule, Azule Orchid, azule, azule orchid, あずーる, アズール, about us, band member, メンバー紹介, プロフィール, 仙台, ポストポップ"
 >
-    <section class="about-page">
-        <div class="about">
-            <div class="about-header fade-in-left">
-                <h1 class="concept">
-                    <!-- ここにコンセプト -->
-                </h1>
-                <p>
-                    Now Editing...
-                </p>
-            </div>
-            
-            <div class="member-box">
-                <h2>Member</h2>
-                <div class="member-profile fade-in-left">
-                    {typedMembers.map((member) => (
-                        <MemberCard 
-                            role={member.role} 
-                            memberName={member.memberName} 
-                            description={member.description} 
-                            imageSrc={member.imageSrc} 
-                        />
-                    ))}
-                </div>            
-            </div>
+  <section class="about-page">
+    <div class="about">
+      <div class="about-header fade-in-left">
+        <h1 class="concept">
+          <!-- ここにコンセプト -->
+        </h1>
+        <p>Now Editing...</p>
+      </div>
+
+      <div class="member-box">
+        <h2>Member</h2>
+        <div class="member-profile fade-in-left">
+          {
+            typedMembers.map((member) => (
+              <MemberCard
+                role={member.role}
+                memberName={member.memberName}
+                description={member.description}
+                imageSrc={member.imageSrc}
+              />
+            ))
+          }
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <style>
-.about-page {
-    padding: var(--spacing-md) 0;
-}
+  .about-page {
+    padding: var(--spacing-lg) 0;
+    min-height: calc(100vh - 200px);
+  }
 
-.about {
-    max-width: var(--card-max-width);
+  .about {
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: var(--spacing-md) var(--spacing-md);
-}
-
-.about-header {
-    background: var(--color-white);
-    border-radius: var(--radius-base);
-    box-shadow: var(--box-shadow-card);
     padding: var(--spacing-md);
+  }
+
+  .about-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glass);
+    padding: var(--spacing-xl);
     margin-bottom: var(--spacing-xl);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-lg);
-}
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
 
-.member-box {
-    /* background: var(--color-white); */
-    /* border-radius: var(--radius-base); */
-    /* box-shadow: var(--box-shadow-card); */
-    /* padding: var(--spacing-lg); マージンを統一 */
-    /* margin-bottom: var(--spacing-lg); 下部マージンを統一 */
+  .about-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--color-secondary),
+      var(--color-accent),
+      var(--color-secondary)
+    );
+  }
+
+  .about-header h1 {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    background: linear-gradient(
+      135deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  .about-header p {
+    font-family: "Inter", sans-serif;
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .member-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    /* overflow: hidden; はみ出しを防止 */
-}
+  }
 
-.member-box h2 {
-    margin-bottom: var(--spacing-lg);
+  .member-box h2 {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    font-weight: 700;
+    background: linear-gradient(
+      135deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-xl);
     text-align: center;
-}
-
-.member-profile {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg); /* ギャップを統一 */
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 var(--spacing-md); /* 内側の余白を少し小さく */
-}
-
-/* 中画面サイズでも同じギャップとマージンを適用 */
-@media (max-width: 1024px) {
-    .member-profile {
-        grid-template-columns: repeat(2, 1fr); /* 2列グリッド (2x2) */
-    }
-}
-
-@media (max-width: 768px) {
-    .about {
-        padding: var(--spacing-lg);
-    }
-    
-    .about-header, 
-    .member-box {
-        padding: var(--spacing-lg);
-        margin-bottom: var(--spacing-lg);
-    }
-}
-
-/* 小画面サイズでも同じギャップとマージンを適用 */
-@media (max-width: 576px) {
-    .member-profile {
-        grid-template-columns: repeat(2, minmax(120px, 1fr)); /* 2列を維持するが最小サイズを制限 */
-        gap: var(--spacing-md); /* 間隔を小さく */
-    }
-}
-
-/* 超小型画面 */
-@media (max-width: 400px) {
-    .member-profile {
-        grid-template-columns: 1fr; /* 1列グリッド (1x4) */
-        max-width: 100%; /* 中央に配置するため幅を制限 */
-        margin: 0 auto;
-    }
-}
-
-.concept {
-    font-size: clamp(1.2rem, 3vw, 1.8rem); /* 元のサイズより小さく */
-    font-weight: 300; /* フォントウェイトを軽く */
-    color: var(--color-primary); /* 薄い色に */
-    letter-spacing: 0.05em; /* 文字間隔を少し広く */
-    line-height: 1.6;
-    opacity: 0.85; /* 少し透明に */
-    margin-bottom: var(--spacing-md);
-    padding: var(--spacing-xs) var(--spacing-md);
-    text-shadow: none; /* テキストシャドウを削除 */
     position: relative;
-    white-space: nowrap; /* テキストを折り返さない */
-}
+  }
 
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .concept {
-        font-size: 1.1rem;
-        padding: var(--spacing-xs);
+  .member-box h2::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    border-radius: 2px;
+  }
+
+  .member-profile {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--spacing-xl);
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 1024px) {
+    .member-profile {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--spacing-lg);
     }
-}
+  }
 
+  @media (max-width: 768px) {
+    .about {
+      padding: var(--spacing-sm);
+    }
+
+    .about-header {
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .member-profile {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-lg);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .member-profile {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--spacing-md);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-page {
+      padding: var(--spacing-md) 0;
+    }
+
+    .about-header {
+      padding: var(--spacing-md);
+    }
+
+    .member-profile {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .member-box h2 {
+      margin-bottom: var(--spacing-lg);
+    }
+  }
 </style>

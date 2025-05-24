@@ -1,341 +1,555 @@
 ---
+
 ---
 
 <style is:global>
-/* 
+  /* 
  * グローバルCSS変数の定義
  * これらの変数はサイト全体で使用され、一貫したデザインを保つのに役立ちます
  */
 
-:root {
-    /* カラーパレット */
-    --color-primary: #1e3a8a;    /* メインカラー（濃い青） */
-    --color-secondary: #3b82f6;  /* アクセントカラー（明るい青） */
-    --color-bg: #f2fbfe;         /* 背景色（薄い青） */
-    --color-text: #1f2937;       /* 本文テキストの色（濃いグレー） */
-    --color-text-light: #666666; /* 薄いテキストの色（グレー） */
-    --color-link: var(--color-secondary); /* リンクの色（secondaryカラーを参照） */
-    --color-link-hover: #60a5fa; /* ホバー時のリンクの色 */
-    --color-border: #000000;     /* ボーダーの色（黒） */
-    --color-white: #ffffff;      /* 白色 */
-    --color-bg-rgb: 242, 251, 254; /* 背景色のRGB値（半透明に使用） */
-    --color-accent: #647acb;     /* 控えめなアクセントカラー */
-    --color-border-light: #e0e0e0; /* 繊細な境界線の色 */
-    
+  :root {
+    /* 青と白を基調としたモダンなカラーパレット */
+    --color-primary: #2563eb; /* メインブルー（少し濃く） */
+    --color-secondary: #3b82f6; /* セカンダリブルー（適度な青） */
+    --color-accent: #60a5fa; /* アクセントブルー（淡い青） */
+    --color-accent-light: #93c5fd; /* ライトアクセント（薄い青） */
+    --color-bg: linear-gradient(
+      135deg,
+      #f0f9ff 0%,
+      #e0f2fe 50%,
+      #bae6fd 100%
+    ); /* 青白グラデーション背景 */
+    --color-bg-solid: #fafbff; /* 純白に近いソリッド背景色 */
+    --color-text: #1d4ed8; /* より濃いブルーのテキスト */
+    --color-text-light: #475569; /* より濃いグレイッシュブルーの薄いテキスト */
+    --color-link: var(--color-secondary); /* リンクの色 */
+    --color-link-hover: #2563eb; /* ホバー時のリンクの色 */
+    --color-border: #dbeafe; /* ライトブルーのボーダー */
+    --color-white: #ffffff; /* 純白 */
+    --color-bg-rgb: 250, 251, 255; /* 背景色のRGB値 */
+    --color-border-light: #f0f9ff; /* 非常に薄いブルーの境界線 */
+    --color-glass: rgba(
+      255,
+      255,
+      255,
+      0.25
+    ); /* グラスモーフィズム用（より透明感） */
+    --color-shadow: rgba(37, 99, 235, 0.1); /* ブルーティントの影 */
+
     /* スペーシング設定 - 余白やパディングに使用 */
-    --spacing-xs: 0.25rem;       /* 極小スペース (4px) */
-    --spacing-sm: 0.5rem;        /* 小スペース (8px) */
-    --spacing-md: 1rem;          /* 中スペース (16px) */
-    --spacing-lg: 1.5rem;        /* 大スペース (24px) */
-    --spacing-xl: 2rem;          /* 特大スペース (32px) */
-    --spacing-2xl: 3rem;         /* 最大スペース (48px) */
-    
+    --spacing-xs: 0.25rem; /* 極小スペース (4px) */
+    --spacing-sm: 0.5rem; /* 小スペース (8px) */
+    --spacing-md: 1rem; /* 中スペース (16px) */
+    --spacing-lg: 1.5rem; /* 大スペース (24px) */
+    --spacing-xl: 2rem; /* 特大スペース (32px) */
+    --spacing-2xl: 3rem; /* 最大スペース (48px) */
+
     /* 角丸設定 */
-    --radius-sm: 6px;            /* 小さい角丸 */
-    --radius-base: 12px;         /* 標準の角丸 */
-    --radius-lg: 16px;           /* 大きい角丸 */
-    
-    /* 影の設定 */
-    --shadow-base: rgba(30, 58, 138, 0.15) 0px 4px 16px; /* 基本的な影効果 */
-    --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.05);     /* 控えめな影 */
-    --box-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);     /* カード用の影 */
-    
+    --radius-sm: 8px; /* 小さい角丸 */
+    --radius-base: 16px; /* 標準の角丸 */
+    --radius-lg: 24px; /* 大きい角丸 */
+    --radius-full: 9999px; /* 完全な円形 */
+
+    /* 影の設定 - モダンな影効果 */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15);
+    --box-shadow-card: var(--shadow-lg);
+
+    /* グラスモーフィズム効果 */
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-backdrop: blur(10px);
+
     /* レイアウト設定 */
-    --container-max-width: 1200px;       /* コンテナの最大幅 */
-    --container-padding: var(--spacing-md); /* コンテナの内側余白 */
-    --card-width: 80%;                   /* カードの幅 */
-    --card-max-width: 800px;             /* カードの最大幅 */
-    
+    --container-max-width: 1200px;
+    --container-padding: var(--spacing-md);
+    --card-width: 80%;
+    --card-max-width: 800px;
+
     /* ヘッダーとフッターの設定 */
-    --header-txt: #001f73;               /* ヘッダーテキストの色 */
+    --header-txt: #2563eb; /* ヘッダーテキストの色（少し濃いブルー） */
     --header-bg: rgba(255, 255, 255, 0.7); /* ヘッダー背景色（半透明白） */
-    --footer-bg: #f8f8f8;                /* フッター背景色 */
-    --footer-border: #eaeaea;            /* フッターのボーダー色 */
-    
+    --footer-bg: #f8f8f8; /* フッター背景色 */
+    --footer-border: #eaeaea; /* フッターのボーダー色 */
+
     /* アニメーション設定 */
-    --transition-base: all 0.2s ease-in-out; /* 基本トランジション効果 */
-    
+    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease-out;
+    --transition-slow: all 0.5s ease-in-out;
+    --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
     /* レスポンシブデザイン用ブレークポイント */
-    --breakpoint-sm: 480px;  /* スマートフォン用 */
-    --breakpoint-md: 768px;  /* タブレット用 */
+    --breakpoint-sm: 480px; /* スマートフォン用 */
+    --breakpoint-md: 768px; /* タブレット用 */
     --breakpoint-lg: 1024px; /* 小型デスクトップ用 */
     --breakpoint-xl: 1280px; /* 大型デスクトップ用 */
-    
+
     /* タッチターゲットサイズ - モバイルでのタップしやすさを向上 */
     --touch-target-min: 44px; /* 最小タッチエリア (Apple HIG推奨) */
-}
+  }
 
-/* HTMLのベーススタイル */
-html {
+  /* HTMLのベーススタイル */
+  html {
     font-size: 16px; /* ベースフォントサイズ設定 */
     -webkit-text-size-adjust: 100%; /* モバイルでのフォントサイズ自動調整を無効化 */
-}
+  }
 
-/* ボディのベーススタイル */
-body {
-    font-family: 'Lora', serif; /* フォントファミリーの設定 */
-    font-size: 1rem;           /* 基本フォントサイズ (16px) */
-    line-height: 1.6;          /* 行間の高さ */
-    color: var(--color-text);  /* テキスト色 */
-    margin: 0;                 /* 余白をリセット */
-    padding: 0;                /* パディングをリセット */
-    background-color: var(--color-bg); /* 背景色 */
-    display: flex;             /* フレックスボックスレイアウトを使用 */
-    flex-direction: column;    /* 縦方向にアイテムを配置 */
-    min-height: 100vh;         /* 最小の高さをビューポートの高さに設定 */
-    overflow-x: hidden;        /* 横方向のスクロールを無効化 */
-    -webkit-overflow-scrolling: touch; /* iOS用のスムーズスクロール */
-}
+  /* ボディのベーススタイル */
+  body {
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "Roboto",
+      sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+    background: var(--color-bg);
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+  }
 
-/* 見出し要素のスタイル */
-h1, h2, h3, h4, h5, h6 {
-    margin-top: 0;                    /* 上部マージンを除去 */
-    margin-bottom: var(--spacing-sm); /* 下部マージンを設定 */
-    font-weight: normal;              /* フォントの太さを標準に */
-    line-height: 1.2;                 /* 行間の高さ */
-    text-align: center;               /* テキストを中央揃え */
-    word-wrap: break-word;            /* 長い単語を折り返し */
-}
+  /* 背景にパーティクル効果用の疑似要素 */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at 20% 30%,
+        rgba(59, 130, 246, 0.08) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(96, 165, 250, 0.06) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        circle at 50% 50%,
+        rgba(147, 197, 253, 0.04) 0%,
+        transparent 70%
+      );
+    pointer-events: none;
+    z-index: -1;
+  }
 
-/* 各見出しレベルのフォントサイズ設定 */
-h1 { font-size: 2.5rem; }  /* 40px */
-h2 { font-size: 2rem; }    /* 32px */
-h3 { font-size: 1.75rem; } /* 28px */
-h4 { font-size: 1.5rem; }  /* 24px */
-h5 { font-size: 1.25rem; } /* 20px */
-h6 { font-size: 1rem; }    /* 16px */
+  /* 見出し要素のスタイル */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    word-wrap: break-word;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.025em;
+  }
 
-/* リンクのスタイル */
-a {
-    color: inherit;                   /* 親要素から色を継承 */
-    text-decoration: none;            /* 下線を削除 */
-    transition: var(--transition-base); /* トランジション効果を追加 */
-    min-height: var(--touch-target-min); /* タップエリアの最小高さ */
-    display: inline-flex;             /* インラインフレックスボックスとして表示 */
-    align-items: center;              /* 縦方向中央揃え */
-}
+  /* 各見出しレベルのフォントサイズ設定 */
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+  }
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+  }
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 600;
+  }
+  h4 {
+    font-size: 1.5rem;
+  } /* 24px */
+  h5 {
+    font-size: 1.25rem;
+  } /* 20px */
+  h6 {
+    font-size: 1rem;
+  } /* 16px */
 
-/* ホバー時のリンクスタイル */
-a:hover {
-    text-decoration: underline;       /* 下線を表示 */
-    color: var(--color-link-hover);   /* ホバー時の色を変更 */
-}
+  /* リンクのスタイル */
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition-base);
+    min-height: var(--touch-target-min);
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+  }
 
-/* コンテナクラスのスタイル - コンテンツを中央に配置し、適切な幅を保つ */
-.container {
-    width: 100%;                         /* 幅を100%に設定 */
+  /* モダンなホバー効果 */
+  a:hover {
+    transform: translateY(-1px);
+    color: var(--color-link-hover);
+  }
+
+  /* リンクのアンダーライン効果 */
+  a:not(.button):not(.nav-link)::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    transition: width 0.3s ease;
+  }
+
+  a:not(.button):not(.nav-link):hover::after {
+    width: 100%;
+  }
+
+  /* コンテナクラスのスタイル - コンテンツを中央に配置し、適切な幅を保つ */
+  .container {
+    width: 100%; /* 幅を100%に設定 */
     max-width: var(--container-max-width); /* 最大幅を制限 */
-    margin: 0 auto;                      /* 中央配置 */
+    margin: 0 auto; /* 中央配置 */
     padding: 0 var(--container-padding); /* 左右にパディングを追加 */
-    box-sizing: border-box;              /* ボックスサイズの計算方法を設定 */
-}
+    box-sizing: border-box; /* ボックスサイズの計算方法を設定 */
+  }
 
-/* メインコンテナのスタイル - ページの主要コンテンツ部分 */
-main.container {
-    flex: 1;                          /* 空きスペースを埋める */
-    padding-top: var(--spacing-md);   /* 上部のパディング */
+  /* メインコンテナのスタイル - ページの主要コンテンツ部分 */
+  main.container {
+    flex: 1; /* 空きスペースを埋める */
+    padding-top: var(--spacing-md); /* 上部のパディング */
     padding-bottom: var(--spacing-xl); /* 下部のパディング */
-    box-sizing: border-box;           /* パディングを幅の計算に含める */
-    width: 100%;                      /* 幅を100%に設定 */
-    overflow-x: hidden;               /* 横方向のスクロールを無効化 */
-}
+    box-sizing: border-box; /* パディングを幅の計算に含める */
+    width: 100%; /* 幅を100%に設定 */
+    overflow-x: hidden; /* 横方向のスクロールを無効化 */
+  }
 
-/* カードコンポーネントのスタイル */
-.card {
-    background: var(--color-white);    /* 背景色を白に設定 */
-    border-radius: var(--radius-base); /* 角を丸くする */
-    box-shadow: var(--box-shadow-card); /* 影を追加 */
-    padding: var(--spacing-lg);        /* 内側の余白 */
-    margin-bottom: var(--spacing-xl);  /* 下部マージン */
-    width: var(--card-width);          /* カードの幅 */
-    max-width: var(--card-max-width);  /* 最大幅を制限 */
-    margin-left: auto;                 /* 左右の自動マージンで */
-    margin-right: auto;                /* 中央配置する */
-    box-sizing: border-box;            /* パディングを幅の計算に含める */
-}
+  /* カードコンポーネントのスタイル */
+  .card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    width: var(--card-width);
+    max-width: var(--card-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-base);
+  }
 
-/* ボタンのスタイル */
-.button {
-    display: inline-flex;              /* インラインフレックス要素として表示 */
-    justify-content: center;           /* 水平方向中央揃え */
-    align-items: center;               /* 垂直方向中央揃え */
-    min-height: var(--touch-target-min); /* タップエリアの最小高さ */
-    padding: var(--spacing-sm) var(--spacing-md); /* パディング（上下、左右） */
-    font-weight: 600;                   /* フォントの太さ */
-    background-color: transparent;      /* 背景を透明に */
-    border: 1px solid var(--color-secondary); /* 境界線 */
-    border-radius: var(--radius-base);  /* 角を丸くする */
-    color: var(--color-secondary);      /* テキスト色 */
-    cursor: pointer;                    /* ホバー時にポインタに */
-    transition: var(--transition-base); /* トランジション効果 */
-    text-decoration: none;              /* テキスト装飾なし */
-    text-align: center;                 /* テキスト中央揃え */
-}
+  /* カードのホバー効果 */
+  .card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+  }
 
-/* ホバー時のボタンスタイル */
-.button:hover {
-    background-color: var(--color-secondary); /* 背景色を変更 */
-    color: var(--color-white);               /* テキスト色を白に */
-    transform: translateY(-2px);             /* 少し上に移動する効果 */
-    text-decoration: none;                   /* 下線なし */
-}
+  /* カードの光る効果 */
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transition: left 0.5s;
+  }
 
-/* セクションのスタイル - コンテンツのまとまりを表す */
-.section {
+  .card:hover::before {
+    left: 100%;
+  }
+
+  /* ボタンのスタイル */
+  .button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-weight: 700;
+    font-size: 1rem;
+    background: var(--color-white);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-full);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: var(--transition-base);
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    letter-spacing: 0.025em;
+  }
+
+  /* ボタンのホバー効果 */
+  .button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+    color: var(--color-white);
+    border-color: var(--color-secondary);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ボタンのアクティブ効果 */
+  .button:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* ボタンの光る効果 */
+  .button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  .button:hover::before {
+    left: 100%;
+  }
+
+  /* セクションのスタイル - コンテンツのまとまりを表す */
+  .section {
     margin-bottom: var(--spacing-2xl); /* 下部マージン */
-    width: 100%;                       /* 幅を100%に設定 */
-    box-sizing: border-box;            /* パディングを幅の計算に含める */
-}
+    width: 100%; /* 幅を100%に設定 */
+    box-sizing: border-box; /* パディングを幅の計算に含める */
+  }
 
-/* 画像のスタイル */
-img {
-    max-width: 100%;   /* 親要素からはみ出さないように */
-    height: auto;      /* アスペクト比を維持 */
-    display: block;    /* ブロック要素として表示 */
-    margin: 0 auto;    /* 中央配置 */
+  /* 画像のスタイル */
+  img {
+    max-width: 100%; /* 親要素からはみ出さないように */
+    height: auto; /* アスペクト比を維持 */
+    display: block; /* ブロック要素として表示 */
+    margin: 0 auto; /* 中央配置 */
     will-change: transform; /* GPUアクセラレーションを有効化 */
-}
+  }
 
-/* グリッドレイアウト - 複数の要素を均等に配置 */
-.grid {
-    display: grid;                                  /* グリッドレイアウトを使用 */
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* レスポンシブなカラム設定 */
-    gap: var(--spacing-lg);                         /* グリッドアイテム間の間隔 */
-    width: 100%;                                   /* 幅を100%に設定 */
-    box-sizing: border-box;                        /* パディングを幅の計算に含める */
-}
+  /* グリッドレイアウト - 複数の要素を均等に配置 */
+  .grid {
+    display: grid; /* グリッドレイアウトを使用 */
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(280px, 1fr)
+    ); /* レスポンシブなカラム設定 */
+    gap: var(--spacing-lg); /* グリッドアイテム間の間隔 */
+    width: 100%; /* 幅を100%に設定 */
+    box-sizing: border-box; /* パディングを幅の計算に含める */
+  }
 
-/* フレックスコンテナ - 柔軟なレイアウト用 */
-.flex-container {
-    display: flex;           /* フレックスボックスレイアウトを使用 */
-    flex-wrap: wrap;         /* 必要に応じて折り返す */
-    gap: var(--spacing-md);  /* アイテム間の間隔 */
-    width: 100%;             /* 幅を100%に設定 */
-    box-sizing: border-box;  /* パディングを幅の計算に含める */
-}
+  /* フレックスコンテナ - 柔軟なレイアウト用 */
+  .flex-container {
+    display: flex; /* フレックスボックスレイアウトを使用 */
+    flex-wrap: wrap; /* 必要に応じて折り返す */
+    gap: var(--spacing-md); /* アイテム間の間隔 */
+    width: 100%; /* 幅を100%に設定 */
+    box-sizing: border-box; /* パディングを幅の計算に含める */
+  }
 
-/* テーブルのスタイル */
-table {
-    width: 100%;           /* 幅を100%に */
+  /* テーブルのスタイル */
+  table {
+    width: 100%; /* 幅を100%に */
     border-collapse: collapse; /* セル間の境界線を結合 */
     margin: var(--spacing-md) 0; /* 上下のマージン */
-    overflow-x: auto;      /* 横にはみ出る場合はスクロール可能に */
-    display: block;        /* ブロック要素として表示（スクロール用） */
-}
+    overflow-x: auto; /* 横にはみ出る場合はスクロール可能に */
+    display: block; /* ブロック要素として表示（スクロール用） */
+  }
 
-/* キーボード操作時のフォーカス状態を明確にする */
-:focus {
+  /* キーボード操作時のフォーカス状態を明確にする */
+  :focus {
     outline: 3px solid var(--color-secondary);
     outline-offset: 2px;
-}
+  }
 
-/* マウスやタッチでのフォーカスはより控えめに */
-:focus:not(:focus-visible) {
+  /* マウスやタッチでのフォーカスはより控えめに */
+  :focus:not(:focus-visible) {
     outline: none;
-}
+  }
 
-/* キーボードフォーカスは明確に表示 */
-:focus-visible {
+  /* キーボードフォーカスは明確に表示 */
+  :focus-visible {
     outline: 3px solid var(--color-secondary);
     outline-offset: 2px;
     box-shadow: 0 0 0 2px var(--color-white);
-}
+  }
 
-/* 
+  /* 
  * レスポンシブデザイン設定
  * 異なる画面サイズに対応するためのスタイル調整
  */
 
-/* 大型タブレット・小型デスクトップ向け (1024px以下) */
-@media (max-width: 1024px) {
+  /* 大型タブレット・小型デスクトップ向け (1024px以下) */
+  @media (max-width: 1024px) {
     :root {
-        --spacing-lg: 1.25rem;   /* 大スペースを少し小さく */
-        --spacing-xl: 1.75rem;   /* 特大スペースを小さく */
-        --spacing-2xl: 2.5rem;   /* 最大スペースを小さく */
-        --card-width: 85%;       /* カード幅を広げる */
+      --spacing-lg: 1.25rem; /* 大スペースを少し小さく */
+      --spacing-xl: 1.75rem; /* 特大スペースを小さく */
+      --spacing-2xl: 2.5rem; /* 最大スペースを小さく */
+      --card-width: 85%; /* カード幅を広げる */
     }
-    h1 { font-size: 2.25rem; }   /* 見出しサイズ調整 */
-    h2 { font-size: 1.75rem; }   /* 見出しサイズ調整 */
+    h1 {
+      font-size: 2.25rem;
+    } /* 見出しサイズ調整 */
+    h2 {
+      font-size: 1.75rem;
+    } /* 見出しサイズ調整 */
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* グリッドカラムを狭く */
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(240px, 1fr)
+      ); /* グリッドカラムを狭く */
     }
-}
+  }
 
-/* タブレット向け (768px以下) */
-@media (max-width: 768px) {
+  /* タブレット向け (768px以下) */
+  @media (max-width: 768px) {
     :root {
-        --spacing-lg: 1rem;      /* 大スペースをさらに小さく */
-        --spacing-xl: 1.5rem;    /* 特大スペースをさらに小さく */
-        --spacing-2xl: 2rem;     /* 最大スペースをさらに小さく */
-        --card-width: 90%;       /* カード幅をさらに広げる */
+      --spacing-lg: 1rem; /* 大スペースをさらに小さく */
+      --spacing-xl: 1.5rem; /* 特大スペースをさらに小さく */
+      --spacing-2xl: 2rem; /* 最大スペースをさらに小さく */
+      --card-width: 90%; /* カード幅をさらに広げる */
     }
     html {
-        font-size: 16px;         /* モバイルでも16pxを維持（可読性向上） */
+      font-size: 16px; /* モバイルでも16pxを維持（可読性向上） */
     }
-    h1 { font-size: 2rem; }      /* 見出しサイズ調整 */
-    h2 { font-size: 1.5rem; }    /* 見出しサイズ調整 */
-    h3 { font-size: 1.35rem; }   /* 見出しサイズ調整 */
+    h1 {
+      font-size: 2rem;
+    } /* 見出しサイズ調整 */
+    h2 {
+      font-size: 1.5rem;
+    } /* 見出しサイズ調整 */
+    h3 {
+      font-size: 1.35rem;
+    } /* 見出しサイズ調整 */
     .card {
-        padding: var(--spacing-md); /* カードのパディングを減らす */
-        border-radius: var(--radius-sm); /* 角丸を小さく */
+      padding: var(--spacing-md); /* カードのパディングを減らす */
+      border-radius: var(--radius-sm); /* 角丸を小さく */
     }
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* グリッドカラムをさらに狭く */
-        gap: var(--spacing-md);   /* グリッド間隔を小さく */
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(200px, 1fr)
+      ); /* グリッドカラムをさらに狭く */
+      gap: var(--spacing-md); /* グリッド間隔を小さく */
     }
     .button {
-        width: 100%;              /* ボタンを幅いっぱいに */
-        margin-bottom: var(--spacing-sm); /* ボタンの下にマージンを追加 */
-        padding: var(--spacing-md) var(--spacing-md); /* パディングを増やしてタップしやすく */
+      width: 100%; /* ボタンを幅いっぱいに */
+      margin-bottom: var(--spacing-sm); /* ボタンの下にマージンを追加 */
+      padding: var(--spacing-md) var(--spacing-md); /* パディングを増やしてタップしやすく */
     }
     /* リンクの間隔をモバイルで広げる */
     a:not(.button) {
-        padding: var(--spacing-xs) 0; /* 上下のパディングを追加 */
+      padding: var(--spacing-xs) 0; /* 上下のパディングを追加 */
     }
-}
+  }
 
-/* スマートフォン向け (480px以下) */
-@media (max-width: 480px) {
+  /* スマートフォン向け (480px以下) */
+  @media (max-width: 480px) {
     :root {
-        --card-width: 95%;        /* カード幅をほぼいっぱいに */
-        --spacing-md: 0.8rem;     /* 中スペースをさらに小さく */
+      --card-width: 95%; /* カード幅をほぼいっぱいに */
+      --spacing-md: 0.8rem; /* 中スペースをさらに小さく */
     }
     html {
-        font-size: 16px;          /* 可読性のため16pxを維持 */
+      font-size: 16px; /* 可読性のため16pxを維持 */
     }
-    h1 { font-size: 1.75rem; }    /* 見出しサイズ調整 */
-    h2 { font-size: 1.25rem; }    /* 見出しサイズ調整 */
-    h3 { font-size: 1.1rem; }     /* 見出しサイズ調整 */
+    h1 {
+      font-size: 1.75rem;
+    } /* 見出しサイズ調整 */
+    h2 {
+      font-size: 1.25rem;
+    } /* 見出しサイズ調整 */
+    h3 {
+      font-size: 1.1rem;
+    } /* 見出しサイズ調整 */
     .card {
-        padding: var(--spacing-sm); /* カードのパディングをさらに減らす */
-        width: 95%;                /* 画面幅に合わせて調整 */
+      padding: var(--spacing-sm); /* カードのパディングをさらに減らす */
+      width: 95%; /* 画面幅に合わせて調整 */
     }
     .grid {
-        grid-template-columns: 1fr; /* グリッドを1列に */
+      grid-template-columns: 1fr; /* グリッドを1列に */
     }
     .container {
-        padding: 0 calc(var(--container-padding) * 0.75); /* コンテナパディングを小さく */
+      padding: 0 calc(var(--container-padding) * 0.75); /* コンテナパディングを小さく */
     }
     /* ボタン間のスペースを確保 */
     .button + .button {
-        margin-top: var(--spacing-md);
+      margin-top: var(--spacing-md);
     }
-}
+  }
 
-/* 小型スマートフォン向け (375px以下) */
-@media (max-width: 375px) {
+  /* 小型スマートフォン向け (375px以下) */
+  @media (max-width: 375px) {
     :root {
-        --card-width: 100%;       /* カード幅をいっぱいに */
-        --container-padding: var(--spacing-sm); /* コンテナの内側余白を減らす */
+      --card-width: 100%; /* カード幅をいっぱいに */
+      --container-padding: var(--spacing-sm); /* コンテナの内側余白を減らす */
     }
     .card {
-        border-radius: var(--radius-sm); /* 角丸を小さく */
+      border-radius: var(--radius-sm); /* 角丸を小さく */
     }
-    h1 { font-size: 1.5rem; }    /* 見出しサイズをさらに小さく */
-    h2 { font-size: 1.2rem; }    /* 見出しサイズをさらに小さく */
+    h1 {
+      font-size: 1.5rem;
+    } /* 見出しサイズをさらに小さく */
+    h2 {
+      font-size: 1.2rem;
+    } /* 見出しサイズをさらに小さく */
     /* ボタンのテキストサイズを調整 */
     .button {
-        font-size: 0.9rem;
+      font-size: 0.9rem;
     }
-}
+  }
 </style>

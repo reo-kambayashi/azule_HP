@@ -1,142 +1,182 @@
 ---
 const base = import.meta.env.BASE_URL;
 ---
+
 <footer class="site-footer">
-    <div class="container">
-        <p class="footer-text">&copy; {new Date().getFullYear()} Azule Orchid. All rights reserved.</p>
-        <nav class="footer-nav">
-            <ul class="nav-links">
-                <li><a href={base} class="footer-link">Home</a></li>
-                <li><a href={`${base}about/`} class="footer-link">About Us</a></li>
-                <li><a href={`${base}music/`} class="footer-link">Releases</a></li>
-                <li><a href={`${base}tour/`} class="footer-link">Live</a></li>
-                <li><a href={`${base}contact/`} class="footer-link">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
+  <div class="container">
+    <p class="footer-text">
+      &copy; {new Date().getFullYear()} Azule Orchid. All rights reserved.
+    </p>
+    <nav class="footer-nav">
+      <ul class="nav-links">
+        <li><a href={base} class="footer-link">Home</a></li>
+        <li><a href={`${base}about/`} class="footer-link">About Us</a></li>
+        <li><a href={`${base}music/`} class="footer-link">Releases</a></li>
+        <li><a href={`${base}tour/`} class="footer-link">Live</a></li>
+        <li><a href={`${base}contact/`} class="footer-link">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </footer>
 
 <style>
-.site-footer {
-    background-color: var(--footer-bg);
-    border-top: 1px solid var(--footer-border);
-    padding: var(--spacing-md) 0;
+  .site-footer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 -4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 -2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: var(--spacing-lg) 0;
     width: 100%;
     box-sizing: border-box;
-}
+    position: relative;
+    margin-top: auto;
+  }
 
-.site-footer .container {
+  .site-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-secondary),
+      var(--color-accent),
+      transparent
+    );
+  }
+
+  .site-footer .container {
     max-width: var(--container-max-width);
     margin: 0 auto;
     padding: var(--spacing-md);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap; /* 必要に応じて折り返し */
-}
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
 
-.site-footer .footer-text {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.875rem;
-    color: var(--color-text-light);
+  .site-footer .footer-text {
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: linear-gradient(
+      135deg,
+      var(--color-text),
+      var(--color-text-light)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0;
-}
+  }
 
-.site-footer .footer-nav .nav-links {
+  .site-footer .footer-nav .nav-links {
     list-style: none;
     display: flex;
-    flex-wrap: wrap; /* 必要に応じて折り返し */
-    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
     margin: 0;
     padding: 0;
-}
+  }
 
-.site-footer .footer-nav .nav-links li .footer-link {
-    font-family: 'Open Sans', sans-serif;
+  .site-footer .footer-nav .footer-link {
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
     font-weight: 600;
-    font-size: 0.875rem;
+    color: var(--color-text-light);
     text-decoration: none;
-    color: var(--color-text);
-    transition: var(--transition-base);
     padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--radius-sm);
-    display: inline-flex; /* インラインフレックスとして表示 */
-    align-items: center; /* 縦方向中央揃え */
-    justify-content: center; /* 横方向中央揃え */
-    min-height: var(--touch-target-min); /* タップエリアの最小高さ */
-}
+    border-radius: var(--radius-base);
+    transition: var(--transition-base);
+    position: relative;
+    display: inline-block;
+  }
 
-.site-footer .footer-nav .nav-links li .footer-link:hover {
-    color: var(--color-link-hover);
-    background-color: rgba(0, 0, 0, 0.03);
-    text-decoration: none;
-}
+  .site-footer .footer-nav .footer-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    transition: width 0.3s ease;
+    border-radius: 1px;
+  }
 
-/* フォーカス状態の視覚的フィードバック */
-.site-footer .footer-nav .nav-links li .footer-link:focus {
+  .site-footer .footer-nav .footer-link:hover {
+    color: var(--color-secondary);
+    transform: translateY(-1px);
+    text-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  }
+
+  .site-footer .footer-nav .footer-link:hover::after {
+    width: 100%;
+  }
+
+  .site-footer .footer-nav .footer-link:focus {
     outline: 2px solid var(--color-secondary);
     outline-offset: 2px;
-}
+    border-radius: var(--radius-base);
+  }
 
-@media (max-width: 768px) {
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
     .site-footer .container {
-        flex-direction: column;
-        text-align: center;
-        gap: var(--spacing-md);
+      flex-direction: column;
+      gap: var(--spacing-md);
+      text-align: center;
     }
-    
-    .site-footer .footer-nav .nav-links {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: var(--spacing-xs); /* リンク間の間隔を狭く */
-    }
-    
-    .site-footer .footer-nav .nav-links li .footer-link {
-        padding: var(--spacing-sm) var(--spacing-md); /* パディングを増やしてタップしやすく */
-        margin-bottom: var(--spacing-xs); /* 下部マージンを追加 */
-    }
-}
 
-@media (max-width: 480px) {
     .site-footer .footer-nav .nav-links {
-        gap: var(--spacing-xs);
-        width: 100%; /* 幅を100%に */
+      gap: var(--spacing-md);
+      justify-content: center;
+      flex-wrap: wrap;
     }
-    
-    .site-footer .footer-nav .nav-links li {
-        width: calc(50% - var(--spacing-xs)); /* 2列グリッドのように配置 */
-        margin-bottom: var(--spacing-sm);
-        text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .site-footer {
+      padding: var(--spacing-md) 0;
     }
-    
-    .site-footer .footer-nav .nav-links li .footer-link {
-        font-size: 0.8rem;
-        padding: var(--spacing-sm) var(--spacing-xs);
-        display: flex;
-        width: 100%; /* 幅を100%に */
-        box-sizing: border-box;
+
+    .site-footer .footer-nav .nav-links {
+      gap: var(--spacing-sm);
+      flex-direction: column;
+      align-items: center;
     }
-    
+
+    .site-footer .footer-nav .footer-link {
+      font-size: 0.85rem;
+      padding: var(--spacing-xs) var(--spacing-md);
+      width: auto;
+      min-width: 80px;
+      text-align: center;
+    }
+
     .site-footer .footer-text {
-        font-size: 0.8rem;
-        width: 100%;
-        padding: var(--spacing-sm) 0;
+      font-size: 0.8rem;
     }
-}
+  }
 
-/* 小型スマートフォン向け (375px以下) */
-@media (max-width: 375px) {
+  @media (max-width: 375px) {
     .site-footer .container {
-        padding: var(--spacing-sm) var(--spacing-xs);
+      padding: var(--spacing-sm) var(--spacing-xs);
     }
-    
-    .site-footer .footer-nav .nav-links li {
-        width: 100%; /* 1列に */
-        margin-bottom: var(--spacing-xs);
-    }
-    
+
     .site-footer .footer-text {
-        font-size: 0.75rem;
+      font-size: 0.75rem;
     }
-}
+  }
 </style>

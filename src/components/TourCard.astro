@@ -1,38 +1,38 @@
 ---
 export interface Props {
-    tour: {
-        title: string;
-        date: string;
-        venue: string;
-        city?: string;
-        ticketPrice?: string;
-        reserve?: string;
-        flyer: string;
-    }
+  tour: {
+    title: string;
+    date: string;
+    venue: string;
+    city?: string;
+    ticketPrice?: string;
+    reserve?: string;
+    flyer: string;
+  };
 }
 const { tour } = Astro.props;
-const formattedTicketPrice = tour.ticketPrice?.replace(/\n/g, '<br />');
-const formattedTitle = tour.title.replace(/\n/g, '<br />'); // タイトルの改行を<br>タグに変換
+const formattedTicketPrice = tour.ticketPrice?.replace(/\n/g, "<br />");
+const formattedTitle = tour.title.replace(/\n/g, "<br />"); // タイトルの改行を<br>タグに変換
 const flyerPath = `${import.meta.env.BASE_URL}${tour.flyer}`;
 
 // 曜日表示を追加した日付フォーマット
 function formatDateWithDay(dateString: string): string {
-    const [year, month, day] = dateString.split('.').map(Number);
-    const date = new Date(year, month - 1, day);
-    const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
-    const dayOfWeek = weekdays[date.getDay()];
-    return `${year}年${month}月${day}日(${dayOfWeek})`;
+  const [year, month, day] = dateString.split(".").map(Number);
+  const date = new Date(year, month - 1, day);
+  const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
+  const dayOfWeek = weekdays[date.getDay()];
+  return `${year}年${month}月${day}日(${dayOfWeek})`;
 }
 
 const formattedDate = formatDateWithDay(tour.date);
 
 // サーバーサイドでの初期表示用に日付計算（クライアントサイドでは再計算される）
 // この値はJavaScriptが無効な場合のフォールバックとして使用
-const [yearStr, monthStr, dayStr] = tour.date.split('.');
+const [yearStr, monthStr, dayStr] = tour.date.split(".");
 const eventDateObj = new Date(
-    parseInt(yearStr),
-    parseInt(monthStr) - 1, // 月は0から始まるため、-1する
-    parseInt(dayStr)
+  parseInt(yearStr),
+  parseInt(monthStr) - 1, // 月は0から始まるため、-1する
+  parseInt(dayStr)
 );
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -46,153 +46,130 @@ const initialIsToday = diffDays === 0;
 ---
 
 <article class="tour-card fade-in-up">
-    <div class="tour-info">
-        <!-- タイトルを表示する際に、HTMLタグとして解釈されるようにset:htmlを使用 -->
-        <h3><strong set:html={formattedTitle}></strong></h3>
-        <p>日程: {formattedDate}</p>
-        
-        <!-- カウントダウン表示 - data-属性を追加してJSから処理できるようにする -->
-        <p class="countdown-display" 
-           data-event-date={tour.date} 
-           data-is-past={initialIsPast.toString()} 
-           data-is-today={initialIsToday.toString()} 
-           data-days-remaining={initialDaysRemaining}>
-            {initialIsToday && <span class="countdown-text">本日開催!</span>}
-            {!initialIsPast && !initialIsToday && (
-                <>開催まであと<span class="countdown-number">{initialDaysRemaining}</span>日</>
-            )}
-            {initialIsPast && !initialIsToday && "開催終了"}
+  <div class="tour-info">
+    <!-- タイトルを表示する際に、HTMLタグとして解釈されるようにset:htmlを使用 -->
+    <h3><strong set:html={formattedTitle} /></h3>
+    <p>日程: {formattedDate}</p>
+    <p>会場: {tour.venue}</p>
+
+    {/* 開催終了後は以下の情報を非表示 */}
+    {!initialIsPast && tour.city && <p>場所: {tour.city}</p>}
+    {
+      !initialIsPast && tour.ticketPrice && (
+        <p>
+          チケット代: <span set:html={formattedTicketPrice} />
         </p>
-        
-        <p>会場: {tour.venue}</p>
-        {tour.city && <p>場所: {tour.city}</p>}
-        {tour.ticketPrice && <p>チケット代: <span set:html={formattedTicketPrice} /></p>}
-        {tour.reserve && (
-            <p class="tour-reserve-notice">
-                <strong>チケットの予約は画像をクリック/タップ</strong>
-            </p>
-        )}
-    </div>
-    <div class="tour-flyer">
-        {tour.reserve ? (
-            <a href={tour.reserve} target="_blank" rel="noopener noreferrer" class="flyer-link" aria-label={`「${tour.title}」のチケット予約（新しいタブが開きます）`}>
-                <img src={flyerPath} alt={`「${tour.title}」${formattedDate}開催ライブのフライヤー（クリックで予約ページへ）`} loading="lazy" />
-            </a>
-        ) : (
-            <img src={flyerPath} alt={`「${tour.title}」${formattedDate}開催ライブのフライヤー`} loading="lazy" />
-        )}
-    </div>
+      )
+    }
+    {
+      !initialIsPast && tour.reserve && (
+        <p class="tour-reserve-notice">
+          <strong>チケットの予約は画像をクリック/タップ</strong>
+        </p>
+      )
+    }
+  </div>
+
+  {/* フライヤー画像は常に表示 */}
+  <div class="tour-flyer">
+    {
+      tour.reserve && !initialIsPast ? (
+        <a
+          href={tour.reserve}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flyer-link"
+          aria-label={`「${tour.title}」のチケット予約（新しいタブが開きます）`}
+        >
+          <img
+            src={flyerPath}
+            alt={`「${tour.title}」${formattedDate}開催ライブのフライヤー（クリックで予約ページへ）`}
+            loading="lazy"
+          />
+        </a>
+      ) : (
+        <img
+          src={flyerPath}
+          alt={`「${tour.title}」${formattedDate}開催ライブのフライヤー`}
+          loading="lazy"
+        />
+      )
+    }
+
+    <!-- カウントダウン表示をフライヤー画像の下に移動（過去のライブでは非表示） -->
+    {
+      !initialIsPast && (
+        <p
+          class="countdown-display"
+          data-event-date={tour.date}
+          data-is-past={initialIsPast.toString()}
+          data-is-today={initialIsToday.toString()}
+          data-days-remaining={initialDaysRemaining}
+        >
+          {initialIsToday && <span class="countdown-text">本日開催!</span>}
+          {!initialIsPast && !initialIsToday && (
+            <>
+              開催まであと
+              <span class="countdown-number">{initialDaysRemaining}</span>日
+            </>
+          )}
+        </p>
+      )
+    }
+  </div>
 </article>
 
 <style>
-    .flyer-link {
-        display: block;
-        position: relative;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-
-    .flyer-link::after {
-        content: "予約する";
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        background: rgba(59, 130, 246, 0.9);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-size: 0.9rem;
-        opacity: 1; /* 常に表示するために1にする */
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .flyer-link:hover {
-        transform: scale(1.03);
-    }
-
-    .flyer-link:hover::after {
-        transform: scale(1.1); /* ホバー時に少し大きく表示 */
-        background: rgba(59, 130, 246, 1); /* ホバー時に不透明度を上げる */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* ホバー時に影を追加 */
-    }
-
-    /* カウントダウン表示のスタイル */
-    .countdown-display {
-        background-color: rgba(100, 122, 203, 0.1); /* --color-accentを薄く */
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: var(--radius-base);
-        font-weight: 600;
-        margin: 5px 0 10px;
-        /* ホバリングエフェクト（パルスアニメーション）を削除 */
-    }
-
-    .countdown-number {
-        font-size: 1.2em;
-        color: var(--color-accent);
-        font-weight: 700;
-        margin: 0 3px;
-    }
-
-    .countdown-text {
-        color: var(--color-secondary);
-        font-weight: 700;
-    }
-
-    .today {
-        background-color: rgba(59, 130, 246, 0.15); /* --color-secondaryを薄く */
-        border: 1px solid var(--color-secondary);
-    }
-
-    .past-event {
-        background-color: #f0f0f0;
-        color: var(--color-text-light);
-    }
-
-    /* カウントダウンのパルスアニメーションを削除 */
-    /* @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.03); }
-        100% { transform: scale(1); }
-    } */
-
-    /* モーション低減設定への対応 */
-    @media (prefers-reduced-motion: reduce) {
-        .countdown-display {
-            animation: none;
-        }
-        .flyer-link:hover {
-            transform: none;
-        }
-    }
-</style>
-
-<style>
-/* TourCard Styles from ComponentsStyles.astro */
-.tour-card {
-    width: var(--card-width);
-    max-width: var(--card-max-width);
-    margin: 0 auto var(--spacing-xl);
+  .tour-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
     display: flex;
     align-items: flex-start;
     gap: var(--spacing-lg);
-    background: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-base);
-    box-shadow: var(--box-shadow-card);
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
     flex-wrap: wrap;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: var(--card-width);
+    max-width: var(--card-max-width);
+    margin: 0 auto var(--spacing-xl);
     box-sizing: border-box;
-}
+  }
 
-.tour-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
+  .tour-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.7s;
+  }
 
-.tour-info { /* Overwrites/merges with any existing .tour-info if it was there */
-    order: 1;
+  .tour-card:hover::before {
+    left: 100%;
+  }
+
+  .tour-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+  }
+
+  .tour-info {
     flex: 1;
+    min-width: 250px;
+    order: 1;
     padding: var(--spacing-sm);
     display: flex;
     flex-direction: column;
@@ -201,245 +178,355 @@ const initialIsToday = diffDays === 0;
     box-sizing: border-box;
     overflow-wrap: break-word;
     word-wrap: break-word;
-    min-width: 0;
-}
+  }
 
-.tour-info a, 
-.tour-info p {
-    margin: 0;
-    font-size: clamp(0.9rem, 2.5vw, 1.3rem); 
+  .tour-info h3 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-align: left;
+  }
+
+  .tour-info p {
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
+    font-weight: 500;
     max-width: 100%;
     word-break: break-word;
     padding: var(--spacing-xs) 0;
-}
+  }
 
-.tour-reserve {
+  .countdown-display {
+    background: linear-gradient(
+      135deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    color: #ffffff !important;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    font-weight: 700;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    margin: var(--spacing-md) 0 0 0;
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-sm);
+    justify-content: center;
+    line-height: 1.4;
+    font-size: 1rem;
+    min-height: 50px;
     box-sizing: border-box;
-}
+  }
 
-.tour-reserve a {
-    color: var(--color-link);
-    margin-top: var(--spacing-md);
+  .countdown-display * {
+    color: #ffffff !important;
+  }
+
+  .countdown-display.today {
+    background: linear-gradient(
+      135deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    border: 1px solid var(--color-secondary);
+  }
+
+  .countdown-display.past-event {
+    background: #f0f0f0;
+    color: var(--color-text-light);
+  }
+
+  .countdown-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 var(--spacing-sm);
+    padding: 0 var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-sm);
     display: inline-flex;
     align-items: center;
-    word-break: break-word;
-    min-height: var(--touch-target-min);
-}
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2rem;
+  }
 
-.tour-reserve a:hover {
-    color: var(--color-link-hover);
-}
+  .countdown-text {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #ffffff;
+    animation: pulse 2s infinite;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
 
-.tour-flyer { /* Overwrites/merges if existing */
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .tour-reserve-notice {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid var(--color-secondary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-base);
+    font-size: 0.95rem !important;
+    color: var(--color-secondary) !important;
+    font-weight: 600 !important;
+    text-align: center;
+    margin-top: var(--spacing-md);
+  }
+
+  .tour-flyer {
+    flex-shrink: 0;
+    max-width: 300px;
+    width: 100%;
     order: 2;
     padding: var(--spacing-md);
-    flex: 0 0 auto;
-    max-width: 300px;
     box-sizing: border-box;
     overflow: hidden;
     border-radius: var(--radius-sm);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-}
+  }
 
-.tour-card img { /* Targets img inside .tour-card */
+  .tour-flyer img {
     width: 100%;
     height: auto;
+    border-radius: var(--radius-base);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
     object-fit: contain;
     flex-shrink: 0;
-    border-radius: var(--radius-sm);
-    box-shadow: var(--box-shadow-card);
-    transition: transform 0.5s ease;
     max-width: 100%;
-}
+  }
 
-.tour-card img:hover {
+  .tour-flyer img:hover {
     transform: scale(1.05);
-}
+  }
 
-/* Responsive Styles for TourCard */
-@media (max-width: 768px) {
-    .tour-card {
-        flex-direction: column;
-        align-items: center;
-        width: 90%;
-        padding: var(--spacing-md);
-        gap: var(--spacing-md);
-    }
-    .tour-flyer {
-        width: 80%;
-        max-width: 300px;
-        margin: 1rem auto 0;
-    }
-    .tour-info {
-        width: 100%;
-        padding: var(--spacing-xs);
-    }
-    .tour-reserve {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .tour-reserve a.button {
-        width: auto;
-        max-width: 100%;
-        overflow-wrap: break-word;
-        padding: var(--spacing-md) var(--spacing-lg); 
-        min-height: var(--touch-target-min);
-    }
-    /* .tour-info h3 is styled in the component's own <style> or via global styles */
-}
+  .flyer-link {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition-base);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+  }
 
-@media (max-width: 480px) {
-    .tour-card {
-        padding: var(--spacing-sm);
-        width: 95%;
-        gap: var(--spacing-sm);
-    }
-    .tour-info a, 
-    .tour-info p {
-        font-size: 1rem;
-    }
-    .tour-flyer {
-        width: 70%;
-    }
-    .tour-reserve {
-        gap: var(--spacing-xs);
-    }
-}
+  .flyer-link::after {
+    content: "予約する";
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: linear-gradient(
+      135deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    color: var(--color-white);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+    z-index: 2;
+    opacity: 1;
+  }
 
-@media (max-width: 375px) {
-    .tour-card {
-        width: 100%;
-        padding: var(--spacing-sm) var(--spacing-xs);
-    }
-    /* .tour-info h3 styling might be in global or component's own style */
-    .tour-flyer {
-        width: 80%;
-    }
-}
+  .flyer-link:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-lg);
+  }
 
-/* Animation Styles */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+  .flyer-link:hover::after {
+    background: linear-gradient(
+      135deg,
+      var(--color-accent),
+      var(--color-accent-pink)
+    );
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
 
-.fade-in-left:nth-child(1),
-.tour-card.fade-in-left:nth-child(1) {
-    animation-delay: 0.1s;
-}
-.fade-in-left:nth-child(2),
-.tour-card.fade-in-left:nth-child(2) {
-    animation-delay: 0.2s;
-}
-.fade-in-left:nth-child(3),
-.tour-card.fade-in-left:nth-child(3) {
-    animation-delay: 0.3s;
-}
+  .flyer-link:hover img {
+    transform: scale(1.05);
+  }
 
-.fade-in-up {
+  /* アニメーション */
+  .fade-in-up {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.fade-in-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-.tour-card.fade-in-left { /* Applied to the component's root */
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.tour-card.fade-in-left.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
 
-/* Merged prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-    .tour-card:hover, .tour-card img:hover, .flyer-link:hover { /* .flyer-link:hover from existing style */
-        transform: none;
-        transition: none;
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .fade-in-up, .tour-card.fade-in-left {
-        opacity: 1;
-        transform: none;
-        transition: none;
-        animation: none;
+  }
+
+  .fade-in-left:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .fade-in-left:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .fade-in-left:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .tour-card {
+      flex-direction: column;
+      align-items: center;
+      padding: var(--spacing-lg);
+      gap: var(--spacing-md);
+      width: 90%;
     }
-    .fade-in-up.visible, .tour-card.fade-in-left.visible {
-        opacity: 1;
-        transform: none;
+
+    .tour-info {
+      width: 100%;
+      text-align: center;
+      min-width: auto;
+      padding: var(--spacing-xs);
     }
-    .countdown-display { /* From existing style */
-        animation: none;
+
+    .tour-info h3 {
+      text-align: center;
     }
-}
+
+    .tour-flyer {
+      max-width: 250px;
+      width: 80%;
+      margin: 1rem auto 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tour-card {
+      padding: var(--spacing-md);
+      gap: var(--spacing-sm);
+      width: 95%;
+    }
+
+    .tour-flyer {
+      max-width: 200px;
+      width: 70%;
+    }
+
+    .tour-info p {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .tour-card {
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-xs);
+    }
+
+    .tour-flyer {
+      width: 80%;
+    }
+  }
+
+  /* モーション低減設定への対応 */
+  @media (prefers-reduced-motion: reduce) {
+    .tour-card:hover,
+    .tour-card img:hover,
+    .flyer-link:hover {
+      transform: none;
+      transition: none;
+    }
+
+    .fade-in-up {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: none;
+    }
+
+    .countdown-text {
+      animation: none;
+    }
+  }
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // カウントダウンを更新する関数
+  document.addEventListener("DOMContentLoaded", () => {
     function updateCountdowns() {
-        // このコンポーネントインスタンス内のカウントダウン表示要素のみを対象にする
-        // ただし、Astroのスクリプトはページ単位で一度実行されるため、
-        // document.querySelectorAllでページ全体の要素を取得するのが適切
-        const countdownElements = document.querySelectorAll('.countdown-display[data-event-date]');
-        
-        countdownElements.forEach(element => {
-            if (!(element instanceof HTMLElement)) return; // Type guard
+      const countdownElements = document.querySelectorAll(
+        ".countdown-display[data-event-date]"
+      );
 
-            const dateStr = element.dataset.eventDate;
-            if (!dateStr) return;
-            
-            const [year, month, day] = dateStr.split('.').map(Number);
-            const eventDate = new Date(year, month - 1, day);
-            
-            const now = new Date();
-            now.setHours(0, 0, 0, 0);
-            eventDate.setHours(0, 0, 0, 0);
-            
-            const diffTime = eventDate.getTime() - now.getTime();
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            const daysRemaining = Math.abs(diffDays);
-            const isPast = diffDays < 0;
-            const isToday = diffDays === 0;
-            
-            element.classList.remove('today', 'past-event');
-            if (isToday) {
-                element.classList.add('today');
-            } else if (isPast) {
-                element.classList.add('past-event');
-            }
-            
-            if (isToday) {
-                element.innerHTML = '<span class="countdown-text">本日開催!</span>';
-            } else if (!isPast) {
-                element.innerHTML = `開催まであと<span class="countdown-number">${daysRemaining}</span>日`;
-            } else {
-                element.innerHTML = '開催終了';
-            }
-            
-            element.dataset.isPast = isPast.toString();
-            element.dataset.isToday = isToday.toString();
-            element.dataset.daysRemaining = daysRemaining.toString();
-        });
+      countdownElements.forEach((element) => {
+        if (!(element instanceof HTMLElement)) return;
+
+        const dateStr = element.dataset.eventDate;
+        if (!dateStr) return;
+
+        const [year, month, day] = dateStr.split(".").map(Number);
+        const eventDate = new Date(year, month - 1, day);
+
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        eventDate.setHours(0, 0, 0, 0);
+
+        const diffTime = eventDate.getTime() - now.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        const daysRemaining = Math.abs(diffDays);
+        const isPast = diffDays < 0;
+        const isToday = diffDays === 0;
+
+        element.classList.remove("today", "past-event");
+        if (isToday) {
+          element.classList.add("today");
+        } else if (isPast) {
+          element.classList.add("past-event");
+        }
+
+        if (isToday) {
+          element.innerHTML = '<span class="countdown-text">本日開催!</span>';
+        } else if (!isPast) {
+          element.innerHTML = `開催まであと<span class="countdown-number">${daysRemaining}</span>日`;
+        } else {
+          // 過去のイベントでは要素を非表示にする
+          element.style.display = "none";
+        }
+
+        element.dataset.isPast = isPast.toString();
+        element.dataset.isToday = isToday.toString();
+        element.dataset.daysRemaining = daysRemaining.toString();
+      });
     }
-    
-    // ページ読み込み時に更新
+
     updateCountdowns();
-    
-    // 1分ごとに更新
     setInterval(updateCountdowns, 60000);
-});
+  });
 </script>

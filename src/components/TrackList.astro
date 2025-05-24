@@ -1,14 +1,114 @@
 ---
 export interface Props {
-    tracks: string[];
+  tracks: string[];
 }
 
 const { tracks } = Astro.props;
 // 各トラック名の改行を<br>タグに変換
-const formattedTracks = tracks.map(track => track.replace(/\n/g, '<br />'));
+const formattedTracks = tracks.map((track) => track.replace(/\n/g, "<br />"));
 ---
+
 <ol class="tracklist">
-    {formattedTracks.map((track) => (
-        <li class="track-item" set:html={track}></li>
-    ))}
+  {
+    formattedTracks.map((track, index) => (
+      <li class="track-item" set:html={track} data-track-number={index + 1} />
+    ))
+  }
 </ol>
+
+<style>
+  .tracklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glass);
+    overflow: hidden;
+  }
+
+  .track-item {
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    transition: var(--transition-base);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    line-height: 1.5;
+  }
+
+  .track-item:last-child {
+    border-bottom: none;
+  }
+
+  .track-item::before {
+    content: attr(data-track-number);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(
+      135deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  }
+
+  .track-item:hover {
+    background: rgba(59, 130, 246, 0.05);
+    transform: translateX(8px);
+    padding-left: calc(var(--spacing-lg) + 8px);
+  }
+
+  .track-item:hover::before {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .track-item {
+      padding: var(--spacing-sm) var(--spacing-md);
+      font-size: 0.9rem;
+      gap: var(--spacing-sm);
+    }
+
+    .track-item::before {
+      width: 28px;
+      height: 28px;
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .track-item {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      font-size: 0.85rem;
+    }
+
+    .track-item::before {
+      width: 24px;
+      height: 24px;
+      font-size: 0.75rem;
+    }
+
+    .track-item:hover {
+      transform: translateX(4px);
+      padding-left: calc(var(--spacing-sm) + 4px);
+    }
+  }
+</style>

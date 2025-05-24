@@ -1,98 +1,154 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ReleaseCard from '../components/ReleaseCard.astro';
-import releases from '../data/releases.json';
+import Layout from "../layouts/Layout.astro";
+import ReleaseCard from "../components/ReleaseCard.astro";
+import releases from "../data/releases.json";
 
 // SEO情報
 const title = "Releases | Azule Orchid (アズールオーキッド) | Azule";
-const metaDescription = "Azule Orchid（アズールオーキッド、azule orchid, あずーる）の音楽作品リリース情報。Azuleの最新曲や過去の楽曲、各種音楽配信サービスへのリンクをご紹介します。";
+const metaDescription =
+  "Azule Orchid（アズールオーキッド、azule orchid, あずーる）の音楽作品リリース情報。Azuleの最新曲や過去の楽曲、各種音楽配信サービスへのリンクをご紹介します。";
 ---
+
 <Layout
-    title={title}
-    metaDescription={metaDescription}
-    keywords="Azule, Azule Orchid, azule, azule orchid, あずーる, アズール, music, releases, discography, 音楽作品, リリース情報, 仙台, ポストポップ"
+  title={title}
+  metaDescription={metaDescription}
+  keywords="Azule, Azule Orchid, azule, azule orchid, あずーる, アズール, music, releases, discography, 音楽作品, リリース情報, 仙台, ポストポップ"
 >
-    <section class="music-page">
-        <h1 class="music-page-title">Releases</h1>
-        
-        <div class="releases-section">
-            {releases.length > 0 ? (
-                <div class="release-list fade-in-left">
-                    {releases.map((release) => (
-                        <ReleaseCard
-                            id={release.id}
-                            title={release.title}
-                            cover={release.cover}
-                            releaseDate={release.releaseDate}
-                            tracks={release.tracks}
-                            links={release.links}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <p class="no-releases">現在リリース情報はありません。</p>
-            )}
-        </div>
-    </section>
+  <section class="music-page">
+    <h1 class="music-page-title">Releases</h1>
+
+    <div class="releases-section">
+      {
+        releases.length > 0 ? (
+          <div class="release-list fade-in-left">
+            {releases.map((release) => (
+              <ReleaseCard
+                id={release.id}
+                title={release.title}
+                cover={release.cover}
+                releaseDate={release.releaseDate}
+                tracks={release.tracks}
+                links={release.links}
+              />
+            ))}
+          </div>
+        ) : (
+          <p class="no-releases">現在リリース情報はありません。</p>
+        )
+      }
+    </div>
+  </section>
 </Layout>
 
 <style>
-.music {
-    width: 90%;
-}
+  .music-page {
+    padding: var(--spacing-lg) var(--spacing-md);
+    min-height: calc(100vh - 200px);
+  }
 
-.music-header {
-    padding: 1.5rem;
-    margin-top: 1rem;
-    margin-bottom: 0rem;
-}
-
-.music-page {
-    padding: var(--spacing-md) 0;
-}
-
-.music-page-title {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    margin-bottom: var(--spacing-lg);
+  .music-page-title {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    background: linear-gradient(
+      135deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-xl);
     text-align: center;
-}
+    position: relative;
+    letter-spacing: 1px;
+  }
 
-.releases-section {
+  .music-page-title::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    border-radius: 2px;
+  }
+
+  .releases-section {
     margin-bottom: var(--spacing-2xl);
-}
+    max-width: var(--container-max-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.release-list {
+  .release-list {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-}
+    gap: var(--spacing-xl);
+    width: 100%;
+  }
 
-.no-releases {
+  .no-releases {
     text-align: center;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     color: var(--color-text-light);
     font-style: italic;
-    background-color: var(--color-white);
-    border-radius: var(--radius-base);
-    box-shadow: var(--box-shadow-card);
-    width: var(--card-width);
-    max-width: var(--card-max-width);
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glass);
+    max-width: 600px;
     margin: var(--spacing-xl) auto;
-}
+    position: relative;
+  }
 
-@media (max-width: 768px) {
+  .no-releases::before {
+    content: "🎵";
+    display: block;
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
     .music-page {
-        padding: var(--spacing-sm) 0;
+      padding: var(--spacing-md) var(--spacing-sm);
     }
-    
+
     .music-page-title {
-        margin-bottom: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
     }
-    
+
     .releases-section {
-        margin-bottom: var(--spacing-xl);
+      margin-bottom: var(--spacing-xl);
     }
-}
+
+    .release-list {
+      gap: var(--spacing-lg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .music-page {
+      padding: var(--spacing-sm);
+    }
+
+    .music-page-title::after {
+      width: 60px;
+      height: 3px;
+    }
+
+    .no-releases {
+      padding: var(--spacing-lg);
+      font-size: 1rem;
+    }
+  }
 </style>

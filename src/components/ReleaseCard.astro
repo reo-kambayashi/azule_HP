@@ -1,92 +1,132 @@
----  
-import TrackList from './TrackList.astro'; 
+---
+import TrackList from "./TrackList.astro";
 
-export interface Props {  
-    id: number;  
-    title: string;  
-    cover: string;  
-    releaseDate: string;  
-    tracks: string[];  
+export interface Props {
+  id: number;
+  title: string;
+  cover: string;
+  releaseDate: string;
+  tracks: string[];
 
-    /** 各ストリーミングサービスへのURL */
-    links?: {
-        youtube?: string;
-        subscription?: string;
-    };
-}  
+  /** 各ストリーミングサービスへのURL */
+  links?: {
+    youtube?: string;
+    subscription?: string;
+  };
+}
 
-const { title, cover, releaseDate, tracks, links} = Astro.props;
+const { title, cover, releaseDate, tracks, links } = Astro.props;
 // カバー画像のパスにベースパスを適用
 const coverPath = `${import.meta.env.BASE_URL}${cover}`;
 // タイトルの改行を<br>タグに変換
-const formattedTitle = title.replace(/\n/g, '<br />');
----  
-<article class="release-card fade-in-up">  
-    <img  
-        class="release-cover"  
-        src={coverPath}  
-        alt={`「${title}」リリースのアルバムカバーアート`}  
-        loading="lazy"
-    />  
-    <div class="release-info">  
-        <h3 class="release-title" set:html={formattedTitle}></h3>  
-        <time  
-            class="release-date"  
-            datetime={releaseDate}  
-        >  
-            {new Date(releaseDate).toLocaleDateString('ja-JP', {  
-                year: 'numeric',  
-                month: 'long',  
-                day: 'numeric'  
-            })}  
-        </time>  
-        <TrackList tracks={tracks} />  
-        
-        {links && links.subscription && (
-            <p class="subscription-note">各種サブスクリプションサービスで配信中</p>
-        )}
-        
-        {links && (
-            <div class="subscription-links">
-                {links.youtube && (
-                <a href={links.youtube} target="_blank" rel="noopener" class="sub-link button" aria-label={`${title}をYouTubeで聴く（新しいタブが開きます）`}>
-                    YouTubeで聴く
-                </a>
-                )}
-                {links.subscription && (
-                <a href={links.subscription} target="_blank" rel="noopener" class="sub-link button" aria-label={`${title}をサブスクリプションサービスで聴く（新しいタブが開きます）`}>
-                    サブスクリプションで聴く
-                </a>
-                )}
-            </div>
-        )}
-    </div>  
+const formattedTitle = title.replace(/\n/g, "<br />");
+---
+
+<article class="release-card fade-in-up">
+  <img
+    class="release-cover"
+    src={coverPath}
+    alt={`「${title}」リリースのアルバムカバーアート`}
+    loading="lazy"
+  />
+  <div class="release-info">
+    <h3 class="release-title" set:html={formattedTitle} />
+    <time class="release-date" datetime={releaseDate}>
+      {
+        new Date(releaseDate).toLocaleDateString("ja-JP", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      }
+    </time>
+    <TrackList tracks={tracks} />
+
+    {
+      links && links.subscription && (
+        <p class="subscription-note">各種サブスクリプションサービスで配信中</p>
+      )
+    }
+
+    {
+      links && (
+        <div class="subscription-links">
+          {links.youtube && (
+            <a
+              href={links.youtube}
+              target="_blank"
+              rel="noopener"
+              class="sub-link button"
+              aria-label={`${title}をYouTubeで聴く（新しいタブが開きます）`}
+            >
+              YouTubeで聴く
+            </a>
+          )}
+          {links.subscription && (
+            <a
+              href={links.subscription}
+              target="_blank"
+              rel="noopener"
+              class="sub-link button"
+              aria-label={`${title}をサブスクリプションサービスで聴く（新しいタブが開きます）`}
+            >
+              サブスクリプションで聴く
+            </a>
+          )}
+        </div>
+      )
+    }
+  </div>
 </article>
 
 <style>
-/* ReleaseCard Styles from ComponentsStyles.astro */
-.release-card {
+  /* ReleaseCard Styles from ComponentsStyles.astro */
+  .release-card {
     width: var(--card-width);
     max-width: var(--card-max-width);
     margin: 0 auto var(--spacing-xl);
     display: flex;
     align-items: flex-start;
     gap: var(--spacing-lg);
-    background: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-base);
-    box-shadow: var(--box-shadow-card);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
     flex-wrap: wrap;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: var(--transition-base);
     box-sizing: border-box;
-}
+    position: relative;
+    overflow: hidden;
+  }
 
-.release-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
+  .release-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.7s;
+  }
 
-.release-cover {
+  .release-card:hover::before {
+    left: 100%;
+  }
+
+  .release-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+  }
+
+  .release-cover {
     width: 300px;
     height: auto;
     object-fit: cover;
@@ -95,60 +135,80 @@ const formattedTitle = title.replace(/\n/g, '<br />');
     box-shadow: var(--box-shadow-card);
     transition: transform 0.5s ease;
     max-width: 100%;
-}
+  }
 
-.release-cover:hover {
+  .release-cover:hover {
     transform: scale(1.05);
-}
+    box-shadow: var(--shadow-lg);
+  }
 
-.release-info {
+  .release-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-width: 0;
     width: 100%;
-}
+  }
 
-.release-title {
-    font-size: 1.5rem;
-    margin: 0 0 var(--spacing-sm);
+  .release-title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    margin: 0 0 var(--spacing-md);
     text-align: left;
     word-wrap: break-word;
-}
+    font-weight: 800;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-secondary),
+      var(--color-accent)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
 
-.release-date {
-    font-size: 1rem;
+  .release-date {
+    font-size: 1.1rem;
     color: var(--color-text-light);
-    margin-bottom: var(--spacing-md);
-}
+    margin-bottom: var(--spacing-lg);
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    width: fit-content;
+  }
 
-.tracklist {
+  .tracklist {
     list-style: decimal inside;
     padding: 0;
     margin: 0;
     width: 100%;
     box-sizing: border-box;
-}
+  }
 
-.tracklist li {
+  .tracklist li {
     margin-bottom: var(--spacing-xs);
     font-size: 1rem;
     color: var(--color-text);
     padding: 0;
     word-wrap: break-word;
-}
+  }
 
-.subscription-links {
+  .subscription-links {
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
     width: 100%;
     box-sizing: border-box;
-}
+  }
 
-.sub-link {
+  .sub-link {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -165,10 +225,10 @@ const formattedTitle = title.replace(/\n/g, '<br />');
     position: relative;
     overflow: hidden;
     z-index: 1;
-}
+  }
 
-.sub-link:before {
-    content: '';
+  .sub-link:before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -177,146 +237,161 @@ const formattedTitle = title.replace(/\n/g, '<br />');
     background-color: var(--color-secondary);
     transition: width 0.3s ease;
     z-index: -1;
-}
+  }
 
-.sub-link:hover {
+  .sub-link:hover {
     background-color: var(--color-secondary);
     color: var(--color-white);
     transform: translateY(-2px);
     text-decoration: none;
-}
+  }
 
-.sub-link:hover:before {
+  .sub-link:hover:before {
     width: 100%;
-}
+  }
 
-.release-cover-container {
+  .release-cover-container {
     overflow: hidden;
     border-radius: var(--radius-sm);
-}
+  }
 
-/* Responsive Styles for ReleaseCard */
-@media (max-width: 768px) {
+  /* Responsive Styles for ReleaseCard */
+  @media (max-width: 768px) {
     .release-card {
-        flex-direction: column;
-        align-items: center;
-        width: 90%;
-        padding: var(--spacing-md);
-        gap: var(--spacing-md);
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      padding: var(--spacing-md);
+      gap: var(--spacing-md);
     }
     .release-cover {
-        width: 80%;
-        max-width: 300px;
-        margin: 1rem auto 0;
+      width: 80%;
+      max-width: 300px;
+      margin: 1rem auto 0;
     }
     .release-info {
-        width: 100%;
-        padding: var(--spacing-xs);
+      width: 100%;
+      padding: var(--spacing-xs);
     }
     .subscription-links {
-        justify-content: center;
+      justify-content: center;
     }
     .release-title {
-        text-align: center;
-        margin-top: var(--spacing-md);
+      text-align: center;
+      margin-top: var(--spacing-md);
     }
     .release-date {
-        text-align: center;
+      text-align: center;
     }
     .sub-link {
-        font-size: 0.85rem;
-        padding: var(--spacing-xs) var(--spacing-sm);
-        min-height: auto;
+      font-size: 0.85rem;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      min-height: auto;
     }
-}
+  }
 
-@media (max-width: 480px) {
+  @media (max-width: 480px) {
     .release-card {
-        padding: var(--spacing-sm);
-        width: 95%;
-        gap: var(--spacing-sm);
+      padding: var(--spacing-sm);
+      width: 95%;
+      gap: var(--spacing-sm);
     }
     .release-cover {
-        width: 70%;
+      width: 70%;
     }
     .subscription-links {
-        gap: var(--spacing-xs);
+      gap: var(--spacing-xs);
     }
     .sub-link {
-        font-size: 0.85rem;
-        padding: var(--spacing-xs) var(--spacing-sm);
-        min-height: auto;
+      font-size: 0.85rem;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      min-height: auto;
     }
-}
+  }
 
-@media (max-width: 375px) {
+  @media (max-width: 375px) {
     .release-card {
-        width: 100%;
-        padding: var(--spacing-sm) var(--spacing-xs);
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-xs);
     }
     .release-title {
-        font-size: 1.2rem;
+      font-size: 1.2rem;
     }
     .tracklist {
-        padding: 0 var(--spacing-xs);
+      padding: 0 var(--spacing-xs);
     }
     .release-cover {
-        width: 80%;
+      width: 80%;
     }
-}
+  }
 
-/* Animation Styles */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+  /* Animation Styles */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-.fade-in-left:nth-child(1),
-.release-card.fade-in-left:nth-child(1) {
+  .fade-in-left:nth-child(1),
+  .release-card.fade-in-left:nth-child(1) {
     animation-delay: 0.1s;
-}
-.fade-in-left:nth-child(2),
-.release-card.fade-in-left:nth-child(2) {
+  }
+  .fade-in-left:nth-child(2),
+  .release-card.fade-in-left:nth-child(2) {
     animation-delay: 0.2s;
-}
-.fade-in-left:nth-child(3),
-.release-card.fade-in-left:nth-child(3) {
+  }
+  .fade-in-left:nth-child(3),
+  .release-card.fade-in-left:nth-child(3) {
     animation-delay: 0.3s;
-}
+  }
 
-.fade-in-up {
+  .fade-in-up {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.fade-in-up.visible {
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+  .fade-in-up.visible {
     opacity: 1;
     transform: translateY(0);
-}
-.release-card.fade-in-left { /* Applied to the component's root */
+  }
+  .release-card.fade-in-left {
+    /* Applied to the component's root */
     opacity: 0;
     transform: translateX(-20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.release-card.fade-in-left.visible {
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+  .release-card.fade-in-left.visible {
     opacity: 1;
     transform: translateX(0);
-}
+  }
 
-@media (prefers-reduced-motion: reduce) {
-    .release-card:hover, .release-cover:hover, .sub-link:hover {
-        transform: none;
-        transition: none;
+  @media (prefers-reduced-motion: reduce) {
+    .release-card:hover,
+    .release-cover:hover,
+    .sub-link:hover {
+      transform: none;
+      transition: none;
     }
-    .fade-in-up, .release-card.fade-in-left {
-        opacity: 1;
-        transform: none;
-        transition: none;
-        animation: none;
+    .fade-in-up,
+    .release-card.fade-in-left {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: none;
     }
-    .fade-in-up.visible, .release-card.fade-in-left.visible {
-        opacity: 1;
-        transform: none;
+    .fade-in-up.visible,
+    .release-card.fade-in-left.visible {
+      opacity: 1;
+      transform: none;
     }
-}
+  }
 </style>
