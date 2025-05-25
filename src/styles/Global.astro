@@ -9,33 +9,36 @@
  */
 
   :root {
-    /* 青と白を基調としたモダンなカラーパレット */
-    --color-primary: #2563eb; /* メインブルー（少し濃く） */
-    --color-secondary: #3b82f6; /* セカンダリブルー（適度な青） */
-    --color-accent: #60a5fa; /* アクセントブルー（淡い青） */
-    --color-accent-light: #93c5fd; /* ライトアクセント（薄い青） */
+    /* 美術館をイメージした白黒基調のモダンなカラーパレット */
+    --color-primary: #1a1a1a; /* ディープブラック */
+    --color-secondary: #333333; /* チャコールグレー */
+    --color-accent: #666666; /* ミディアムグレー */
+    --color-accent-light: #999999; /* ライトグレー */
+    --color-accent-dark: #4a4a4a; /* ダークグレー（ホバー用） */
     --color-bg: linear-gradient(
       135deg,
-      #f0f9ff 0%,
-      #e0f2fe 50%,
-      #bae6fd 100%
-    ); /* 青白グラデーション背景 */
-    --color-bg-solid: #fafbff; /* 純白に近いソリッド背景色 */
-    --color-text: #1d4ed8; /* より濃いブルーのテキスト */
-    --color-text-light: #475569; /* より濃いグレイッシュブルーの薄いテキスト */
-    --color-link: var(--color-secondary); /* リンクの色 */
-    --color-link-hover: #2563eb; /* ホバー時のリンクの色 */
-    --color-border: #dbeafe; /* ライトブルーのボーダー */
+      #ffffff 0%,
+      #f8f9fa 30%,
+      #f1f3f4 70%,
+      #e9ecef 100%
+    ); /* 白からライトグレーのグラデーション背景 */
+    --color-bg-solid: #ffffff; /* 純白のソリッド背景色 */
+    --color-text: #2c2c2c; /* ダークグレーのテキスト */
+    --color-text-light: #6c757d; /* ライトグレーのテキスト */
+    --color-link: var(--color-primary); /* リンクの色 */
+    --color-link-hover: #000000; /* ホバー時のリンクの色（純黒） */
+    --color-border: #e0e0e0; /* ライトグレーのボーダー */
     --color-white: #ffffff; /* 純白 */
-    --color-bg-rgb: 250, 251, 255; /* 背景色のRGB値 */
-    --color-border-light: #f0f9ff; /* 非常に薄いブルーの境界線 */
+    --color-bg-rgb: 255, 255, 255; /* 背景色のRGB値 */
+    --color-border-light: #f5f5f5; /* 非常に薄いグレーの境界線 */
     --color-glass: rgba(
       255,
       255,
       255,
-      0.25
-    ); /* グラスモーフィズム用（より透明感） */
-    --color-shadow: rgba(37, 99, 235, 0.1); /* ブルーティントの影 */
+      0.85
+    ); /* グラスモーフィズム用（美術館らしい透明感） */
+    --color-shadow: rgba(0, 0, 0, 0.08); /* 柔らかな黒い影 */
+    --color-accent-rgb: 102, 102, 102; /* アクセントカラーのRGB値 */
 
     /* スペーシング設定 - 余白やパディングに使用 */
     --spacing-xs: 0.25rem; /* 極小スペース (4px) */
@@ -51,22 +54,21 @@
     --radius-lg: 24px; /* 大きい角丸 */
     --radius-full: 9999px; /* 完全な円形 */
 
-    /* 影の設定 - モダンな影効果 */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-      0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-      0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15);
+    /* 影の設定 - 美術館らしいソフトな影効果 */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-base: 0 4px 8px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 20px 30px rgba(0, 0, 0, 0.1), 0 8px 15px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 25px 40px rgba(0, 0, 0, 0.12);
+    --shadow-glow: 0 0 30px rgba(0, 0, 0, 0.06);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.06),
+      0 4px 16px rgba(0, 0, 0, 0.04);
     --box-shadow-card: var(--shadow-lg);
 
-    /* グラスモーフィズム効果 */
-    --glass-bg: rgba(255, 255, 255, 0.15);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-backdrop: blur(10px);
+    /* グラスモーフィズム効果 - 美術館らしい上品な透明感 */
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-backdrop: blur(20px);
 
     /* レイアウト設定 */
     --container-max-width: 1200px;
@@ -75,10 +77,15 @@
     --card-max-width: 800px;
 
     /* ヘッダーとフッターの設定 */
-    --header-txt: #2563eb; /* ヘッダーテキストの色（少し濃いブルー） */
-    --header-bg: rgba(255, 255, 255, 0.7); /* ヘッダー背景色（半透明白） */
-    --footer-bg: #f8f8f8; /* フッター背景色 */
-    --footer-border: #eaeaea; /* フッターのボーダー色 */
+    --header-txt: #1a1a1a; /* ヘッダーテキストの色（ディープブラック） */
+    --header-bg: rgba(
+      255,
+      255,
+      255,
+      0.95
+    ); /* ヘッダー背景色（美術館らしい半透明白） */
+    --footer-bg: #f8f9fa; /* フッター背景色（オフホワイト） */
+    --footer-border: #e9ecef; /* フッターのボーダー色（ライトグレー） */
 
     /* アニメーション設定 */
     --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -126,7 +133,7 @@
     position: relative;
   }
 
-  /* 背景にパーティクル効果用の疑似要素 */
+  /* 背景にパーティクル効果用の疑似要素 - 美術館らしい上品な効果 */
   body::before {
     content: "";
     position: fixed;
@@ -136,17 +143,17 @@
     height: 100%;
     background: radial-gradient(
         circle at 20% 30%,
-        rgba(59, 130, 246, 0.08) 0%,
+        rgba(0, 0, 0, 0.02) 0%,
         transparent 60%
       ),
       radial-gradient(
         circle at 80% 70%,
-        rgba(96, 165, 250, 0.06) 0%,
+        rgba(0, 0, 0, 0.015) 0%,
         transparent 60%
       ),
       radial-gradient(
         circle at 50% 50%,
-        rgba(147, 197, 253, 0.04) 0%,
+        rgba(0, 0, 0, 0.01) 0%,
         transparent 70%
       );
     pointer-events: none;
@@ -217,7 +224,7 @@
     color: var(--color-link-hover);
   }
 
-  /* リンクのアンダーライン効果 */
+  /* リンクのアンダーライン効果 - 美術館らしいモノトーン効果 */
   a:not(.button):not(.nav-link)::after {
     content: "";
     position: absolute;
@@ -227,8 +234,8 @@
     height: 2px;
     background: linear-gradient(
       90deg,
-      var(--color-secondary),
-      var(--color-accent)
+      var(--color-primary),
+      var(--color-secondary)
     );
     transition: width 0.3s ease;
   }
@@ -256,11 +263,11 @@
     overflow-x: hidden; /* 横方向のスクロールを無効化 */
   }
 
-  /* カードコンポーネントのスタイル */
+  /* カードコンポーネントのスタイル - 美術館らしいエレガントなカード */
   .card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
     padding: var(--spacing-xl);
@@ -275,13 +282,14 @@
     transition: var(--transition-base);
   }
 
-  /* カードのホバー効果 */
+  /* カードのホバー効果 - 美術館らしい上品な浮遊効果 */
   .card:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-6px) scale(1.01);
     box-shadow: var(--shadow-xl), var(--shadow-glow);
+    border-color: rgba(0, 0, 0, 0.1);
   }
 
-  /* カードの光る効果 */
+  /* カードの光る効果 - 美術館らしい控えめな光沢 */
   .card::before {
     content: "";
     position: absolute;
@@ -292,10 +300,10 @@
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.4),
+      rgba(255, 255, 255, 0.6),
       transparent
     );
-    transition: left 0.5s;
+    transition: left 0.6s ease;
   }
 
   .card:hover::before {
@@ -325,9 +333,9 @@
     letter-spacing: 0.025em;
   }
 
-  /* ボタンのホバー効果 */
+  /* ボタンのホバー効果 - 美術館らしいモノトーンホバー */
   .button:hover {
-    transform: translateY(-2px) scale(1.05);
+    transform: translateY(-2px) scale(1.03);
     box-shadow: var(--shadow-lg), var(--shadow-glow);
     background: linear-gradient(
       135deg,
@@ -335,7 +343,7 @@
       var(--color-secondary)
     );
     color: var(--color-white);
-    border-color: var(--color-secondary);
+    border-color: var(--color-primary);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
@@ -411,9 +419,9 @@
     display: block; /* ブロック要素として表示（スクロール用） */
   }
 
-  /* キーボード操作時のフォーカス状態を明確にする */
+  /* キーボード操作時のフォーカス状態を明確にする - 美術館テーマ */
   :focus {
-    outline: 3px solid var(--color-secondary);
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
 
@@ -424,9 +432,9 @@
 
   /* キーボードフォーカスは明確に表示 */
   :focus-visible {
-    outline: 3px solid var(--color-secondary);
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
-    box-shadow: 0 0 0 2px var(--color-white);
+    box-shadow: 0 0 0 1px var(--color-white);
   }
 
   /* 

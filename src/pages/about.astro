@@ -60,9 +60,11 @@ const metaDescription =
     min-height: calc(100vh - 200px);
     background: linear-gradient(
       135deg,
-      rgba(239, 248, 255, 0.3) 0%,
-      rgba(255, 245, 255, 0.2) 50%,
-      rgba(240, 255, 248, 0.3) 100%
+      #ffffff 0%,
+      #f8f9fa 25%,
+      #f1f3f4 50%,
+      #e9ecef 75%,
+      #dee2e6 100%
     );
   }
 
@@ -75,16 +77,16 @@ const metaDescription =
   .about-header {
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(248, 250, 252, 0.95) 100%
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(248, 249, 250, 0.95) 100%
     );
-    backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 20px;
     box-shadow:
-      0 20px 40px rgba(0, 0, 0, 0.08),
-      0 8px 16px rgba(0, 0, 0, 0.04),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      0 20px 40px rgba(0, 0, 0, 0.06),
+      0 8px 16px rgba(0, 0, 0, 0.03),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
     padding: var(--spacing-2xl);
     margin-bottom: var(--spacing-2xl);
     display: flex;
@@ -98,11 +100,12 @@ const metaDescription =
   }
 
   .about-header:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     box-shadow:
-      0 25px 50px rgba(0, 0, 0, 0.12),
-      0 12px 24px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      0 25px 50px rgba(0, 0, 0, 0.08),
+      0 12px 24px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.12);
   }
 
   .about-header::before {
@@ -111,15 +114,15 @@ const metaDescription =
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
+    height: 3px;
     background: linear-gradient(
       90deg,
-      var(--color-secondary) 0%,
-      var(--color-accent) 50%,
-      var(--color-secondary) 100%
+      var(--color-primary) 0%,
+      var(--color-secondary) 50%,
+      var(--color-primary) 100%
     );
     background-size: 200% 100%;
-    animation: gradientFlow 3s ease-in-out infinite;
+    animation: gradientFlow 4s ease-in-out infinite;
   }
 
   @keyframes gradientFlow {
@@ -138,9 +141,9 @@ const metaDescription =
     font-weight: 800;
     background: linear-gradient(
       135deg,
-      var(--color-secondary) 0%,
-      var(--color-accent) 50%,
-      #7c3aed 100%
+      var(--color-primary) 0%,
+      var(--color-secondary) 50%,
+      var(--color-accent) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -149,7 +152,7 @@ const metaDescription =
     letter-spacing: 1.5px;
     position: relative;
     background-size: 200% 200%;
-    animation: gradientShift 4s ease-in-out infinite;
+    animation: gradientShift 5s ease-in-out infinite;
   }
 
   @keyframes gradientShift {
@@ -186,8 +189,8 @@ const metaDescription =
     font-weight: 800;
     background: linear-gradient(
       135deg,
-      var(--color-secondary) 0%,
-      var(--color-accent) 100%
+      var(--color-primary) 0%,
+      var(--color-secondary) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -205,14 +208,14 @@ const metaDescription =
     left: 50%;
     transform: translateX(-50%);
     width: 80px;
-    height: 4px;
+    height: 3px;
     background: linear-gradient(
       90deg,
-      var(--color-secondary) 0%,
-      var(--color-accent) 100%
+      var(--color-primary) 0%,
+      var(--color-secondary) 100%
     );
     border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(var(--color-accent-rgb), 0.3);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   }
 
   .member-profile {
